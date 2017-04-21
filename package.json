@@ -1,0 +1,19 @@
+{
+  "name": "entity_m01",
+  "version": "1.0.0",
+  "description": "엔티티 모듈 v01 (초안)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/logicfeel/logic.git#Entity_M01"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/logicfeel/logic/issues"
+  },
+  "homepage": "https://github.com/logicfeel/logic#readme"
+}
