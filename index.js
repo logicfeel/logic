@@ -6,7 +6,7 @@
     }
 
     if (typeof module !== 'undefined' && module.exports) {
-        module.exports = npmtest;
+        module.exports.npmtest = npmtest;
     } else {
         global.npmtest = npmtest;
     }
