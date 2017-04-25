@@ -125,6 +125,19 @@ var context = {
         form_url: "Notice_Frm.asp",
         form_bind_url: "Notice_Frm.C.asp",
         list_bind_url: "Notice_Lst.asp",
+        abc: bbb(),
+        abb: 2
     }
 
+};
+
+/**
+ * 테스트 임시 소스
+ */
+var ccc = function() {return 3;};
+
+var abc = {
+    aa: 11, 
+    bb : function(){return 2;},
+    cc: ccc()   /** 호출 결과가 들어감 */
 };
