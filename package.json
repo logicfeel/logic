@@ -12,6 +12,9 @@
   },
   "author": "",
   "license": "ISC",
+  "directories": {
+    "tmp": "./tmp"
+  },
   "bugs": {
     "url": "https://github.com/logicfeel/logic/issues"
   },
