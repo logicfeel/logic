@@ -3,25 +3,140 @@
 function Context() {
     
     var _entity_version     = "1.0.0"
+
+    this._syntax      = [
+        'entity_items', 'entity_model', 'entity_model_sp',
+        'entity_sp', 'entity_pk_list', 'entity_notnull_list',
+        'entity_null_list', 'entity_valid', 'entity_code'
+    ];
     
     this.preContext         = null;
+    this.entityModel        = new EntityModel();
+
 }
 (function() {
 
-    Context.prototype._parse = function() {
-        return [];
+    function getArrayNumber(pString) {
+        
+        var curser_st   = 0;
+        var curser_end  = 0;
+        var number      = null;
+
+        curser_st   = pString.indexOf('[');
+        curser_end  = pString.indexOf(']', curser_st);
+
+        if (curser_st > 0) {
+            number = pString.substring(curser_st + 1, curser_end);
+        } else {
+            number = "0";
+        }
+        number = Number(number);
+        if (typeof number !== "number") {
+            throw new Error('number type 오류 :');
+            return null;
+        }
+        
+        return number;
+    }
+
+
+    Context.prototype._parse = function(pContext) {
+        
+        var context     = {};
+        
+        for (var prop in pContext) {
+            if (pContext.hasOwnProperty(prop)) {
+                
+                // 값이 배열인 경우
+                if (pContext[prop] instanceof Array) {
+                    for (var i = 0; i < pContext[prop].length; i++) {
+                        context[prop] = this._parse(pContext[prop][i]);
+                    }
+                    
+                // 값이 객체인 경우    
+                } else if (pContext[prop] instanceof Object) {
+                    context[prop] = this._parse(pContext[prop]);
+                
+                // 일반 값인 경우
+                } else {
+
+                    function checkSyntax(value, index, array){
+                        return value.indexOf(prop) > -1 ? true : false;
+                    }
+
+                    if (this._syntax.some(checkSyntax)) {
+                        context = this._parseSyntax(prop, pContext[prop]);
+                    } else {
+                        context[prop] = pContext[prop];
+                    }
+
+                }
+            }
+        }
+
+        return context;
+    };
+
+    Context.prototype._parseSyntax = function(pProp, pPropValue) {
+        
+        var entityIdx   = 0;
+        var entity      = null;
+        var array       = [];
+        var context     = null;
+
+        entityIdx = getArrayNumber(pProp);
+        entity = this.entityModel.entities[entityIdx];
+
+        if (pProp.indexOf('entity_items') > -1) {
+            // array = [];
+            // for (var i = 0; i < entity.items.length; i++) {
+            //     array.push(entity.items[i].getObject(pPropValue));
+            // }
+            // context = array;
+            context = entity.getAttrObject(pPropValue);
+
+        } else if (pProp.indexOf('entity_model') > -1) {
+            context = entity.getModelObject(pPropValue);
+        }
+
+        return context;
     };
 
     Context.prototype.load = function(pJSON) {
 
+        var context = null;
+
+        if (typeof pJSON === "string") {
+            context = JSON.parse(pJSON);
+        } else if (typeof pJSON === "object") {
+            context = pJSON;
+        }
+        
+        if (typeof context !== "object") {
+            console.log('타입 오류 : ' + pJSON);
+        } else if (typeof context.pages === "undefined") {
+            console.log('필수 값 오류'+ pJSON);
+        }
+
+        this.preContext = context;
+        // this.entities.push(this._createEntityObject(entity));
     };
 
     Context.prototype.getContext = function() {
-        return [];
+        return this._parse(this.preContext);
     };
 
     Context.prototype.setEntity = function(pJSON) {
+        this.entityModel.register(pJSON);
     };
+
+
+    /**
+     * node 모듈 등록
+     */
+    if (typeof module !== 'undefined' && module.exports) {
+        module.exports.Context = Context;
+    }
 
 }());
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -30,6 +145,7 @@ function EntityModel() {
     var _version        = "1.0.0"
 
     this.entities       = [];
+    this.temp           = null;
 }
 (function() {
 
@@ -70,8 +186,8 @@ function EntityModel() {
         if (typeof pJSON.model !== "undefined") {
             for (var i = 0; i < pJSON.model.length; i++) {
                 if (pJSON.model[i].name !== "undefined" && pJSON.model[i].name.length > 0) {
-                    model = new Model(pJSON.model[i], this);
-                    entity.model.push(model);
+                    model = new Model(pJSON.model[i], entity);
+                    entity.models.push(model);
                 }
             }
         }
@@ -79,7 +195,7 @@ function EntityModel() {
         if (typeof pJSON.sp !== "undefined") {
             for (var i = 0; i < pJSON.sp.length; i++) {
                 if (pJSON.sp[i].name !== "undefined" && pJSON.sp[i].name.length > 0) {
-                    proceduce = new Model(pJSON.sp[i]);
+                    proceduce = new Procedure(pJSON.sp[i]);
                     entity.sp.push(proceduce);
                 }
             }
@@ -107,7 +223,8 @@ function EntityModel() {
             console.log('필수 값 오류'+ pJSON);
         }
 
-        this.entities.push(entity);
+        this.temp = entity;
+        this.entities.push(this._createEntityObject(entity));
     };
 
     EntityModel.prototype.unregister = function(pName) {
@@ -153,8 +270,8 @@ function Entity(pProp) {
     this.sp         = [];   // { entity_sp : "sp이름" }
 
     // 필수 값 검사
-    if (typeof pProp.name !== "string" || pJSON.model[i].name.length > 0 ||  
-        typeof pProp.type !== "string" || pJSON.model[i].type.length > 0) {
+    if (typeof pProp.name !== "string" || pProp.name.length <= 0 ||  
+        typeof pProp.type !== "string" || pProp.type.length <= 0) {
         throw new Error('name type 필수값 없음 오류 :');
         return null;
     }
@@ -167,49 +284,217 @@ function Entity(pProp) {
 }
 (function() {
 
+    // TODO: 전역 검토
+    // 중복제거 배열 합침 :: 파괴형
+    Entity.prototype._unionConcat = function(pArray, pTarget) {
+
+        var union = true;
+
+        if (pArray instanceof Array && pTarget instanceof Array) {
+            for (var i = 0; i < pTarget.length; i++) {
+                union = true;
+                for (var ii = 0; ii < pArray.length; ii++) {
+                    if (pTarget[i] === pArray[ii]) {
+                        union = false;
+                        break;
+                    }
+                }
+                if (union) pArray.push(pTarget[i]);
+            }
+        }
+        return pArray;
+    };    
+
+    // TODO: 전역 검토
+    // 배열 빼기
+    Entity.prototype._removeArray = function(pArray, pTarget) {
+
+        if (pArray instanceof Array && pTarget instanceof Array) {
+            for (var i = 0; i < pTarget.length; i++) {
+                for (var ii = 0; ii < pArray.length; ii++) {
+                    if (pTarget[i] === pArray[ii]) {
+                        pArray.splice(ii, 1);
+                    }
+                }
+            }
+        }
+        return pArray;
+    };    
+
+
     // { entity_pk_list : null }
-    Entity.prototype.PK_list = function() {
-        return [];
+    Entity.prototype.PK_list = function(pIsDefault) {
+        
+        var array = [];
+
+        for (var i = 0; i < this.items.length; i++) {
+            if (this.items[i].PK === true) {
+                if (pIsDefault === false) {
+                    if (this.items[i].default === null || this.items[i].default.length === 0) {
+                        array.push(this.items[i]);
+                    }
+                } else if (pIsDefault){
+                    if (this.items[i].default !== null && this.items[i].default.length > 0) {
+                        array.push(this.items[i]);
+                    }
+                } else{    
+                    array.push(this.items[i]);
+                }
+            }
+        }
+        return array;
     };
 
     // { entity_fk_list : null }
     Entity.prototype.FK_list = function() {
-        return [];
+
+        var array = [];
+
+        for (var i = 0; i < this.items.length; i++) {
+            if (this.items[i].FK) array.push(this.items[i]);
+        }
+        return array;
     };
 
     // { entity_notnull_list : null }
     Entity.prototype.notNull_list = function() {
-        return [];
+
+        var array = [];
+
+        for (var i = 0; i < this.items.length; i++) {
+            if (this.items[i].isNull === false) array.push(this.items[i]);
+        }
+        return array;
     };
 
     // { entity_null_list : null }
     Entity.prototype.null_list = function() {
-        return [];
+
+        var array = [];
+
+        for (var i = 0; i < this.items.length; i++) {
+            if (this.items[i].isNull  === true) array.push(this.items[i]);
+        }
+        return array;
     };
 
-    // { entity_valid_[C|R|U|D|L] : null }
+    // { entity_valid: "CRUDL" }
     Entity.prototype.valid = function(pCRUDL) {
-        return [];
+
+        var array = [];
+
+        switch (pCRUDL) {
+            case "C":   // not null + FK + PK(default 값에 분기)  
+                /**
+                 * REVIEW: DB에 등록시 :: PK 자동등록(증가), PK 수동등록 정의 필요
+                 * PK 기본값 있을시 : PK 빼기
+                 * PK 기본값 없을시 : PK 넣기
+                 */
+                array = this.notNull_list();
+                array = this._unionConcat(array, this.FK_list());
+                array = this._removeArray(array, this.PK_list(true));
+                array = this._unionConcat(array, this.FK_list(false));
+                break;
+
+            case "R":   // PK + FK
+                array = this.PK_list(null);
+                array = this._unionConcat(array, this.FK_list());
+                break;
+
+            case "U":   // PK + FK + not null
+                array = this.PK_list(null);
+                array = this._unionConcat(array, this.FK_list());
+                array = this._unionConcat(array, this.notNull_list());
+                break;
+
+            case "D":   // PK
+                array = this.PK_list(null);
+                break;
+
+            case "L":   // FK
+                array = this.FK_list();
+                break;
+        }
+        return array;
     };
 
     // { entity_code : "속성명" }
     // { entity_code : null } : [[]]  전체 이중 배열 리턴
+    // TODO: 코드명 삽입 필요 (컬럼명)
     Entity.prototype.code = function(pAttrName) {
-        return [];
+
+        var array = [];
+
+        for (var i = 0; i < this.items.length; i++) {
+            if (this.items[i].code.length > 0) {
+                array.push(this.items[i].code);
+            }
+        }
+        return array;
     };
 
-    // 프로시저 찾기 SP
+    // 프로시저 얻기 SP
     Entity.prototype.getProcedure = function(pName) {
         for (var i = 0; i < this.sp.length; i++) {
             if (this.sp[i].name === pName) return this.sp[i];
         }
         return null;
-    };    
+    };
+
+    // Attr 얻기 
+    Entity.prototype.getAttr = function(pName) {
+        for (var i = 0; i < this.items.length; i++) {
+            if (this.items[i].name === pName) return this.items[i];
+        }
+        return null;
+    };
+
+    // Model 얻기 
+    Entity.prototype.getModel = function(pName) {
+        for (var i = 0; i < this.model.length; i++) {
+            if (this.model[i].name === pName) return this.model[i];
+        }
+        return null;
+    };
+
+    // Model 객체 얻기 
+    Entity.prototype.getAttrObject = function(pName) {
+        
+        var obj     = null;
+
+        if (pName) {
+            obj = this.getAttr(pName).getObject();
+        } else {
+            obj = [];
+            for (var i = 0; i < this.items.length; i++) {
+                obj.push(this.items[i].getObject());
+            }
+        }
+        return obj;
+    };
+
+    // Model 객체 얻기 
+    Entity.prototype.getModelObject = function(pName) {
+        
+        var obj     = null;
+
+        if (pName || pName === null) {
+            obj = this.getModel(pName).getObject();
+        } else {
+            obj = [];
+            for (var i = 0; i < this.model.length; i++) {
+                obj.push(this.model[i].getObject());
+            }
+        }
+        return obj;
+    };
 
 }());
 
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 function Attr(pProp) {
+
+    var code            = null;
 
     this.name           = "";           // {필수}
     this.type           = "String";     //  JS 자료 타입
@@ -220,83 +505,187 @@ function Attr(pProp) {
     this.FK_ref         = null;
     this.unique         = false;
     this.default        = "";
-    this.length         = -1;
+    this.length         = 0;
     this.DB_mysql_type  = "";
     this.DB_mssql_type  = "";
-    this.code           = null;
+    this.code           = [];
 
     // 필수 값 검사
-    if (typeof pProp.name !== "string" || pJSON.model[i].name.length > 0 ) {
+    if (typeof pProp.name !== "string" || pProp.name.length <= 0 ) {
         throw new Error('name 필수값 없음 오류 :');
         return null;
     }
 
-    this.name       = pProp.name;
+    this.name           = pProp.name;
+    this.type           = pProp.type ? pProp.type : this.type;
+    this.caption        = pProp.caption ? pProp.caption : this.caption;
+    this.isNull         = pProp.isNull ? true : false;
+    this.PK             = pProp.PK ? true : false;
+    this.FK             = pProp.FK ? true : false;
+    this.FK_ref         = pProp.FK_ref ? pProp.FK_ref : this.FK_ref;
+    this.unique         = pProp.unique ? true : false;
+    this.default        = pProp.default ? pProp.default : this.default;
+    this.length         = pProp.length ? pProp.length : this.length;
+    this.DB_mysql_type  = pProp.DB_mysql_type ? pProp.DB_mysql_type : this.DB_mysql_type;
+    this.DB_mssql_type  = pProp.DB_mssql_type ? pProp.DB_mssql_type : this.DB_mssql_type;
 
-    this.type       = pProp.type ? pProp.type : this.type;
-    this.caption    = pProp.caption ? pProp.caption : this.caption;
-    this.isNull     = pProp.isNull ? pProp.isNull : this.isNull;
-    this.PK         = pProp.PK ? pProp.PK : this.PK;
-    this.FK         = pProp.FK ? pProp.FK : this.FK;
-    this.FK_ref     = pProp.FK_ref ? pProp.FK_ref : this.FK_ref;
-    this.unique     = pProp.unique ? pProp.unique : this.unique;
-    this.default    = pProp.default ? pProp.default : this.default;
-    this.length     = pProp.length ? pProp.length : this.length;
+    if (pProp.code instanceof Array) {
+        for (var i = 0; i < pProp.code.length; i++) {
+            code = new HashCode(pProp.code[i]);
+            if (code !== null) {
+               this.code.push(code); 
+            }
+        }
+    } 
 }
+
+(function() {
+
+    // Attr 얻기 
+    Attr.prototype.getObject = function() {
+        
+        var obj     = {};
+
+        for (var prop in this) {
+            if (typeof this[prop] !== "function") {
+                obj[prop] = this[prop];
+            }
+        }
+
+        return obj;
+    };
+
+}());    
+
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+function HashCode(pProp) {
+
+    this.key           = "";
+    this.value         = "";
+
+    // 필수 값 검사
+    if (typeof pProp.key !== "string" || pProp.key.length <= 0 || 
+        typeof pProp.value !== "string" || pProp.value.length <= 0) {
+        throw new Error('key  value 필수값 없음 오류 :');
+        return null;
+    }
+    
+    this.key           = pProp.key;
+    this.value         = pProp.value;
+}
+
 
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 // CRUD + List + Etc
 function Model(pProp, pOnwer) {
     
+    var attr            = null;
+
     // I[NSERT] | U[PDATE] | S[ELECT] | L[IST] | D[ELETE]
     // BIND-VIEW [BV] | BIND-LIST [BL] | {기타 지정 이름..}
     this._onwer         = pOnwer;
     this.name           = "";   
-    this.items          = [];   // { entity_model_items : null }
+    this.items          = [];
     this.sp             = null; // { entity_model_sp : null }
 
     // 필수 값 검사
-    if (typeof pProp.name !== "string" || pJSON.model[i].name.length > 0 ) {
+    if (typeof pProp.name !== "string" || pProp.name.length <= 0 ) {
         throw new Error('name 필수값 없음 오류 :');
         return null;
     }
-
     this.name       = pProp.name;
 
+    // 참조 삽입
     if (pProp.sp) {
         this.sp =  this._onwer.getProcedure(pName);
     }
+    // 참조 삽입
+    if (typeof pProp.attr !== "undefined") {
+        for (var i = 0; i < pProp.attr.length; i++) {
+            attr = this._onwer.getAttr(pProp.attr[i]);
+            if (attr instanceof Attr) {
+                this.items.push(attr);
+            }
+        }
+    }    
 }
+(function() {
 
+    // Model 얻기 
+    Model.prototype.getObject = function() {
+        
+        var array     = [];
+        
+        for (var i = 0; i < this.items; i++) {
+            array.push(this.items.getObject());
+        }
+        return array;
+    };
+
+}());    
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 function Procedure(pProp) {
     
+    var param           = null;
+
     this.name           = "";
     this.type           = "";   // SP | FN | FT
     this.input          = [];
     this.output         = [];
+
+    // 필수 값 검사
+    if (typeof pProp.name !== "string" || pProp.name.length <= 0 ||
+        typeof pProp.type !== "string" || pProp.type.length <= 0) {
+        throw new Error('name, type 필수값 없음 오류 :');
+        return null;
+    }
+    this.name       = pProp.name;
+    this.type       = pProp.type;
+
+    if (typeof pProp.input !== "undefined") {
+        for (var i = 0; i < pProp.input.length; i++) {
+            param = new Param(pProp.input[i]);
+            if (param !== null) {
+                this.input.push(param);
+            }
+        }
+    }
+    if (typeof pProp.output !== "undefined") {
+        for (var i = 0; i < pProp.output.length; i++) {
+            param = new Param(pProp.output[i]);
+            if (param !== null) {
+                this.output.push(param);
+            }
+        }
+    }    
 }
 
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 function Param(pProp) {
 
-    this.name           = "";
-    this.type           = "";
+    this.name           = "";   // {필수}
+    this.type           = "";   // {필수}
+    this.length         = 0;
     this.DB_mysql_type  = "";
     this.DB_mssql_type  = "";
-    this.length         = "";
+
+    // 필수 값 검사
+    if (typeof pProp.name !== "string" || pProp.name.length <= 0 ||
+        typeof pProp.type !== "string" || pProp.type.length <= 0) {
+        throw new Error('name, type 필수값 없음 오류 :');
+        return null;
+    }
+    this.name       = pProp.name;
+    this.type       = pProp.type;
+
+    this.DB_mysql_type  = pProp.DB_mysql_type ? pProp.DB_mysql_type : this.DB_mysql_type;
+    this.DB_mssql_type  = pProp.DB_mssql_type ? pProp.DB_mssql_type : this.DB_mssql_type;    
 }
 
-// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-function HashCode(pProp) {
-    this.key           = "";
-    this.value         = "";
-}
-
-// ----------------------------------------------------
 
 
 /**
+ * ----------------------------------------------------
  * JSON 형태로 관리됨  
  *  - 스크립트 안쓰는 방향으로 ... 어려우면 우회하는 방향 검토
  *  - e.... 뭘가르키는지   명확성 필요
@@ -326,10 +715,18 @@ var pre_context = {
             "writer"            // [3] : 글쓴이
         ]
     },
-    entity: {
-        name: "Notice",
-        namespace: "C01.Module01"
-    }
+    entitys: [
+        {
+            name: "Notice",
+            namespace: "C01.Module01"
+        }
+    ],
+    pages: [
+        {
+            filepath: ""
+        }
+    ],
+    "entity[0]": ""
 };
 
 // 처리 후 컨텐스트

@@ -6,20 +6,32 @@ var fs = require('fs');
 //     // console.log('data:'+ data);    
 // });
 
+var precontext = fs.readFileSync('./context_sample.json', 'utf8');
+var entity = fs.readFileSync('./entity_sample.json', 'utf8');
 
-var data = fs.readFileSync('./entity_sample.json', 'utf8');
 
 var em = require('./EntityModel.js');
 
+var c = new em.Context();
+
+c.load(precontext);
+c.setEntity(entity);
+
+var context = c.getContext();
+/*
 var i = new em.EntityModel();
 i.test();
 
 i.register(data);
 
+i.entities[0].PK_list();
 
-console.log('i.entities[0].name:' + i.entities[0].name);
-console.log('i.entities[0].items[0].name:' + i.entities[0].items[0].name);
-console.log('i.entities.length:' + i.entities.length);
+i.entities[0].notNull_list();
+*/
+
+// console.log('i.entities[0].name:' + i.entities[0].name);
+// console.log('i.entities[0].items[0].name:' + i.entities[0].items[0].name);
+// console.log('i.entities.length:' + i.entities.length);
 // console.log('data:' + data);
 
 console.log('파일 로딩 테스트.');

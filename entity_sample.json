@@ -13,15 +13,30 @@
             "caption": "일련번호",
             "DB_mssql_type": "char(10)",
             "DB_mysql_type": "char(10)",
-            "PK": false,
+            "PK": true,
             "FK": false,
             "FK_ref": null,
             "unique": false,
             "code": null
         },
         {
-            "name": "title",
+            "name": "sto_id",
             "isNull": false,
+            "default": "S00001",
+            "type": "String",
+            "length": 0,
+            "caption": "일련번호",
+            "DB_mssql_type": "char(10)",
+            "DB_mysql_type": "char(10)",
+            "PK": true,
+            "FK": false,
+            "FK_ref": null,
+            "unique": false,
+            "code": null
+        },        
+        {
+            "name": "title",
+            "isNull": true,
             "default": "",
             "type": "String",
             "length": 0,
@@ -44,7 +59,7 @@
             "DB_mssql_type": "char(10)",
             "DB_mysql_type": "char(10)",
             "PK": false,
-            "FK": false,
+            "FK": true,
             "FK_ref": null,
             "unique": false,
             "code": [
@@ -57,8 +72,9 @@
         {"name": "INSERT", "attr" : ["p_idx", "title"]},
         {"name": "UPDATE", "attr" : ["p_idx", "title", "state_cd"]}
     ],
-    "sp": {
-        "M03_SP_Notice_C": {
+    "sp": [
+        {
+            "name": "M03_SP_Notice_C",
             "type": "SP",
             "input": [
                 {
@@ -82,7 +98,6 @@
                     "length": 0
                 }
             ]
-            
         }
-    }
+    ]
 }

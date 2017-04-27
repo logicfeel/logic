@@ -1,0 +1,18 @@
+{
+    "pages": [
+        {
+            "name": "pre 컨텍스트",
+            "title": "관리자",
+            "subject": "공지사항",
+            "caption": "대출세상.Net,  대출직거래.kr   대출직거래.com",
+            "vaild": {"entity_model[0]": "UPDATE"},
+            "check": {"entity_items": null}
+        }
+    ],
+    "entities": [
+        {
+            "name": "~",
+            "namespace": ""
+        }
+    ]
+}
