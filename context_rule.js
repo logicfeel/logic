@@ -6,13 +6,14 @@
     - entity_items: "속성명"
     - entity_model:  null       >> 전체 모델
     - entity_model:  "모델명"
-    - entity_model_sp : null
+    - entity_model_sp : "모델명"
     - entity_sp: null           >> 전체 SP
     - entity_sp: "SP이름"
     - entity_pk_list : null
     - entity_fk_list : null 
     - entity_notnull_list : null
     - entity_null_list : null
+    - entity_valid: null        >> 전체 검사 
     - entity_valid: "CRUDL" 
     - entity_code : null        >> 전체 코드
     - entity_code : "속성명"

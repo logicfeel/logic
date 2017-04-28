@@ -18,6 +18,13 @@ c.load(precontext);
 c.setEntity(entity);
 
 var context = c.getContext();
+
+var string  = JSON.stringify(context, null, 4);
+
+// fs.writeFileSync('./context_obj2.json', context, 'utf8');
+
+fs.writeFileSync('./context_obj.json', string, 'utf8');
+
 /*
 var i = new em.EntityModel();
 i.test();

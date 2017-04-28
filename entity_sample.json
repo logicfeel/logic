@@ -7,7 +7,7 @@
         {
             "name": "p_idx",
             "isNull": false,
-            "default": "",
+            "default": "inc",
             "type": "String",
             "length": 0,
             "caption": "일련번호",
@@ -29,7 +29,7 @@
             "DB_mssql_type": "char(10)",
             "DB_mysql_type": "char(10)",
             "PK": true,
-            "FK": false,
+            "FK": true,
             "FK_ref": null,
             "unique": false,
             "code": null
@@ -59,7 +59,7 @@
             "DB_mssql_type": "char(10)",
             "DB_mysql_type": "char(10)",
             "PK": false,
-            "FK": true,
+            "FK": false,
             "FK_ref": null,
             "unique": false,
             "code": [
@@ -69,8 +69,8 @@
         }
     ],
     "model": [
-        {"name": "INSERT", "attr" : ["p_idx", "title"]},
-        {"name": "UPDATE", "attr" : ["p_idx", "title", "state_cd"]}
+        {"name": "INSERT", "attr" : ["p_idx", "title"], "sp": "M03_SP_Notice_C"},
+        {"name": "UPDATE", "attr" : ["p_idx", "title", "state_cd"], "sp": "M03_SP_Notice_U"}
     ],
     "sp": [
         {
@@ -98,6 +98,26 @@
                     "length": 0
                 }
             ]
-        }
+        },
+        {
+            "name": "M03_SP_Notice_U",
+            "type": "SP",
+            "input": [
+                {
+                    "name": "lineCnt",
+                    "type": "Number",
+                    "DB_mssql_type": "int",
+                    "length": 0
+                }
+            ],
+            "output": [
+                {
+                    "name": "listCnt",
+                    "type": "Number",
+                    "DB_mssql_type": "int",
+                    "length": 0
+                }
+            ]
+        }        
     ]
 }

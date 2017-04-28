@@ -6,7 +6,7 @@ function Context() {
 
     this._syntax      = [
         'entity_items', 'entity_model', 'entity_model_sp',
-        'entity_sp', 'entity_pk_list', 'entity_notnull_list',
+        'entity_sp', 'entity_pk_list', 'entity_fk_list', 'entity_notnull_list',
         'entity_null_list', 'entity_valid', 'entity_code'
     ];
     
@@ -16,7 +16,7 @@ function Context() {
 }
 (function() {
 
-    function getArrayNumber(pString) {
+    function _getArrayNumber(pString) {
         
         var curser_st   = 0;
         var curser_end  = 0;
@@ -61,7 +61,7 @@ function Context() {
                 } else {
 
                     function checkSyntax(value, index, array){
-                        return value.indexOf(prop) > -1 ? true : false;
+                        return prop.indexOf(value) > -1 ? true : false;
                     }
 
                     if (this._syntax.some(checkSyntax)) {
@@ -83,21 +83,51 @@ function Context() {
         var entity      = null;
         var array       = [];
         var context     = null;
+        var syntax      = "";
+        var curser      = -1;
 
-        entityIdx = getArrayNumber(pProp);
+        curser = pProp.indexOf('[');
+        if (curser > -1) {
+            syntax = pProp.substring(0, curser);
+        } else {
+            syntax = pProp;
+        }
+
+        entityIdx = _getArrayNumber(pProp);
         entity = this.entityModel.entities[entityIdx];
 
-        if (pProp.indexOf('entity_items') > -1) {
-            // array = [];
-            // for (var i = 0; i < entity.items.length; i++) {
-            //     array.push(entity.items[i].getObject(pPropValue));
-            // }
-            // context = array;
-            context = entity.getAttrObject(pPropValue);
-
-        } else if (pProp.indexOf('entity_model') > -1) {
-            context = entity.getModelObject(pPropValue);
-        }
+        switch (syntax) {
+            case "entity_items":
+                context = entity.getAttrObject(pPropValue);
+                break;
+            case "entity_model":
+                context = entity.getModelObject(pPropValue);
+                break;                
+            case "entity_model_sp":
+                context = entity.getModelSPObject(pPropValue);
+                break;
+            case "entity_sp":
+                context = entity.getProcedureObject(pPropValue);
+                break;
+            case "entity_pk_list":
+                context = entity.getFunc('pk_list', pPropValue);
+                break;
+            case "entity_fk_list":
+                context = entity.getFunc('fk_list', pPropValue);
+                break;
+            case "entity_notnull_list":
+                context = entity.getFunc('notnull_list', pPropValue);
+                break;
+            case "entity_null_list":
+                context = entity.getFunc('null_list', pPropValue);
+                break;
+            case "entity_valid":
+                context = entity.getFunc('valid', pPropValue);
+                break;
+            case "entity_code":
+                context = entity.getFunc('code', pPropValue);
+                break;
+        }            
 
         return context;
     };
@@ -119,7 +149,6 @@ function Context() {
         }
 
         this.preContext = context;
-        // this.entities.push(this._createEntityObject(entity));
     };
 
     Context.prototype.getContext = function() {
@@ -183,6 +212,16 @@ function EntityModel() {
             }
         }
 
+        if (typeof pJSON.sp !== "undefined") {
+            for (var i = 0; i < pJSON.sp.length; i++) {
+                if (pJSON.sp[i].name !== "undefined" && pJSON.sp[i].name.length > 0) {
+                    proceduce = new Procedure(pJSON.sp[i]);
+                    entity.sp.push(proceduce);
+                }
+            }
+        }
+
+        // 참조 객체가 있어서 마지막에 위치함 (items, sp 뒤) 
         if (typeof pJSON.model !== "undefined") {
             for (var i = 0; i < pJSON.model.length; i++) {
                 if (pJSON.model[i].name !== "undefined" && pJSON.model[i].name.length > 0) {
@@ -192,14 +231,6 @@ function EntityModel() {
             }
         }
 
-        if (typeof pJSON.sp !== "undefined") {
-            for (var i = 0; i < pJSON.sp.length; i++) {
-                if (pJSON.sp[i].name !== "undefined" && pJSON.sp[i].name.length > 0) {
-                    proceduce = new Procedure(pJSON.sp[i]);
-                    entity.sp.push(proceduce);
-                }
-            }
-        }
 
         return entity;
     };
@@ -451,8 +482,8 @@ function Entity(pProp) {
 
     // Model 얻기 
     Entity.prototype.getModel = function(pName) {
-        for (var i = 0; i < this.model.length; i++) {
-            if (this.model[i].name === pName) return this.model[i];
+        for (var i = 0; i < this.models.length; i++) {
+            if (this.models[i].name === pName) return this.models[i];
         }
         return null;
     };
@@ -461,13 +492,17 @@ function Entity(pProp) {
     Entity.prototype.getAttrObject = function(pName) {
         
         var obj     = null;
+        var attr    = null;
 
-        if (pName) {
-            obj = this.getAttr(pName).getObject();
+        if (pName || pName !== null) {
+            attr = this.getAttr(pName);
+            if (attr) obj = attr.getObject();
         } else {
             obj = [];
             for (var i = 0; i < this.items.length; i++) {
-                obj.push(this.items[i].getObject());
+                if (this.items[i]) {
+                    obj.push(this.items[i].getObject());
+                }
             }
         }
         return obj;
@@ -477,17 +512,98 @@ function Entity(pProp) {
     Entity.prototype.getModelObject = function(pName) {
         
         var obj     = null;
+        var model   = null;
 
-        if (pName || pName === null) {
-            obj = this.getModel(pName).getObject();
+        if (pName || pName !== null) {
+            model = this.getModel(pName);
+            if (model) obj = model.getObject();
         } else {
             obj = [];
-            for (var i = 0; i < this.model.length; i++) {
-                obj.push(this.model[i].getObject());
+            for (var i = 0; i < this.models.length; i++) {
+                if (this.models[i]) {
+                    model = this.models[i].getObject();
+                    obj.push(model);                    
+                }
             }
         }
         return obj;
     };
+
+    // Model 객체 얻기 
+    Entity.prototype.getModelSPObject = function(pName) {
+        
+        var obj     = null;
+        var model   = null;
+
+        if (pName !== null) {
+            model = this.getModel(pName);
+            if (model && model.sp) {
+                obj = model.sp.getObject();
+            }
+        }
+        return obj;
+    };    
+
+    // SP 객체 얻기 
+    Entity.prototype.getProcedureObject = function(pName) {
+        
+        var obj     = null;
+        var sp      = null;
+
+        if (pName !== null) {
+            sp = this.getProcedure(pName);
+            if (sp) obj = sp.getObject();
+        } else {            
+            obj = [];
+            for (var i = 0; i < this.sp.length; i++) {
+                if (this.sp[i]) {
+                    sp = this.sp[i].getObject();
+                    obj.push(sp);
+                }
+            }
+        }
+        return obj;
+    };    
+
+    // Model 객체 얻기 
+    Entity.prototype.getFunc = function(pFuncName, pName) {
+        
+        var obj     = null;
+        var attr    = null;
+        var arr     = [];
+
+        switch (pFuncName.toLowerCase()) {
+            case "pk_list":
+                attr = this.PK_list(pName);
+                break;
+            case "fk_list":
+                attr = this.FK_list();
+                break;                
+            case "notnull_list":
+                attr = this.notNull_list();
+                break;
+            case "null_list":
+                attr = this.null_list();
+                break;
+            case "valid":
+                attr = this.valid(pName);
+                break;
+            case "code":
+                attr = this.code(pName);
+                break;                
+        }
+
+        if (attr instanceof Array) {
+            for (var i = 0; i < attr.length; i++) {
+                if (attr[i]) {
+                    obj = attr[i].getObject();
+                    arr.push(obj);
+                }
+            }
+        }
+
+        return arr;
+    };    
 
 }());
 
@@ -597,7 +713,7 @@ function Model(pProp, pOnwer) {
 
     // 참조 삽입
     if (pProp.sp) {
-        this.sp =  this._onwer.getProcedure(pName);
+        this.sp =  this._onwer.getProcedure(pProp.sp);
     }
     // 참조 삽입
     if (typeof pProp.attr !== "undefined") {
@@ -614,15 +730,21 @@ function Model(pProp, pOnwer) {
     // Model 얻기 
     Model.prototype.getObject = function() {
         
-        var array     = [];
+        var obj         = {};
+        var array       = [];
         
-        for (var i = 0; i < this.items; i++) {
-            array.push(this.items.getObject());
+        obj["name"] = this.name;
+
+        for (var i = 0; i < this.items.length; i++) {
+            array.push(this.items[i].getObject());
         }
-        return array;
+        obj["items"] = array;
+
+        return obj;
     };
 
 }());    
+
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 function Procedure(pProp) {
     
@@ -659,6 +781,33 @@ function Procedure(pProp) {
         }
     }    
 }
+(function() {
+
+    // Procedure(sp) 얻기 
+    Procedure.prototype.getObject = function() {
+        
+        var obj         = {};
+        var array       = null;
+        
+        obj["name"] = this.name;
+        obj["type"] = this.type;
+        
+        array           = [];
+        for (var i = 0; i < this.input.length; i++) {
+            array.push(this.input[i].getObject());
+        }
+        obj["input"] = array;
+
+        array           = [];
+        for (var i = 0; i < this.output.length; i++) {
+            array.push(this.output[i].getObject());
+        }
+        obj["output"] = array;
+
+        return obj;
+    };
+
+}());
 
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 function Param(pProp) {
@@ -681,8 +830,22 @@ function Param(pProp) {
     this.DB_mysql_type  = pProp.DB_mysql_type ? pProp.DB_mysql_type : this.DB_mysql_type;
     this.DB_mssql_type  = pProp.DB_mssql_type ? pProp.DB_mssql_type : this.DB_mssql_type;    
 }
+(function() {
 
+    // Param 얻기 
+    Param.prototype.getObject = function() {
+        
+        var obj     = {};
 
+        for (var prop in this) {
+            if (typeof this[prop] !== "function") {
+                obj[prop] = this[prop];
+            }
+        }
+        return obj;
+    };
+
+}());    
 
 /**
  * ----------------------------------------------------

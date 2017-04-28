@@ -6,7 +6,24 @@
             "subject": "공지사항",
             "caption": "대출세상.Net,  대출직거래.kr   대출직거래.com",
             "vaild": {"entity_model[0]": "UPDATE"},
-            "check": {"entity_items": null}
+            "test_entity": {"entity_items": null},
+            "test_entity_a": {"entity_items": "sto_id"},
+            "test_model": {"entity_model": null},
+            "test_model_a": {"entity_model": "UPDATE"},
+            "test_model_sp": {"entity_model_sp": "UPDATE"},
+            "test_model_sp1": {"entity_model_sp": "INSERT"},
+            "test_model_sp_n": {"entity_model_sp": null},
+            "test_sp": {"entity_sp": null},
+            "test_f_fk": {"entity_fk_list": null},
+            "test_f_pk": {"entity_pk_list": null},
+            "test_f_nnull": {"entity_notnull_list": null},
+            "test_f_null": {"entity_null_list": null},
+            "test_f_valid": {"entity_valid": null},
+            "test_f_vaild_C": {"entity_valid": "C"},
+            "test_f_vaild_R": {"entity_valid": "R"},
+            "test_f_vaild_U": {"entity_valid": "U"},
+            "test_f_vaild_D": {"entity_valid": "D"},
+            "test_f_vaild_L": {"entity_valid": "L"}
         }
     ],
     "entities": [
