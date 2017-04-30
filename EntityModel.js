@@ -16,13 +16,13 @@ function Context() {
         'entity_valid', 
         'entity_code'
     ];
-    
     this.preContext         = null;
     this.entityModel        = new EntityModel();
 
 }
 (function() {
 
+    // 배열 syntax 에서 숫자만 추출함 없을시 0 리턴
     function _getArrayNumber(pString) {
         
         var curser_st   = 0;
@@ -46,7 +46,7 @@ function Context() {
         return number;
     }
 
-
+    // 파싱 처리 (배열, 개열, 일반값)
     Context.prototype._parse = function(pContext) {
         
         var context     = {};
@@ -55,7 +55,7 @@ function Context() {
             if (pContext.hasOwnProperty(prop)) {
                 
                 // 값이 배열인 경우
-                if (pContext[prop] instanceof Array) {
+                if (pContext[prop] instanceof Array) {  
                     for (var i = 0; i < pContext[prop].length; i++) {
                         context[prop] = this._parse(pContext[prop][i]);
                     }
@@ -84,6 +84,7 @@ function Context() {
         return context;
     };
 
+    // Syntax 처리
     Context.prototype._parseSyntax = function(pProp, pPropValue) {
         
         var entityIdx   = 0;
@@ -139,6 +140,7 @@ function Context() {
         return context;
     };
 
+    // json 파일 로드
     Context.prototype.load = function(pJSON) {
 
         var context = null;
@@ -158,10 +160,12 @@ function Context() {
         this.preContext = context;
     };
 
+    // 컨텍스트 얻기 (컨텍스트 + 엔티티)
     Context.prototype.getContext = function() {
         return this._parse(this.preContext);
     };
 
+    // 컨텍스트에 엔티티 주입
     Context.prototype.setEntity = function(pJSON) {
         this.entityModel.register(pJSON);
     };
