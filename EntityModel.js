@@ -5,9 +5,16 @@ function Context() {
     var _entity_version     = "1.0.0"
 
     this._syntax      = [
-        'entity_items', 'entity_model', 'entity_model_sp',
-        'entity_sp', 'entity_pk_list', 'entity_fk_list', 'entity_notnull_list',
-        'entity_null_list', 'entity_valid', 'entity_code'
+        'entity_items', 
+        'entity_model', 
+        'entity_model_sp',
+        'entity_sp', 
+        'entity_pk_list', 
+        'entity_fk_list', 
+        'entity_notnull_list',
+        'entity_null_list', 
+        'entity_valid', 
+        'entity_code'
     ];
     
     this.preContext         = null;
