@@ -47,7 +47,11 @@
             "FK": false,
             "FK_ref": null,
             "unique": false,
-            "code": null
+            "code": [
+                {"key": "C", "value": "부분"},
+                {"key": "D", "value": "일부"}
+            ]
+
         },
         {
             "name": "state_cd",

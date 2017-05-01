@@ -117,6 +117,9 @@ function Context() {
             case "entity_sp":
                 context = entity.getProcedureObject(pPropValue);
                 break;
+            case "entity_code":
+                context = entity.getCodeObject(pPropValue);
+                break;
             case "entity_pk_list":
                 context = entity.getFunc('pk_list', pPropValue);
                 break;
@@ -131,9 +134,6 @@ function Context() {
                 break;
             case "entity_valid":
                 context = entity.getFunc('valid', pPropValue);
-                break;
-            case "entity_code":
-                context = entity.getFunc('code', pPropValue);
                 break;
         }            
 
@@ -169,7 +169,6 @@ function Context() {
     Context.prototype.setEntity = function(pJSON) {
         this.entityModel.register(pJSON);
     };
-
 
     /**
      * node 모듈 등록
@@ -245,7 +244,6 @@ function EntityModel() {
 
         return entity;
     };
-
 
     EntityModel.prototype.register = function(pJSON) {
         
@@ -463,16 +461,41 @@ function Entity(pProp) {
     // { entity_code : "속성명" }
     // { entity_code : null } : [[]]  전체 이중 배열 리턴
     // TODO: 코드명 삽입 필요 (컬럼명)
-    Entity.prototype.code = function(pAttrName) {
+    Entity.prototype.getCode = function(pName) {
 
-        var array = [];
+        // var obj     = null;
+        // var attr    = null;
+        // var code    = null;
+        // var array   = [];
+
+        // if (pName || pName !== null) {
+        //     attr = this.getAttr(pName);
+        //     if (attr && attr.code) {
+        //         obj = attr.code.getObject();
+        //     }
+        // } else {
+        //     obj = [];
+        //     for (var i = 0; i < this.items.length; i++) {
+        //         if (this.items[i] && this.items[i].code.length > 0) {
+        //             code = {};
+        //             for (var ii = 0; ii < this.items[i].code.length; ii++) {
+        //                 array.push(this.items[i].code[ii].getObject());
+        //             }
+        //             code["name"] = this.items[i].name;
+        //             code["items"] = array;
+        //             obj.push(code);
+        //         }
+        //     }
+        // }
+        // return obj;
 
         for (var i = 0; i < this.items.length; i++) {
-            if (this.items[i].code.length > 0) {
-                array.push(this.items[i].code);
-            }
+            if (this.items[i].name === pName && this.items[i].code.length > 0) {
+                return this.items[i].code;
+            } 
         }
-        return array;
+        return null;
+
     };
 
     // 프로시저 얻기 SP
@@ -576,6 +599,46 @@ function Entity(pProp) {
         return obj;
     };    
 
+    // HashCode 객체 얻기 
+    Entity.prototype.getCodeObject = function(pName) {
+        
+        var obj         = null;
+        var hashCode    = null;
+        var code        = null;
+        var array       = null;
+
+        if (pName !== null) {
+            hashCode = this.getCode(pName);
+            if (hashCode) {
+                code        = {};
+                array       = [];
+                for (var ii = 0; ii < hashCode.length; ii++) {
+                    array.push(hashCode[ii].getObject());
+                }
+                code["name"] = pName;
+                code["items"] = array;
+                obj = code;
+            }
+        } else {
+            obj = [];
+            for (var i = 0; i < this.items.length; i++) {
+                if (this.items[i] && this.items[i].code.length > 0) {
+                    code        = {};
+                    array       = [];
+                    for (var ii = 0; ii < this.items[i].code.length; ii++) {
+                        array.push(this.items[i].code[ii].getObject());
+                    }
+                    code["name"] = this.items[i].name;
+                    code["items"] = array;
+                    obj.push(code);
+                }
+            }
+        }
+        return obj;
+    };    
+
+
+
     // Model 객체 얻기 
     Entity.prototype.getFunc = function(pFuncName, pName) {
         
@@ -599,9 +662,6 @@ function Entity(pProp) {
             case "valid":
                 attr = this.valid(pName);
                 break;
-            case "code":
-                attr = this.code(pName);
-                break;                
         }
 
         if (attr instanceof Array) {
@@ -665,7 +725,6 @@ function Attr(pProp) {
         }
     } 
 }
-
 (function() {
 
     // Attr 얻기 
@@ -700,7 +759,22 @@ function HashCode(pProp) {
     this.key           = pProp.key;
     this.value         = pProp.value;
 }
+(function() {
 
+    // Attr 얻기 
+    HashCode.prototype.getObject = function() {
+        
+        var obj     = {};
+
+        for (var prop in this) {
+            if (typeof this[prop] !== "function") {
+                obj[prop] = this[prop];
+            }
+        }
+        return obj;
+    };
+
+}());    
 
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 // CRUD + List + Etc
@@ -743,12 +817,11 @@ function Model(pProp, pOnwer) {
         
         var obj         = {};
         var array       = [];
-        
-        obj["name"] = this.name;
 
         for (var i = 0; i < this.items.length; i++) {
             array.push(this.items[i].getObject());
         }
+        obj["name"] = this.name;
         obj["items"] = array;
 
         return obj;

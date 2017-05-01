@@ -4,65 +4,6 @@
         "title": "관리자",
         "subject": "공지사항",
         "caption": "대출세상.Net,  대출직거래.kr   대출직거래.com",
-        "vaild": {
-            "name": "UPDATE",
-            "items": [
-                {
-                    "name": "p_idx",
-                    "type": "String",
-                    "caption": "일련번호",
-                    "isNull": false,
-                    "PK": true,
-                    "FK": false,
-                    "FK_ref": null,
-                    "unique": false,
-                    "default": "inc",
-                    "length": 0,
-                    "DB_mysql_type": "char(10)",
-                    "DB_mssql_type": "char(10)",
-                    "code": []
-                },
-                {
-                    "name": "title",
-                    "type": "String",
-                    "caption": "제목",
-                    "isNull": true,
-                    "PK": false,
-                    "FK": false,
-                    "FK_ref": null,
-                    "unique": false,
-                    "default": "",
-                    "length": 0,
-                    "DB_mysql_type": "char(10)",
-                    "DB_mssql_type": "char(10)",
-                    "code": []
-                },
-                {
-                    "name": "state_cd",
-                    "type": "String",
-                    "caption": "제목",
-                    "isNull": false,
-                    "PK": false,
-                    "FK": false,
-                    "FK_ref": null,
-                    "unique": false,
-                    "default": "",
-                    "length": 2,
-                    "DB_mysql_type": "char(10)",
-                    "DB_mssql_type": "char(10)",
-                    "code": [
-                        {
-                            "key": "A",
-                            "value": "전체"
-                        },
-                        {
-                            "key": "B",
-                            "value": "기본"
-                        }
-                    ]
-                }
-            ]
-        },
         "test_entity": [
             {
                 "name": "p_idx",
@@ -107,7 +48,16 @@
                 "length": 0,
                 "DB_mysql_type": "char(10)",
                 "DB_mssql_type": "char(10)",
-                "code": []
+                "code": [
+                    {
+                        "key": "C",
+                        "value": "부분"
+                    },
+                    {
+                        "key": "D",
+                        "value": "일부"
+                    }
+                ]
             },
             {
                 "name": "state_cd",
@@ -181,7 +131,16 @@
                         "length": 0,
                         "DB_mysql_type": "char(10)",
                         "DB_mssql_type": "char(10)",
-                        "code": []
+                        "code": [
+                            {
+                                "key": "C",
+                                "value": "부분"
+                            },
+                            {
+                                "key": "D",
+                                "value": "일부"
+                            }
+                        ]
                     }
                 ]
             },
@@ -216,7 +175,16 @@
                         "length": 0,
                         "DB_mysql_type": "char(10)",
                         "DB_mssql_type": "char(10)",
-                        "code": []
+                        "code": [
+                            {
+                                "key": "C",
+                                "value": "부분"
+                            },
+                            {
+                                "key": "D",
+                                "value": "일부"
+                            }
+                        ]
                     },
                     {
                         "name": "state_cd",
@@ -276,7 +244,16 @@
                     "length": 0,
                     "DB_mysql_type": "char(10)",
                     "DB_mssql_type": "char(10)",
-                    "code": []
+                    "code": [
+                        {
+                            "key": "C",
+                            "value": "부분"
+                        },
+                        {
+                            "key": "D",
+                            "value": "일부"
+                        }
+                    ]
                 },
                 {
                     "name": "state_cd",
@@ -356,7 +333,7 @@
             ]
         },
         "test_model_sp_n": null,
-        "test_sp": [
+        "test_sp_all": [
             {
                 "name": "M03_SP_Notice_C",
                 "type": "SP",
@@ -409,6 +386,28 @@
                 ]
             }
         ],
+        "test_sp": {
+            "name": "M03_SP_Notice_U",
+            "type": "SP",
+            "input": [
+                {
+                    "name": "lineCnt",
+                    "type": "Number",
+                    "length": 0,
+                    "DB_mysql_type": "",
+                    "DB_mssql_type": "int"
+                }
+            ],
+            "output": [
+                {
+                    "name": "listCnt",
+                    "type": "Number",
+                    "length": 0,
+                    "DB_mysql_type": "",
+                    "DB_mssql_type": "int"
+                }
+            ]
+        },
         "test_f_fk": [
             {
                 "name": "sto_id",
@@ -458,7 +457,7 @@
                 "code": []
             }
         ],
-        "test_f_nnull": [
+        "test_f_notnull": [
             {
                 "name": "p_idx",
                 "type": "String",
@@ -528,7 +527,16 @@
                 "length": 0,
                 "DB_mysql_type": "char(10)",
                 "DB_mssql_type": "char(10)",
-                "code": []
+                "code": [
+                    {
+                        "key": "C",
+                        "value": "부분"
+                    },
+                    {
+                        "key": "D",
+                        "value": "일부"
+                    }
+                ]
             }
         ],
         "test_f_valid": [],
@@ -709,7 +717,48 @@
                 "DB_mssql_type": "char(10)",
                 "code": []
             }
-        ]
+        ],
+        "test_c_all": [
+            {
+                "name": "title",
+                "items": [
+                    {
+                        "key": "C",
+                        "value": "부분"
+                    },
+                    {
+                        "key": "D",
+                        "value": "일부"
+                    }
+                ]
+            },
+            {
+                "name": "state_cd",
+                "items": [
+                    {
+                        "key": "A",
+                        "value": "전체"
+                    },
+                    {
+                        "key": "B",
+                        "value": "기본"
+                    }
+                ]
+            }
+        ],
+        "test_c": {
+            "name": "state_cd",
+            "items": [
+                {
+                    "key": "A",
+                    "value": "전체"
+                },
+                {
+                    "key": "B",
+                    "value": "기본"
+                }
+            ]
+        }
     },
     "entities": {
         "name": "~",
