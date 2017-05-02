@@ -1,3 +1,5 @@
+(function(global) {
+'use strict';
 
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 function Context() {
@@ -168,14 +170,6 @@ function Context() {
     Context.prototype.setEntity = function(pJSON) {
         this.entityModel.register(pJSON);
     };
-
-    /**
-     * node 모듈 주입(등록)
-     */
-    if (typeof module !== 'undefined' && module.exports) {
-        module.exports.Context = Context;
-    }
-
 }());
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 function EntityModel() {
@@ -285,14 +279,6 @@ function EntityModel() {
     EntityModel.prototype.test = function() {
         console.log('test.. call');
     }
-
-    /**
-     * node 모듈 등록
-     */
-    if (typeof module !== 'undefined' && module.exports) {
-        module.exports.EntityModel = EntityModel;
-    }
-
 }());
 
 
@@ -453,7 +439,9 @@ function Entity(pProp) {
     // { entity_code : null } : [[]]  전체 이중 배열 리턴
     Entity.prototype.getCode = function(pName) {
         for (var i = 0; i < this.items.length; i++) {
-            if (this.items[i].code.name === pName && this.items[i].code.length > 0) {
+            if (this.items[i].code &&
+                this.items[i].code.name === pName && 
+                this.items[i].code.items.length > 0) {
                 return this.items[i].code;
             } 
         }
@@ -577,7 +565,10 @@ function Entity(pProp) {
         } else {
             obj = [];
             for (var i = 0; i < this.items.length; i++) {
-                if (this.items[i] && this.items[i].code.length > 0) {
+                if (this.items[i] && 
+                    this.items[i].code && 
+                    this.items[i].code.items && 
+                    this.items[i].code.items.length > 0) {
                     hashCode = this.items[i].code.getObject();
                     if (hashCode) obj.push(hashCode);
                 }
@@ -585,8 +576,6 @@ function Entity(pProp) {
         }
         return obj;
     };    
-
-
 
     // Model 객체 얻기 
     Entity.prototype.getFunc = function(pFuncCode, pName) {
@@ -623,7 +612,6 @@ function Entity(pProp) {
         }
         return arr;
     };    
-
 }());
 
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -659,6 +647,10 @@ function Attr(pProp) {
     if (pProp.code) {
         codeName = pProp.code.name ? pProp.code.name : "CODE_" + this.name;
         hashCode = new HashCode(codeName);
+        if (!pProp.code.items) {
+            throw new Error('items 필수값 없음 오류 :');
+            return null;
+        }
         for (var i = 0; i < pProp.code.items.length; i++) {
             code = new Code(pProp.code.items[i]);
             if (code) hashCode.items.push(code);
@@ -681,8 +673,7 @@ function Attr(pProp) {
 
         return obj;
     };
-
-}());    
+}());
 
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 // {"entity_code": null}        : 전체 코드
@@ -690,9 +681,8 @@ function Attr(pProp) {
 function HashCode(pName) {
 
     this.name           = pName;
-    this.type           = "CODE"
+    this.type           = "HASHCODE"
     this.items          = [];   
-
 }
 (function() {
 
@@ -711,7 +701,6 @@ function HashCode(pName) {
 
         return obj;
     };
-
 }());    
 
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -723,6 +712,7 @@ function Code(pProp) {
         throw new Error('key  value 필수값 없음 오류 :');
         return null;
     }
+    this.type           = "CODE"
     this.key            = pProp.key;
     this.value          = pProp.value;
     this.caption        = pProp.caption ? pProp.caption : "";
@@ -741,7 +731,6 @@ function Code(pProp) {
         }
         return obj;
     };
-
 }());  
 
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -792,11 +781,11 @@ function Model(pProp, pOnwer) {
             array.push(this.items[i].getObject());
         }
         obj["name"] = this.name;
+        obj["type"] = "MODEL";
         obj["items"] = array;
 
         return obj;
     };
-
 }());    
 
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -842,7 +831,6 @@ function Procedure(pProp) {
 
         return obj;
     };
-
 }());
 
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -880,3 +868,16 @@ function Param(pProp) {
 
 }());    
 
+
+/**
+ * 전역 등록 : golbal, module.exprot (node)
+ */
+global.Context      = global.Context || Context;
+global.EntityModel  = global.EntityModel || EntityModel;
+
+// node 등록(주입)
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports.Context      = Context;
+    module.exports.EntityModel  = EntityModel;    
+}
+}(this));

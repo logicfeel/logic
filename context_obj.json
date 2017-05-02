@@ -1,0 +1,888 @@
+{
+    "pages": {
+        "name": "pre 컨텍스트",
+        "title": "관리자",
+        "subject": "공지사항",
+        "caption": "대출세상.Net,  대출직거래.kr   대출직거래.com",
+        "test_entity": [
+            {
+                "name": "p_idx",
+                "type": "ATTR",
+                "value_type": "String",
+                "caption": "일련번호",
+                "isNull": false,
+                "PK": true,
+                "FK": false,
+                "FK_ref": null,
+                "unique": false,
+                "default": "inc",
+                "length": 0,
+                "mssql_type": "char(10)",
+                "mysql_type": "char(10)",
+                "code": null
+            },
+            {
+                "name": "sto_id",
+                "type": "ATTR",
+                "value_type": "String",
+                "caption": "일련번호",
+                "isNull": false,
+                "PK": true,
+                "FK": true,
+                "FK_ref": null,
+                "unique": false,
+                "default": "S00001",
+                "length": 0,
+                "mssql_type": "char(10)",
+                "mysql_type": "char(10)",
+                "code": null
+            },
+            {
+                "name": "title",
+                "type": "ATTR",
+                "value_type": "String",
+                "caption": "제목",
+                "isNull": true,
+                "PK": false,
+                "FK": false,
+                "FK_ref": null,
+                "unique": false,
+                "default": "",
+                "length": 0,
+                "mssql_type": "char(10)",
+                "mysql_type": "char(10)",
+                "code": {
+                    "name": "t_code",
+                    "type": "HASHCODE",
+                    "items": [
+                        {
+                            "type": "CODE",
+                            "key": "C",
+                            "value": "부분",
+                            "caption": "부분설명"
+                        },
+                        {
+                            "type": "CODE",
+                            "key": "D",
+                            "value": "일부",
+                            "caption": "일부설명"
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "state_cd",
+                "type": "ATTR",
+                "value_type": "String",
+                "caption": "제목",
+                "isNull": false,
+                "PK": false,
+                "FK": false,
+                "FK_ref": null,
+                "unique": false,
+                "default": "",
+                "length": 2,
+                "mssql_type": "char(10)",
+                "mysql_type": "char(10)",
+                "code": {
+                    "name": "t_state_cd",
+                    "type": "HASHCODE",
+                    "items": [
+                        {
+                            "type": "CODE",
+                            "key": "A",
+                            "value": "전체",
+                            "caption": ""
+                        },
+                        {
+                            "type": "CODE",
+                            "key": "B",
+                            "value": "기본",
+                            "caption": ""
+                        }
+                    ]
+                }
+            }
+        ],
+        "test_entity_a": {
+            "name": "sto_id",
+            "type": "ATTR",
+            "value_type": "String",
+            "caption": "일련번호",
+            "isNull": false,
+            "PK": true,
+            "FK": true,
+            "FK_ref": null,
+            "unique": false,
+            "default": "S00001",
+            "length": 0,
+            "mssql_type": "char(10)",
+            "mysql_type": "char(10)",
+            "code": null
+        },
+        "test_model": [
+            {
+                "name": "INSERT",
+                "type": "MODEL",
+                "items": [
+                    {
+                        "name": "p_idx",
+                        "type": "ATTR",
+                        "value_type": "String",
+                        "caption": "일련번호",
+                        "isNull": false,
+                        "PK": true,
+                        "FK": false,
+                        "FK_ref": null,
+                        "unique": false,
+                        "default": "inc",
+                        "length": 0,
+                        "mssql_type": "char(10)",
+                        "mysql_type": "char(10)",
+                        "code": null
+                    },
+                    {
+                        "name": "title",
+                        "type": "ATTR",
+                        "value_type": "String",
+                        "caption": "제목",
+                        "isNull": true,
+                        "PK": false,
+                        "FK": false,
+                        "FK_ref": null,
+                        "unique": false,
+                        "default": "",
+                        "length": 0,
+                        "mssql_type": "char(10)",
+                        "mysql_type": "char(10)",
+                        "code": {
+                            "name": "t_code",
+                            "type": "HASHCODE",
+                            "items": [
+                                {
+                                    "type": "CODE",
+                                    "key": "C",
+                                    "value": "부분",
+                                    "caption": "부분설명"
+                                },
+                                {
+                                    "type": "CODE",
+                                    "key": "D",
+                                    "value": "일부",
+                                    "caption": "일부설명"
+                                }
+                            ]
+                        }
+                    }
+                ]
+            },
+            {
+                "name": "UPDATE",
+                "type": "MODEL",
+                "items": [
+                    {
+                        "name": "p_idx",
+                        "type": "ATTR",
+                        "value_type": "String",
+                        "caption": "일련번호",
+                        "isNull": false,
+                        "PK": true,
+                        "FK": false,
+                        "FK_ref": null,
+                        "unique": false,
+                        "default": "inc",
+                        "length": 0,
+                        "mssql_type": "char(10)",
+                        "mysql_type": "char(10)",
+                        "code": null
+                    },
+                    {
+                        "name": "title",
+                        "type": "ATTR",
+                        "value_type": "String",
+                        "caption": "제목",
+                        "isNull": true,
+                        "PK": false,
+                        "FK": false,
+                        "FK_ref": null,
+                        "unique": false,
+                        "default": "",
+                        "length": 0,
+                        "mssql_type": "char(10)",
+                        "mysql_type": "char(10)",
+                        "code": {
+                            "name": "t_code",
+                            "type": "HASHCODE",
+                            "items": [
+                                {
+                                    "type": "CODE",
+                                    "key": "C",
+                                    "value": "부분",
+                                    "caption": "부분설명"
+                                },
+                                {
+                                    "type": "CODE",
+                                    "key": "D",
+                                    "value": "일부",
+                                    "caption": "일부설명"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "name": "state_cd",
+                        "type": "ATTR",
+                        "value_type": "String",
+                        "caption": "제목",
+                        "isNull": false,
+                        "PK": false,
+                        "FK": false,
+                        "FK_ref": null,
+                        "unique": false,
+                        "default": "",
+                        "length": 2,
+                        "mssql_type": "char(10)",
+                        "mysql_type": "char(10)",
+                        "code": {
+                            "name": "t_state_cd",
+                            "type": "HASHCODE",
+                            "items": [
+                                {
+                                    "type": "CODE",
+                                    "key": "A",
+                                    "value": "전체",
+                                    "caption": ""
+                                },
+                                {
+                                    "type": "CODE",
+                                    "key": "B",
+                                    "value": "기본",
+                                    "caption": ""
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }
+        ],
+        "test_model_a": {
+            "name": "UPDATE",
+            "type": "MODEL",
+            "items": [
+                {
+                    "name": "p_idx",
+                    "type": "ATTR",
+                    "value_type": "String",
+                    "caption": "일련번호",
+                    "isNull": false,
+                    "PK": true,
+                    "FK": false,
+                    "FK_ref": null,
+                    "unique": false,
+                    "default": "inc",
+                    "length": 0,
+                    "mssql_type": "char(10)",
+                    "mysql_type": "char(10)",
+                    "code": null
+                },
+                {
+                    "name": "title",
+                    "type": "ATTR",
+                    "value_type": "String",
+                    "caption": "제목",
+                    "isNull": true,
+                    "PK": false,
+                    "FK": false,
+                    "FK_ref": null,
+                    "unique": false,
+                    "default": "",
+                    "length": 0,
+                    "mssql_type": "char(10)",
+                    "mysql_type": "char(10)",
+                    "code": {
+                        "name": "t_code",
+                        "type": "HASHCODE",
+                        "items": [
+                            {
+                                "type": "CODE",
+                                "key": "C",
+                                "value": "부분",
+                                "caption": "부분설명"
+                            },
+                            {
+                                "type": "CODE",
+                                "key": "D",
+                                "value": "일부",
+                                "caption": "일부설명"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "state_cd",
+                    "type": "ATTR",
+                    "value_type": "String",
+                    "caption": "제목",
+                    "isNull": false,
+                    "PK": false,
+                    "FK": false,
+                    "FK_ref": null,
+                    "unique": false,
+                    "default": "",
+                    "length": 2,
+                    "mssql_type": "char(10)",
+                    "mysql_type": "char(10)",
+                    "code": {
+                        "name": "t_state_cd",
+                        "type": "HASHCODE",
+                        "items": [
+                            {
+                                "type": "CODE",
+                                "key": "A",
+                                "value": "전체",
+                                "caption": ""
+                            },
+                            {
+                                "type": "CODE",
+                                "key": "B",
+                                "value": "기본",
+                                "caption": ""
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
+        "test_model_sp": {
+            "name": "M03_SP_Notice_U",
+            "type": "SP",
+            "items": [
+                {
+                    "name": "selPage",
+                    "type": "PARAM",
+                    "value_type": "Number",
+                    "length": 0,
+                    "isOutput": false,
+                    "default": ""
+                },
+                {
+                    "name": "outCnt",
+                    "type": "PARAM",
+                    "value_type": "Number",
+                    "length": 0,
+                    "isOutput": true,
+                    "default": ""
+                }
+            ]
+        },
+        "test_model_sp1": {
+            "name": "M03_SP_Notice_C",
+            "type": "SP",
+            "items": [
+                {
+                    "name": "selPage",
+                    "type": "PARAM",
+                    "value_type": "Number",
+                    "length": 0,
+                    "isOutput": false,
+                    "default": ""
+                },
+                {
+                    "name": "lineCnt",
+                    "type": "PARAM",
+                    "value_type": "Number",
+                    "length": 0,
+                    "isOutput": false,
+                    "default": ""
+                },
+                {
+                    "name": "outCnt",
+                    "type": "PARAM",
+                    "value_type": "Number",
+                    "length": 0,
+                    "isOutput": true,
+                    "default": ""
+                }
+            ]
+        },
+        "test_model_sp_n": null,
+        "test_sp_all": [
+            {
+                "name": "M03_SP_Notice_C",
+                "type": "SP",
+                "items": [
+                    {
+                        "name": "selPage",
+                        "type": "PARAM",
+                        "value_type": "Number",
+                        "length": 0,
+                        "isOutput": false,
+                        "default": ""
+                    },
+                    {
+                        "name": "lineCnt",
+                        "type": "PARAM",
+                        "value_type": "Number",
+                        "length": 0,
+                        "isOutput": false,
+                        "default": ""
+                    },
+                    {
+                        "name": "outCnt",
+                        "type": "PARAM",
+                        "value_type": "Number",
+                        "length": 0,
+                        "isOutput": true,
+                        "default": ""
+                    }
+                ]
+            },
+            {
+                "name": "M03_SP_Notice_U",
+                "type": "SP",
+                "items": [
+                    {
+                        "name": "selPage",
+                        "type": "PARAM",
+                        "value_type": "Number",
+                        "length": 0,
+                        "isOutput": false,
+                        "default": ""
+                    },
+                    {
+                        "name": "outCnt",
+                        "type": "PARAM",
+                        "value_type": "Number",
+                        "length": 0,
+                        "isOutput": true,
+                        "default": ""
+                    }
+                ]
+            }
+        ],
+        "test_sp": {
+            "name": "M03_SP_Notice_U",
+            "type": "SP",
+            "items": [
+                {
+                    "name": "selPage",
+                    "type": "PARAM",
+                    "value_type": "Number",
+                    "length": 0,
+                    "isOutput": false,
+                    "default": ""
+                },
+                {
+                    "name": "outCnt",
+                    "type": "PARAM",
+                    "value_type": "Number",
+                    "length": 0,
+                    "isOutput": true,
+                    "default": ""
+                }
+            ]
+        },
+        "test_f_fk": [
+            {
+                "name": "sto_id",
+                "type": "ATTR",
+                "value_type": "String",
+                "caption": "일련번호",
+                "isNull": false,
+                "PK": true,
+                "FK": true,
+                "FK_ref": null,
+                "unique": false,
+                "default": "S00001",
+                "length": 0,
+                "mssql_type": "char(10)",
+                "mysql_type": "char(10)",
+                "code": null
+            }
+        ],
+        "test_f_pk": [
+            {
+                "name": "p_idx",
+                "type": "ATTR",
+                "value_type": "String",
+                "caption": "일련번호",
+                "isNull": false,
+                "PK": true,
+                "FK": false,
+                "FK_ref": null,
+                "unique": false,
+                "default": "inc",
+                "length": 0,
+                "mssql_type": "char(10)",
+                "mysql_type": "char(10)",
+                "code": null
+            },
+            {
+                "name": "sto_id",
+                "type": "ATTR",
+                "value_type": "String",
+                "caption": "일련번호",
+                "isNull": false,
+                "PK": true,
+                "FK": true,
+                "FK_ref": null,
+                "unique": false,
+                "default": "S00001",
+                "length": 0,
+                "mssql_type": "char(10)",
+                "mysql_type": "char(10)",
+                "code": null
+            }
+        ],
+        "test_f_notnull": [
+            {
+                "name": "p_idx",
+                "type": "ATTR",
+                "value_type": "String",
+                "caption": "일련번호",
+                "isNull": false,
+                "PK": true,
+                "FK": false,
+                "FK_ref": null,
+                "unique": false,
+                "default": "inc",
+                "length": 0,
+                "mssql_type": "char(10)",
+                "mysql_type": "char(10)",
+                "code": null
+            },
+            {
+                "name": "sto_id",
+                "type": "ATTR",
+                "value_type": "String",
+                "caption": "일련번호",
+                "isNull": false,
+                "PK": true,
+                "FK": true,
+                "FK_ref": null,
+                "unique": false,
+                "default": "S00001",
+                "length": 0,
+                "mssql_type": "char(10)",
+                "mysql_type": "char(10)",
+                "code": null
+            },
+            {
+                "name": "state_cd",
+                "type": "ATTR",
+                "value_type": "String",
+                "caption": "제목",
+                "isNull": false,
+                "PK": false,
+                "FK": false,
+                "FK_ref": null,
+                "unique": false,
+                "default": "",
+                "length": 2,
+                "mssql_type": "char(10)",
+                "mysql_type": "char(10)",
+                "code": {
+                    "name": "t_state_cd",
+                    "type": "HASHCODE",
+                    "items": [
+                        {
+                            "type": "CODE",
+                            "key": "A",
+                            "value": "전체",
+                            "caption": ""
+                        },
+                        {
+                            "type": "CODE",
+                            "key": "B",
+                            "value": "기본",
+                            "caption": ""
+                        }
+                    ]
+                }
+            }
+        ],
+        "test_f_null": [
+            {
+                "name": "title",
+                "type": "ATTR",
+                "value_type": "String",
+                "caption": "제목",
+                "isNull": true,
+                "PK": false,
+                "FK": false,
+                "FK_ref": null,
+                "unique": false,
+                "default": "",
+                "length": 0,
+                "mssql_type": "char(10)",
+                "mysql_type": "char(10)",
+                "code": {
+                    "name": "t_code",
+                    "type": "HASHCODE",
+                    "items": [
+                        {
+                            "type": "CODE",
+                            "key": "C",
+                            "value": "부분",
+                            "caption": "부분설명"
+                        },
+                        {
+                            "type": "CODE",
+                            "key": "D",
+                            "value": "일부",
+                            "caption": "일부설명"
+                        }
+                    ]
+                }
+            }
+        ],
+        "test_f_valid": [],
+        "test_f_vaild_C": [
+            {
+                "name": "state_cd",
+                "type": "ATTR",
+                "value_type": "String",
+                "caption": "제목",
+                "isNull": false,
+                "PK": false,
+                "FK": false,
+                "FK_ref": null,
+                "unique": false,
+                "default": "",
+                "length": 2,
+                "mssql_type": "char(10)",
+                "mysql_type": "char(10)",
+                "code": {
+                    "name": "t_state_cd",
+                    "type": "HASHCODE",
+                    "items": [
+                        {
+                            "type": "CODE",
+                            "key": "A",
+                            "value": "전체",
+                            "caption": ""
+                        },
+                        {
+                            "type": "CODE",
+                            "key": "B",
+                            "value": "기본",
+                            "caption": ""
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "sto_id",
+                "type": "ATTR",
+                "value_type": "String",
+                "caption": "일련번호",
+                "isNull": false,
+                "PK": true,
+                "FK": true,
+                "FK_ref": null,
+                "unique": false,
+                "default": "S00001",
+                "length": 0,
+                "mssql_type": "char(10)",
+                "mysql_type": "char(10)",
+                "code": null
+            }
+        ],
+        "test_f_vaild_R": [
+            {
+                "name": "p_idx",
+                "type": "ATTR",
+                "value_type": "String",
+                "caption": "일련번호",
+                "isNull": false,
+                "PK": true,
+                "FK": false,
+                "FK_ref": null,
+                "unique": false,
+                "default": "inc",
+                "length": 0,
+                "mssql_type": "char(10)",
+                "mysql_type": "char(10)",
+                "code": null
+            },
+            {
+                "name": "sto_id",
+                "type": "ATTR",
+                "value_type": "String",
+                "caption": "일련번호",
+                "isNull": false,
+                "PK": true,
+                "FK": true,
+                "FK_ref": null,
+                "unique": false,
+                "default": "S00001",
+                "length": 0,
+                "mssql_type": "char(10)",
+                "mysql_type": "char(10)",
+                "code": null
+            }
+        ],
+        "test_f_vaild_U": [
+            {
+                "name": "p_idx",
+                "type": "ATTR",
+                "value_type": "String",
+                "caption": "일련번호",
+                "isNull": false,
+                "PK": true,
+                "FK": false,
+                "FK_ref": null,
+                "unique": false,
+                "default": "inc",
+                "length": 0,
+                "mssql_type": "char(10)",
+                "mysql_type": "char(10)",
+                "code": null
+            },
+            {
+                "name": "sto_id",
+                "type": "ATTR",
+                "value_type": "String",
+                "caption": "일련번호",
+                "isNull": false,
+                "PK": true,
+                "FK": true,
+                "FK_ref": null,
+                "unique": false,
+                "default": "S00001",
+                "length": 0,
+                "mssql_type": "char(10)",
+                "mysql_type": "char(10)",
+                "code": null
+            },
+            {
+                "name": "state_cd",
+                "type": "ATTR",
+                "value_type": "String",
+                "caption": "제목",
+                "isNull": false,
+                "PK": false,
+                "FK": false,
+                "FK_ref": null,
+                "unique": false,
+                "default": "",
+                "length": 2,
+                "mssql_type": "char(10)",
+                "mysql_type": "char(10)",
+                "code": {
+                    "name": "t_state_cd",
+                    "type": "HASHCODE",
+                    "items": [
+                        {
+                            "type": "CODE",
+                            "key": "A",
+                            "value": "전체",
+                            "caption": ""
+                        },
+                        {
+                            "type": "CODE",
+                            "key": "B",
+                            "value": "기본",
+                            "caption": ""
+                        }
+                    ]
+                }
+            }
+        ],
+        "test_f_vaild_D": [
+            {
+                "name": "p_idx",
+                "type": "ATTR",
+                "value_type": "String",
+                "caption": "일련번호",
+                "isNull": false,
+                "PK": true,
+                "FK": false,
+                "FK_ref": null,
+                "unique": false,
+                "default": "inc",
+                "length": 0,
+                "mssql_type": "char(10)",
+                "mysql_type": "char(10)",
+                "code": null
+            },
+            {
+                "name": "sto_id",
+                "type": "ATTR",
+                "value_type": "String",
+                "caption": "일련번호",
+                "isNull": false,
+                "PK": true,
+                "FK": true,
+                "FK_ref": null,
+                "unique": false,
+                "default": "S00001",
+                "length": 0,
+                "mssql_type": "char(10)",
+                "mysql_type": "char(10)",
+                "code": null
+            }
+        ],
+        "test_f_vaild_L": [
+            {
+                "name": "sto_id",
+                "type": "ATTR",
+                "value_type": "String",
+                "caption": "일련번호",
+                "isNull": false,
+                "PK": true,
+                "FK": true,
+                "FK_ref": null,
+                "unique": false,
+                "default": "S00001",
+                "length": 0,
+                "mssql_type": "char(10)",
+                "mysql_type": "char(10)",
+                "code": null
+            }
+        ],
+        "test_c_all": [
+            {
+                "name": "t_code",
+                "type": "HASHCODE",
+                "items": [
+                    {
+                        "type": "CODE",
+                        "key": "C",
+                        "value": "부분",
+                        "caption": "부분설명"
+                    },
+                    {
+                        "type": "CODE",
+                        "key": "D",
+                        "value": "일부",
+                        "caption": "일부설명"
+                    }
+                ]
+            },
+            {
+                "name": "t_state_cd",
+                "type": "HASHCODE",
+                "items": [
+                    {
+                        "type": "CODE",
+                        "key": "A",
+                        "value": "전체",
+                        "caption": ""
+                    },
+                    {
+                        "type": "CODE",
+                        "key": "B",
+                        "value": "기본",
+                        "caption": ""
+                    }
+                ]
+            }
+        ],
+        "test_c": null
+    },
+    "entities": {
+        "name": "~",
+        "namespace": ""
+    }
+}

@@ -8,11 +8,11 @@
             "name": "p_idx",
             "isNull": false,
             "default": "inc",
-            "type": "String",
+            "value_type": "String",
             "length": 0,
             "caption": "일련번호",
-            "DB_mssql_type": "char(10)",
-            "DB_mysql_type": "char(10)",
+            "mssql_type": "char(10)",
+            "mysql_type": "char(10)",
             "PK": true,
             "FK": false,
             "FK_ref": null,
@@ -23,11 +23,11 @@
             "name": "sto_id",
             "isNull": false,
             "default": "S00001",
-            "type": "String",
+            "value_type": "String",
             "length": 0,
             "caption": "일련번호",
-            "DB_mssql_type": "char(10)",
-            "DB_mysql_type": "char(10)",
+            "mssql_type": "char(10)",
+            "mysql_type": "char(10)",
             "PK": true,
             "FK": true,
             "FK_ref": null,
@@ -38,88 +38,93 @@
             "name": "title",
             "isNull": true,
             "default": "",
-            "type": "String",
+            "value_type": "String",
             "length": 0,
             "caption": "제목",
-            "DB_mssql_type": "char(10)",
-            "DB_mysql_type": "char(10)",
+            "mssql_type": "char(10)",
+            "mysql_type": "char(10)",
             "PK": false,
             "FK": false,
             "FK_ref": null,
             "unique": false,
-            "code": [
-                {"key": "C", "value": "부분"},
-                {"key": "D", "value": "일부"}
-            ]
+            "code": {
+                "name": "t_code",
+                "items": [
+                    {"key": "C", "value": "부분", "caption": "부분설명"},
+                    {"key": "D", "value": "일부", "caption": "일부설명"}
+                ]
+            }
+            
 
         },
         {
             "name": "state_cd",
             "isNull": false,
             "default": "",
-            "type": "String",
+            "value_type": "String",
             "length": 2,
             "caption": "제목",
-            "DB_mssql_type": "char(10)",
-            "DB_mysql_type": "char(10)",
+            "mssql_type": "char(10)",
+            "mysql_type": "char(10)",
             "PK": false,
             "FK": false,
             "FK_ref": null,
             "unique": false,
-            "code": [
-                {"key": "A", "value": "전체"},
-                {"key": "B", "value": "기본"}
-            ]
+            "code": {
+                "name": "t_state_cd",
+                "items": [
+                    {"key": "A", "value": "전체"},
+                    {"key": "B", "value": "기본"}
+                ]
+            }            
         }
     ],
     "model": [
-        {"name": "INSERT", "attr" : ["p_idx", "title"], "sp": "M03_SP_Notice_C"},
-        {"name": "UPDATE", "attr" : ["p_idx", "title", "state_cd"], "sp": "M03_SP_Notice_U"}
+        {"name": "INSERT", "items" : ["p_idx", "title"], "sp": "M03_SP_Notice_C"},
+        {"name": "UPDATE", "items" : ["p_idx", "title", "state_cd"], "sp": "M03_SP_Notice_U"}
     ],
     "sp": [
         {
             "name": "M03_SP_Notice_C",
             "type": "SP",
-            "input": [
+            "items": [
                 {
                     "name": "selPage",
-                    "type": "Number",
-                    "DB_mssql_type": "int",
+                    "value_type": "Number",
+                    "mssql_type": "int",
                     "length": 0
                 },
                 {
                     "name": "lineCnt",
-                    "type": "Number",
-                    "DB_mssql_type": "int",
+                    "value_type": "Number",
+                    "mssql_type": "int",
                     "length": 0
-                }
-            ],
-            "output": [
+                },
                 {
-                    "name": "listCnt",
-                    "type": "Number",
-                    "DB_mssql_type": "int",
-                    "length": 0
+                    "name": "outCnt",
+                    "value_type": "Number",
+                    "mssql_type": "int",
+                    "length": 0,
+                    "isOutput": true
                 }
             ]
         },
         {
             "name": "M03_SP_Notice_U",
             "type": "SP",
-            "input": [
-                {
-                    "name": "lineCnt",
-                    "type": "Number",
-                    "DB_mssql_type": "int",
+            "items": [
+                                {
+                    "name": "selPage",
+                    "value_type": "Number",
+                    "mssql_type": "int",
                     "length": 0
-                }
-            ],
-            "output": [
+                },
                 {
-                    "name": "listCnt",
-                    "type": "Number",
-                    "DB_mssql_type": "int",
-                    "length": 0
+                    "name": "outCnt",
+                    "value_type": "Number",
+                    "mssql_type": "int",
+                    "length": 0,
+                    "isOutput": true
                 }
             ]
         }        
