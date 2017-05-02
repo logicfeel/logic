@@ -18,7 +18,6 @@ function Context() {
     ];
     this.preContext         = null;
     this.entityModel        = new EntityModel();
-
 }
 (function() {
 
@@ -171,7 +170,7 @@ function Context() {
     };
 
     /**
-     * node 모듈 등록
+     * node 모듈 주입(등록)
      */
     if (typeof module !== 'undefined' && module.exports) {
         module.exports.Context = Context;
@@ -241,7 +240,6 @@ function EntityModel() {
             }
         }
 
-
         return entity;
     };
 
@@ -301,26 +299,19 @@ function EntityModel() {
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 function Entity(pProp) {
 
-    this.name       = "";   // {필수}
-    this.type       = "";   // {필수} table | model
-    this.namespace  = "";
-    this.title      = "";
-    this.items      = [];   // { entity_items : null }
-    this.models     = [];   // { entity_model : "모델명" }
-    this.sp         = [];   // { entity_sp : "sp이름" }
-
     // 필수 값 검사
     if (typeof pProp.name !== "string" || pProp.name.length <= 0 ||  
         typeof pProp.type !== "string" || pProp.type.length <= 0) {
         throw new Error('name type 필수값 없음 오류 :');
         return null;
     }
-
-    this.name       = pProp.name;
-    this.type       = pProp.type;
-
-    this.namespace  = pProp.namespace ? pProp.namespace : this.namespace;
-    this.title      = pProp.title ? pProp.title : this.title;
+    this.name       = pProp.name;   // {필수}
+    this.type       = pProp.type;   // {필수} TABLE | ABSTRACT
+    this.namespace  = pProp.namespace ? pProp.namespace : "";
+    this.title      = pProp.title ? pProp.title : "";
+    this.items      = [];
+    this.models     = [];
+    this.sp         = [];
 }
 (function() {
 
@@ -460,42 +451,13 @@ function Entity(pProp) {
 
     // { entity_code : "속성명" }
     // { entity_code : null } : [[]]  전체 이중 배열 리턴
-    // TODO: 코드명 삽입 필요 (컬럼명)
     Entity.prototype.getCode = function(pName) {
-
-        // var obj     = null;
-        // var attr    = null;
-        // var code    = null;
-        // var array   = [];
-
-        // if (pName || pName !== null) {
-        //     attr = this.getAttr(pName);
-        //     if (attr && attr.code) {
-        //         obj = attr.code.getObject();
-        //     }
-        // } else {
-        //     obj = [];
-        //     for (var i = 0; i < this.items.length; i++) {
-        //         if (this.items[i] && this.items[i].code.length > 0) {
-        //             code = {};
-        //             for (var ii = 0; ii < this.items[i].code.length; ii++) {
-        //                 array.push(this.items[i].code[ii].getObject());
-        //             }
-        //             code["name"] = this.items[i].name;
-        //             code["items"] = array;
-        //             obj.push(code);
-        //         }
-        //     }
-        // }
-        // return obj;
-
         for (var i = 0; i < this.items.length; i++) {
-            if (this.items[i].name === pName && this.items[i].code.length > 0) {
+            if (this.items[i].code.name === pName && this.items[i].code.length > 0) {
                 return this.items[i].code;
             } 
         }
         return null;
-
     };
 
     // 프로시저 얻기 SP
@@ -556,7 +518,7 @@ function Entity(pProp) {
             for (var i = 0; i < this.models.length; i++) {
                 if (this.models[i]) {
                     model = this.models[i].getObject();
-                    obj.push(model);                    
+                    obj.push(model);
                 }
             }
         }
@@ -610,27 +572,14 @@ function Entity(pProp) {
         if (pName !== null) {
             hashCode = this.getCode(pName);
             if (hashCode) {
-                code        = {};
-                array       = [];
-                for (var ii = 0; ii < hashCode.length; ii++) {
-                    array.push(hashCode[ii].getObject());
-                }
-                code["name"] = pName;
-                code["items"] = array;
-                obj = code;
+                obj = hashCode.getObject();
             }
         } else {
             obj = [];
             for (var i = 0; i < this.items.length; i++) {
                 if (this.items[i] && this.items[i].code.length > 0) {
-                    code        = {};
-                    array       = [];
-                    for (var ii = 0; ii < this.items[i].code.length; ii++) {
-                        array.push(this.items[i].code[ii].getObject());
-                    }
-                    code["name"] = this.items[i].name;
-                    code["items"] = array;
-                    obj.push(code);
+                    hashCode = this.items[i].code.getObject();
+                    if (hashCode) obj.push(hashCode);
                 }
             }
         }
@@ -640,13 +589,13 @@ function Entity(pProp) {
 
 
     // Model 객체 얻기 
-    Entity.prototype.getFunc = function(pFuncName, pName) {
+    Entity.prototype.getFunc = function(pFuncCode, pName) {
         
         var obj     = null;
         var attr    = null;
         var arr     = [];
 
-        switch (pFuncName.toLowerCase()) {
+        switch (pFuncCode.toLowerCase()) {
             case "pk_list":
                 attr = this.PK_list(pName);
                 break;
@@ -672,30 +621,19 @@ function Entity(pProp) {
                 }
             }
         }
-
         return arr;
     };    
 
 }());
 
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+// {"entity_items": "sto_id"}       : 지정 속성
+// {"entity_items": null}           : 전체 속성
 function Attr(pProp) {
 
     var code            = null;
-
-    this.name           = "";           // {필수}
-    this.type           = "String";     //  JS 자료 타입
-    this.caption        = "";
-    this.isNull         = true;
-    this.PK             = false;
-    this.FK             = false;
-    this.FK_ref         = null;
-    this.unique         = false;
-    this.default        = "";
-    this.length         = 0;
-    this.DB_mysql_type  = "";
-    this.DB_mssql_type  = "";
-    this.code           = [];
+    var hashCode        = null;
+    var codeName        ="";
 
     // 필수 값 검사
     if (typeof pProp.name !== "string" || pProp.name.length <= 0 ) {
@@ -704,26 +642,29 @@ function Attr(pProp) {
     }
 
     this.name           = pProp.name;
-    this.type           = pProp.type ? pProp.type : this.type;
-    this.caption        = pProp.caption ? pProp.caption : this.caption;
+    this.type           = "ATTR";
+    this.value_type     = pProp.value_type ? pProp.value_type : "String";
+    this.caption        = pProp.caption ? pProp.caption : "";
     this.isNull         = pProp.isNull ? true : false;
     this.PK             = pProp.PK ? true : false;
     this.FK             = pProp.FK ? true : false;
-    this.FK_ref         = pProp.FK_ref ? pProp.FK_ref : this.FK_ref;
+    this.FK_ref         = pProp.FK_ref ? pProp.FK_ref : null;
     this.unique         = pProp.unique ? true : false;
-    this.default        = pProp.default ? pProp.default : this.default;
-    this.length         = pProp.length ? pProp.length : this.length;
-    this.DB_mysql_type  = pProp.DB_mysql_type ? pProp.DB_mysql_type : this.DB_mysql_type;
-    this.DB_mssql_type  = pProp.DB_mssql_type ? pProp.DB_mssql_type : this.DB_mssql_type;
+    this.default        = pProp.default ? pProp.default : "";
+    this.length         = pProp.length ? pProp.length : 0;
+    this.mssql_type     = pProp.mssql_type ? pProp.mssql_type : "";
+    this.mysql_type     = pProp.mysql_type ? pProp.mysql_type : "";
+    this.code           = null;
 
-    if (pProp.code instanceof Array) {
-        for (var i = 0; i < pProp.code.length; i++) {
-            code = new HashCode(pProp.code[i]);
-            if (code !== null) {
-               this.code.push(code); 
-            }
+    if (pProp.code) {
+        codeName = pProp.code.name ? pProp.code.name : "CODE_" + this.name;
+        hashCode = new HashCode(codeName);
+        for (var i = 0; i < pProp.code.items.length; i++) {
+            code = new Code(pProp.code.items[i]);
+            if (code) hashCode.items.push(code);
         }
-    } 
+        this.code = hashCode;
+    }
 }
 (function() {
 
@@ -744,10 +685,37 @@ function Attr(pProp) {
 }());    
 
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-function HashCode(pProp) {
+// {"entity_code": null}        : 전체 코드
+// {"entity_code": "state_cd"}  : 지정 코드
+function HashCode(pName) {
 
-    this.key           = "";
-    this.value         = "";
+    this.name           = pName;
+    this.type           = "CODE"
+    this.items          = [];   
+
+}
+(function() {
+
+    // HashCode 얻기 
+    HashCode.prototype.getObject = function() {
+        
+        var obj     = {};
+        var arr     = [];
+
+        for (var i = 0; i < this.items.length; i++) {
+            arr.push(this.items[i]);
+        }
+        obj["name"] = this.name;
+        obj["type"] = this.type;
+        obj["items"] = arr;
+
+        return obj;
+    };
+
+}());    
+
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+function Code(pProp) {
 
     // 필수 값 검사
     if (typeof pProp.key !== "string" || pProp.key.length <= 0 || 
@@ -755,14 +723,14 @@ function HashCode(pProp) {
         throw new Error('key  value 필수값 없음 오류 :');
         return null;
     }
-    
-    this.key           = pProp.key;
-    this.value         = pProp.value;
+    this.key            = pProp.key;
+    this.value          = pProp.value;
+    this.caption        = pProp.caption ? pProp.caption : "";
 }
 (function() {
 
-    // Attr 얻기 
-    HashCode.prototype.getObject = function() {
+    // Code 얻기 
+    Code.prototype.getObject = function() {
         
         var obj     = {};
 
@@ -774,36 +742,38 @@ function HashCode(pProp) {
         return obj;
     };
 
-}());    
+}());  
 
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 // CRUD + List + Etc
+// { entity_model_sp : null }       : 전체 모델
+// {"entity_model": "UPDATE"}       : 지정 모델
 function Model(pProp, pOnwer) {
     
     var attr            = null;
 
-    // I[NSERT] | U[PDATE] | S[ELECT] | L[IST] | D[ELETE]
-    // BIND-VIEW [BV] | BIND-LIST [BL] | {기타 지정 이름..}
-    this._onwer         = pOnwer;
-    this.name           = "";   
-    this.items          = [];
-    this.sp             = null; // { entity_model_sp : null }
-
-    // 필수 값 검사
+    // 필수값 검사
     if (typeof pProp.name !== "string" || pProp.name.length <= 0 ) {
         throw new Error('name 필수값 없음 오류 :');
         return null;
     }
-    this.name       = pProp.name;
+
+    // I[NSERT] | U[PDATE] | S[ELECT] | L[IST] | D[ELETE]
+    // BIND-VIEW [BV] | BIND-LIST [BL] | {기타 지정 이름..}    
+    this.name           = pProp.name;
+    this._onwer         = pOnwer;
+    this.items          = [];
+    this.type           = "MODEL";
+    this.sp             = null;
 
     // 참조 삽입
     if (pProp.sp) {
         this.sp =  this._onwer.getProcedure(pProp.sp);
     }
     // 참조 삽입
-    if (typeof pProp.attr !== "undefined") {
-        for (var i = 0; i < pProp.attr.length; i++) {
-            attr = this._onwer.getAttr(pProp.attr[i]);
+    if (typeof pProp.items !== "undefined") {
+        for (var i = 0; i < pProp.items.length; i++) {
+            attr = this._onwer.getAttr(pProp.items[i]);
             if (attr instanceof Attr) {
                 this.items.push(attr);
             }
@@ -830,14 +800,11 @@ function Model(pProp, pOnwer) {
 }());    
 
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+// {"entity_sp": "M03_SP_Notice_U"}     : 지정 프로시저
+// {"entity_sp": null}                  : 전체 프로시저
 function Procedure(pProp) {
     
     var param           = null;
-
-    this.name           = "";
-    this.type           = "";   // SP | FN | FT
-    this.input          = [];
-    this.output         = [];
 
     // 필수 값 검사
     if (typeof pProp.name !== "string" || pProp.name.length <= 0 ||
@@ -845,25 +812,18 @@ function Procedure(pProp) {
         throw new Error('name, type 필수값 없음 오류 :');
         return null;
     }
-    this.name       = pProp.name;
-    this.type       = pProp.type;
+    this.name       = pProp.name;   // {필수값}
+    this.type       = pProp.type;   // {필수값} SP | FN | FT
+    this.items          = [];    
 
-    if (typeof pProp.input !== "undefined") {
-        for (var i = 0; i < pProp.input.length; i++) {
-            param = new Param(pProp.input[i]);
+    if (typeof pProp.items !== "undefined") {
+        for (var i = 0; i < pProp.items.length; i++) {
+            param = new Param(pProp.items[i]);
             if (param !== null) {
-                this.input.push(param);
+                this.items.push(param);
             }
         }
     }
-    if (typeof pProp.output !== "undefined") {
-        for (var i = 0; i < pProp.output.length; i++) {
-            param = new Param(pProp.output[i]);
-            if (param !== null) {
-                this.output.push(param);
-            }
-        }
-    }    
 }
 (function() {
 
@@ -871,22 +831,14 @@ function Procedure(pProp) {
     Procedure.prototype.getObject = function() {
         
         var obj         = {};
-        var array       = null;
-        
+        var array       = [];
+
+        for (var i = 0; i < this.items.length; i++) {
+            array.push(this.items[i].getObject());
+        }
         obj["name"] = this.name;
         obj["type"] = this.type;
-        
-        array           = [];
-        for (var i = 0; i < this.input.length; i++) {
-            array.push(this.input[i].getObject());
-        }
-        obj["input"] = array;
-
-        array           = [];
-        for (var i = 0; i < this.output.length; i++) {
-            array.push(this.output[i].getObject());
-        }
-        obj["output"] = array;
+        obj["items"] = array;
 
         return obj;
     };
@@ -896,21 +848,18 @@ function Procedure(pProp) {
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 function Param(pProp) {
 
-    this.name           = "";   // {필수}
-    this.type           = "";   // {필수}
-    this.length         = 0;
-    this.DB_mysql_type  = "";
-    this.DB_mssql_type  = "";
-
     // 필수 값 검사
     if (typeof pProp.name !== "string" || pProp.name.length <= 0 ||
-        typeof pProp.type !== "string" || pProp.type.length <= 0) {
-        throw new Error('name, type 필수값 없음 오류 :');
+        typeof pProp.value_type !== "string" || pProp.value_type.length <= 0) {
+        throw new Error('name, valueType 필수값 없음 오류 :');
         return null;
     }
-    this.name       = pProp.name;
-    this.type       = pProp.type;
-
+    this.name           = pProp.name;   // {필수값}
+    this.type           =  "PARAM";   // {필수값}
+    this.value_type     = pProp.value_type;
+    this.length         = pProp.length ? pProp.length : 0;
+    this.isOutput       = pProp.isOutput ? true : false;
+    this.default        = pProp.default ? pProp.default : "";
     this.DB_mysql_type  = pProp.DB_mysql_type ? pProp.DB_mysql_type : this.DB_mysql_type;
     this.DB_mssql_type  = pProp.DB_mssql_type ? pProp.DB_mssql_type : this.DB_mssql_type;    
 }
@@ -931,95 +880,3 @@ function Param(pProp) {
 
 }());    
 
-/**
- * ----------------------------------------------------
- * JSON 형태로 관리됨  
- *  - 스크립트 안쓰는 방향으로 ... 어려우면 우회하는 방향 검토
- *  - e.... 뭘가르키는지   명확성 필요
- *  - 1안 > 지정됨 이름으로 값을 매칭시 스키마 로딩과 매칭함
- */
-// 처리전 컨텍스트  : JSON 형태
-var pre_context = {
-    name: "",
-    bind: {entity_model: "SELECT"},
-    test: {entity_pk_list: null},
-    test: {entity_valid: "SELECT"},
-    v_cmd: [
-        {name: "DELETE", entity_model: "SELECT"},
-        {name: "UPDATE", entity_model_sp: "UPDATE"},
-    ],
-    cmd: [                                              // ~.C.asp 콜백사용
-        {name: "DELETE", entity_model_sp: "DELETE"},
-        {name: "UPDATE", entity_model_sp: "UPDATE"},
-        {name: "INSERT", entity_model_sp: "INSERT"},
-        {name: "SELECT", entity_model_sp: "SELECT"}
-    ],
-    bind: {
-        "list": [
-            "ntc_idx",          // [0] : Idx
-            "title",            // [1] : 제목
-            "noticeType_cd",    // [2] : 코드
-            "writer"            // [3] : 글쓴이
-        ]
-    },
-    entitys: [
-        {
-            name: "Notice",
-            namespace: "C01.Module01"
-        }
-    ],
-    pages: [
-        {
-            filepath: ""
-        }
-    ],
-    "entity[0]": ""
-};
-
-// 처리 후 컨텐스트
-var context = {
-    name: "",
-    v_cmd: [
-        {name: "DELETE", entity_model: [
-            {name: "ntc_idx", title: "일련번호", type: "String"},
-        ]},
-        {name: "UPDATE", entity_model: [
-            {name: "ntc_idx", title: "일련번호", type: "String"},
-            {name: "sto_id", title: "상점코드", type: "String"},
-            {name: "state_cd", title: "상태", type: "String"},
-            {name: "title", title: "제목", type: "String"},
-        ]},
-    ],
-    cmd: [
-        {name: "DELETE", entity_sp:  [
-            {name: "ntc_idx", title: "일련번호", type: "String"},
-        ]},
-        {name: "UPDATE", entity_sp: [
-            {name: "ntc_idx", title: "일련번호", type: "String"},
-            {name: "sto_id", title: "상점코드", type: "String"},
-            {name: "state_cd", title: "상태", type: "String"},
-            {name: "title", title: "제목", type: "String"},
-        ]},
-        {name: "INSERT", entity_sp:[
-            {name: "ntc_idx", title: "일련번호", type: "String"},
-            {name: "sto_id", title: "상점코드", type: "String"},
-            {name: "state_cd", title: "상태", type: "String"},
-            {name: "title", title: "제목", type: "String"},
-        ]},
-        {name: "SELECT", entity_sp: [
-            {name: "ntc_idx", title: "일련번호", type: "String"},
-        ]}
-    ],
-    bind: { "list": [
-            {name: "ntc_idx", title: "일련번호", type: "String"},
-            {name: "sto_id", title: "상점코드", type: "String"},
-            {name: "state_cd", title: "상태", type: "String"},
-            {name: "title", title: "제목", type: "String"},
-    ]},
-    entity: [
-        {
-            name: "Notice",
-            namespace: "C01.Module01"
-        }
-    ]
-};
