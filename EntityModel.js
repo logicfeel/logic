@@ -678,11 +678,17 @@ function Attr(pProp) {
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 // {"entity_code": null}        : 전체 코드
 // {"entity_code": "state_cd"}  : 지정 코드
-function HashCode(pName) {
+function HashCode(pProp) {
 
-    this.name           = pName;
+    // 필수 값 검사
+    if (typeof pProp.name !== "string" || pProp.name.length <= 0) {
+        throw new Error('name 필수값 없음 오류 :');
+        return null;
+    }
+    this.name           = pProp.name;
     this.type           = "HASHCODE"
-    this.items          = [];   
+    this.namespace      = pProp.namespace ? pProp.namespace : "";
+    this.items          = [];
 }
 (function() {
 
@@ -803,7 +809,8 @@ function Procedure(pProp) {
     }
     this.name       = pProp.name;   // {필수값}
     this.type       = pProp.type;   // {필수값} SP | FN | FT
-    this.items          = [];    
+    this.namespace  = pProp.namespace ? pProp.namespace : "";
+    this.items          = [];
 
     if (typeof pProp.items !== "undefined") {
         for (var i = 0; i < pProp.items.length; i++) {

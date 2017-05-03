@@ -15,7 +15,7 @@
             "type": "node",
             "request": "launch",
             "name": "프로그램 시작",
-            "program": "${workspaceRoot}\\file_test.js"
+            "program": "${workspaceRoot}\\xml_import.js"
         },
         {
             "type": "node",
