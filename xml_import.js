@@ -10,12 +10,21 @@ var xml2json = require("node-xml2json");
 //     // console.log('data:'+ data);    
 // });
 
-var strXML = fs.readFileSync('./db_import.xml', 'utf8');
+// json 변환 테스트
+// var strXML = fs.readFileSync('./db_import.xml', 'utf8');
 
 
-// var em = require('./EntityModel.js');
+// var strXML = fs.readFileSync('./db_import.xml', 'utf8');
 
-// var c = new em.Context();
+
+var strJSON = fs.readFileSync('./eModel.json', 'utf8');
+
+var eModel = require('./EntityModel.js');
+
+var c = new eModel.Context();
+
+c.readEntityModel(strJSON);
+
 
 // c.load(precontext);
 // c.setEntity(entity);
@@ -23,16 +32,18 @@ var strXML = fs.readFileSync('./db_import.xml', 'utf8');
 // var context = c.getContext();
 
 
-var json     = xml2json.parser(strXML);
+// var json     = xml2json.parser(strXML);
 
 // var json = $.xml2json(strXML);
 // var json = parser(strXML);
 
-var string  = JSON.stringify(json, null, 4);
+// var string  = JSON.stringify(json, null, 4);
 
 // fs.writeFileSync('./context_obj2.json', context, 'utf8');
 
-fs.writeFileSync('./db_import.json', string, 'utf8');
+
+// json 변환 테스트
+//fs.writeFileSync('./eModel.json', string, 'utf8');
 
 /*
 var i = new em.EntityModel();
