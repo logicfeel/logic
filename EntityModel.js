@@ -18,8 +18,11 @@ function Context() {
         'entity_valid', 
         'entity_code'
     ];
-    this._preContext         = null;
-    this._entityModel        = new EntityModel();
+    this._preContext        = null;
+    this._entityModel       = new EntityModel();
+    this._refEntity         = [];
+    this._refProcedure      = [];
+    this._refCode           = [];
 }
 (function() {
 
@@ -41,18 +44,83 @@ function Context() {
         number = Number(number);
         if (typeof number !== "number") {
             throw new Error('number type 오류 :');
-            return null;
         }
         
         return number;
+    }
+
+    // 파싱 이전 처리 (엔티티 참조 등록)
+    Context.prototype._preParse = function(pContext) {
+
+        var entity          = null;
+        var procedure       = null;
+        var code            = null;
+
+        for (var prop in pContext) {
+            if (pContext.hasOwnProperty(prop)) {
+                
+                // entity 참조 엔티티 가져옴(_refEntity 에 등록)
+                if (prop === "entities") {
+
+                    if (!(pContext[prop] instanceof Array)) pContext[prop] = [pContext[prop]];
+
+                    for (var i = 0; i < pContext[prop].length; i++) {
+
+                        entity = this._entityModel.getEntity(pContext[prop][i].name, pContext[prop][i].namespace);
+                        
+                        if (entity) {
+                            this._refEntity.push(entity);
+                        } else {
+                            throw new Error('지정 entity 객체 없음 (register등록 확인!) 오류 entity:' + pContext[prop][i].name);
+                        }
+                    }
+
+                // procedures 참조 엔티티 가져옴(_refProcedure 에 등록)
+                } else if (prop === "procedures") {
+
+                    if (!(pContext[prop] instanceof Array)) pContext[prop] = [pContext[prop]];
+
+                    for (var i = 0; i < pContext[prop].length; i++) {
+
+                        procedure = this._entityModel.getProcedure(pContext[prop][i].name, pContext[prop][i].namespace);
+                        
+                        if (procedure) {
+                            this._refProcedure.push(procedure);
+                        } else {
+                            throw new Error('지정 procedure 객체 없음 (register등록 확인!) 오류 procedure:' + pContext[prop][i].name);
+                        }
+                    }
+
+                // codes 참조 엔티티 가져옴(_refCode 에 등록)
+                } else if (prop === "codes") {
+
+                    if (!(pContext[prop] instanceof Array)) pContext[prop] = [pContext[prop]];
+
+                    for (var i = 0; i < pContext[prop].length; i++) {
+
+                        code = this._entityModel.getCode(pContext[prop][i].name, pContext[prop][i].namespace);
+                        
+                        if (code) {
+                            this._refCode.push(code);
+                        } else {
+                            throw new Error('지정 code 객체 없음 (register등록 확인!) 오류 code:' + pContext[prop][i].name);
+                        }
+                    }
+                }                
+            }
+        }    
     }
 
     // 파싱 처리 (배열, 개열, 일반값)
     Context.prototype._parse = function(pContext) {
         
         var context     = {};
-        
+
+        // 파싱 이전 처리 
+        this._preParse(pContext);
+
         for (var prop in pContext) {
+            // if (pContext.hasOwnProperty(prop) && prop !== "entities") {
             if (pContext.hasOwnProperty(prop)) {
                 
                 // 값이 배열인 경우
@@ -88,8 +156,11 @@ function Context() {
     // Syntax 처리
     Context.prototype._parseSyntax = function(pProp, pPropValue) {
         
-        var entityIdx   = 0;
+        var arrIdx      = 0;
         var entity      = null;
+        var procedure   = null;
+        var code        = null;
+
         var array       = [];
         var context     = null;
         var syntax      = "";
@@ -102,8 +173,11 @@ function Context() {
             syntax = pProp;
         }
 
-        entityIdx = _getArrayNumber(pProp);
-        entity = this._entityModel.entities[entityIdx];
+        arrIdx      = _getArrayNumber(pProp);
+        entity      = this._refEntity[arrIdx];
+        if (entity) {
+            throw new Error('오류!! _refEntity 가 없습니다. (entities 1개이상 등록)');
+        }
 
         switch (syntax) {
             case "entity_items":
@@ -116,10 +190,24 @@ function Context() {
                 context = entity.getModelSPObject(pPropValue);
                 break;
             case "entity_sp":
-                context = entityModel.getProcedureObject(pPropValue);
+                
+                procedure   = this._refProcedure[arrIdx];
+                if (procedure) {
+                    throw new Error('오류!! _refProcedure 가 없습니다. (procedures 1개이상 등록)');
+                }
+                
+                // ING:
+                context     = this._entityModel.getProcedureObject(pPropValue);
                 break;
             case "entity_code":
-                context = entityModel.getCodeObject(pPropValue);
+                
+                code        = this._refCode[arrIdx];
+                if (code) {
+                    throw new Error('오류!! _refCode 가 없습니다. (codes 1개이상 등록)');
+                }
+
+                // ING:
+                context     = code.getCodeObject(pPropValue);
                 break;
             case "entity_pk_list":
                 context = entity.getFunc('pk_list', pPropValue);
@@ -154,7 +242,7 @@ function Context() {
         }
         
         if (typeof jsonObj !== "object") {
-            console.log('타입 오류 : ' + pStrJSON);
+            throw new Error('타입 오류 : ' + pStrJSON);
         }
         return jsonObj;
     }
@@ -165,76 +253,206 @@ function Context() {
 
         var obj = null;
 
-        obj = this._convertStrJSON(pStrJSON);
+        try {
 
-        if (typeof obj.pages === "undefined") {
-            console.log('pages 필수 값 오류');
+            obj = this._convertStrJSON(pStrJSON);
+
+            if (typeof obj.pages === "undefined") {
+                throw new Error('pages 필수 값 오류');
+            }
+
+            this._preContext = obj;
+
+        } catch (e) {
+            console.log('오류발생 !! (발생위치:Context.prototype.readContext) ');
+            console.log(e.name);
+            console.log(e.message);
         }
-
-        this._preContext = obj;
     };
 
     Context.prototype.readEntityModel = function(pStrJSON) {
 
         var obj = null;
 
-        obj = this._convertStrJSON(pStrJSON);
+        try {
 
-        if (typeof obj.entity_model === "undefined") {
-            console.log('entity_model 필수 값 오류');
+            obj = this._convertStrJSON(pStrJSON);
+
+            if (typeof obj.entity_model === "undefined") {
+                throw new Error('entity_model 필수 값 오류');
+            }
+            this._entityModel.readEntityModel(pStrJSON);
+
+        } catch (e) {
+            console.log('오류발생 !! (발생위치:Context.prototype.readEntityModel) ');
+            console.log(e.name);
+            console.log(e.message);
         }
-        this._entityModel.readEntityModel(pStrJSON);
     };
 
     Context.prototype.registerEntity = function(pStrJSON) {
 
         var obj = null;
 
-        obj = this._convertStrJSON(pStrJSON);
+        try {
 
-        if (typeof obj.entity_model === "undefined") {
-            console.log('entity_model 필수 값 오류');
+            obj = this._convertStrJSON(pStrJSON);
+
+            if (typeof obj.entity_model === "undefined") {
+                throw new Error('entity_model 필수 값 오류');
+            } else if (typeof obj.entity_model.entity === "undefined") {
+                throw new Error('entity_model.entity 필수 값 오류');
+            }
+            this._entityModel.createEntityObject(obj.entity_model.entity);
+
+        } catch (e) {
+            console.log('오류발생 !! (발생위치:Context.prototype.registerEntity) ');
+            console.log(e.name);
+            console.log(e.message);
         }
-        this._entityModel.readEntityModel(pStrJSON);
+        
     };
 
     Context.prototype.registerProcedure = function(pStrJSON) {
 
         var obj = null;
 
-        obj = this._convertStrJSON(pStrJSON);
+        try {
 
-        if (typeof obj.procedure === "undefined") {
-            console.log('procedure 필수 값 오류');
+            obj = this._convertStrJSON(pStrJSON);
+
+            if (typeof obj.entity_model === "undefined") {
+                throw new Error('entity_model 필수 값 오류');
+            } else if (typeof obj.entity_model.procedure === "undefined") {
+                throw new Error(' jentity_model.procedure 필수 값 오류');
+            }
+            this._entityModel.createProcedureObject(obj.entity_model.procedure);
+
+        } catch (e) {
+            console.log('오류발생 !! (발생위치:Context.prototype.registerProcedure) ');
+            console.log(e.name);
+            console.log(e.message);
         }
-        this._entityModel.createProcedureObject(pStrJSON);
     };
 
     Context.prototype.registerCode = function(pStrJSON) {
 
         var obj = null;
 
-        obj = this._convertStrJSON(pStrJSON);
+        try {
 
-        if (typeof obj.code === "undefined") {
-            console.log('code 필수 값 오류');
-        }
-        this._entityModel.createCodeObject(pStrJSON);
+            obj = this._convertStrJSON(pStrJSON);
+
+            if (typeof obj.entity_model === "undefined") {
+                throw new Error('entity_model 필수 값 오류');
+            } else if (typeof obj.entity_model.code === "undefined") {
+                throw new Error('entity_model.code 필수 값 오류');
+            }
+            this._entityModel.createCodeObject(obj.entity_model.code);
+
+        } catch (e) {
+            console.log('오류발생 !! (발생위치:Context.prototype.registerCode) ');
+            console.log(e.name);
+            console.log(e.message);
+        }        
     };
 
     // 컨텍스트 얻기 (컨텍스트 + 엔티티)
     Context.prototype.getContext = function() {
-        return this._parse(this._preContext);
+
+        try {
+
+            return this._parse(this._preContext);
+
+        } catch (e) {
+            console.log('오류발생 !! (발생위치:Context.prototype.getContext) ');
+            console.log(e.name);
+            console.log(e.message);
+        }
+                    
     };
 
-    Context.prototype.getEntityModel = function(pNamespace) {
-        return this._parse(this._preContext);
+    // 해당 에티티모델만 추출 (네임스페이스 기준) 저장하기 위해서
+    // TODO: 테스트 및 실효성 확인 해야함 (Model 및 SP 참조도 가져와야함)
+    Context.prototype.getEntityModelObject = function(pNamespace) {
+        
+        var entityModel     = this.entityModel;
+        var obj             = {};
+
+        obj["entity_model"] = {};
+        obj["entity_model"]["entity"] = [];
+        obj["entity_model"]["procedure"] = [];
+        obj["entity_model"]["code"] = [];
+
+        try {
+
+            for (var i = 0; entityModel.entities.length; i++) {
+                if (entityModel.entities[i].namespace === pNamespace) {
+                    obj["entity_model"]["entity"].push(entityModel.entities[i].getObject());
+                }
+            }
+            for (var i = 0; entityModel.proceduces.length; i++) {
+                if (entityModel.proceduces[i].namespace === pNamespace) {
+                    obj["entity_model"]["procedure"].push(entityModel.proceduces[i].getObject());
+                }
+            }
+            for (var i = 0; entityModel.codes.length; i++) {
+                if (entityModel.codes[i].namespace === pNamespace) {
+                    obj["entity_model"]["code"].push(entityModel.codes[i].getObject());
+                }
+            }
+            return entityModel;
+
+        } catch (e) {
+            console.log('오류발생 !! (발생위치:Context.prototype.getEntityModelObject) ');
+            console.log(e.name);
+            console.log(e.message);
+        }        
     };
 
-    // // 컨텍스트에 엔티티 주입
-    // Context.prototype.setEntity = function(pJSON) {
-    //     this._entityModel.register(pJSON);
-    // };
+    // SP 객체 얻기 
+    // ING:
+    Context.prototype.getRefProcedureObject = function(pIdx, pName, pNamespace) {
+        
+        var obj         = null;
+        var proceduce   = null;
+
+        if (pName !== null) {
+            proceduce = this.getProcedure(pName, pNamespace);
+            if (proceduce) obj = proceduce.getObject();
+        } else {            
+            obj = [];
+            for (var i = 0; i < this.proceduces.length; i++) {
+                if (this.proceduces[i]) {
+                    proceduce = this.proceduces[i].getObject();
+                    obj.push(proceduce);
+                }
+            }
+        }
+        return obj;
+    };    
+
+    // HashCode 객체 얻기 
+    // ING:
+    Context.prototype.getRefCodeObject = function(pIdx, pName, pNamespace) {
+        
+        var obj         = null;
+        var hashCode    = null;
+
+        if (pName !== null) {
+            hashCode = this.getCode(pName, pNamespace);
+            if (hashCode) obj = hashCode.getObject();
+        } else {
+            obj = [];
+            for (var i = 0; i < this.codes.length; i++) {
+                if (this.codes[i]) {
+                    hashCode = this.codes[i].getObject();
+                    obj.push(hashCode);
+                } 
+            }
+        }
+        return obj;
+    };    
 }());
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 function EntityModel() {
@@ -250,6 +468,11 @@ function EntityModel() {
 
     // 객체 중복 검사
     EntityModel.prototype._overlap = function(pThisArray, pName, pNamesapce) {
+
+        if (!pName) {
+            console.log('경고!! 객체의 name 필수 속성 없음 name:' + pName);
+        }
+        
         for (var i = 0; i < pThisArray.length; i++) {
             if (pThisArray.name === pName && pThisArray.namespace === pNamesapce) return true;
         }
@@ -269,7 +492,6 @@ function EntityModel() {
 
         if (!pJSON.entity_model) {
             throw new Error('entity_model 최상위 필수값 없음 오류 :');
-            return null;
         }
         entity_model = pJSON.entity_model;
 
@@ -341,14 +563,13 @@ function EntityModel() {
         }
         
         if (typeof jsonObj !== "object") {
-            console.log('타입 오류 : ' + pStrJSON);
+            throw new Error('타입 오류 : ' + pStrJSON);
         }
 
         if (typeof jsonObj.entity_model === "undefined") {
-            console.log('entity_model 필수 값 오류');
+            throw new Error('entity_model 필수 값 오류');
         }
         this.createEntityModelObject(jsonObj);
-        //this.entities.push(this.createEntityObject(jsonObj));
     }
 
     EntityModel.prototype.getEntity = function(pName, pNamespace) {
@@ -470,7 +691,6 @@ function Entity(pProp, pOnwer) {
         typeof pProp.type !== "string" || pProp.type.length <= 0 ||
         !pOnwer) {
         throw new Error('name type 필수값 없음 오류 :');
-        return null;
     }
     this._onwer     = pOnwer;
     this.name       = pProp.name;   // {필수}
@@ -498,12 +718,11 @@ function Entity(pProp, pOnwer) {
         
         if (!(pProp.sp instanceof Array)) pProp.sp = [pProp.sp];            // 배열삽입
         
-        for (var ii = 0; ii < pProp.sp.length; ii++) {
-            if (pProp.sp[ii].name) {
-                sp = this._onwer.getProcedure(pProp.sp[ii].name, pProp.sp[ii].namespace);    
+        for (var i = 0; i < pProp.sp.length; i++) {
+            if (pProp.sp[i].name) {
+                sp = this._onwer.getProcedure(pProp.sp[i].name, pProp.sp[i].namespace);    
                 if (!sp) {
                     throw new Error('지정 sp 객체 없음 (register등록 확인!) 오류 sp:' + pProp.sp[i].name);
-                    return null;
                 }
                 this.sp.push(sp);
             }
@@ -515,9 +734,9 @@ function Entity(pProp, pOnwer) {
 
         if (!(pProp.model instanceof Array)) pProp.model = [pProp.model];   // 배열삽입
 
-        for (var ii = 0; ii < pProp.model.length; ii++) {
-            if (pProp.model[ii].name) {
-                model = new Model(pProp.model[ii], this);
+        for (var i = 0; i < pProp.model.length; i++) {
+            if (pProp.model[i].name) {
+                model = new Model(pProp.model[i], this);
                 this.model.push(model);
             }
         }
@@ -819,7 +1038,6 @@ function Attr(pProp) {
     // 필수 값 검사
     if (typeof pProp.name !== "string" || pProp.name.length <= 0 ) {
         throw new Error('name 필수값 없음 오류 :');
-        return null;
     }
 
     this.name           = pProp.name;
@@ -843,7 +1061,6 @@ function Attr(pProp) {
         hashCode = new HashCode(codeName);
         if (!pProp.code.items) {
             throw new Error('items 필수값 없음 오류 :');
-            return null;
         }
         for (var i = 0; i < pProp.code.items.length; i++) {
             code = new Code(pProp.code.items[i]);
@@ -878,7 +1095,6 @@ function HashCode(pProp) {
     // 필수 값 검사
     if (typeof pProp.name !== "string" || pProp.name.length <= 0) {
         throw new Error('name 필수값 없음 오류 :');
-        return null;
     }
     this.name           = pProp.name;
     this.type           = "HASHCODE"
@@ -922,7 +1138,6 @@ function Code(pProp) {
     if (typeof pProp.key !== "string" || pProp.key.length <= 0 || 
         typeof pProp.value !== "string" || pProp.value.length <= 0) {
         throw new Error('key  value 필수값 없음 오류 :');
-        return null;
     }
     this.type           = "CODE"
     this.key            = pProp.key;
@@ -957,7 +1172,6 @@ function Model(pProp, pOnwer) {
     if (typeof pProp.name !== "string" || pProp.name.length <= 0 || 
         !pOnwer) {
         throw new Error('name 필수값 없음 오류 :');
-        return null;
     }
 
     // I[NSERT] | U[PDATE] | S[ELECT] | L[IST] | D[ELETE]
@@ -973,7 +1187,6 @@ function Model(pProp, pOnwer) {
         this.sp =  this._onwer._onwer.getProcedure(pProp.sp, pProp.namespace);
         if (!this.sp) {
             throw new Error('지정 sp 객체 없음 (register등록 확인!) 오류 sp:' + pProp.sp);
-            return null;
         }
     }
     // 참조 삽입
@@ -985,6 +1198,8 @@ function Model(pProp, pOnwer) {
             attr = this._onwer.getAttr(pProp.attr[i]);
             if (attr instanceof Attr) {
                 this.items.push(attr);
+            } else {
+                console.log('경고!! 대상 Entity 대상 Entity 에 해당 items 명 없음:' + pProp.attr[i]);
             }
         }
     }
@@ -1019,7 +1234,6 @@ function Procedure(pProp) {
     if (typeof pProp.name !== "string" || pProp.name.length <= 0 ||
         typeof pProp.type !== "string" || pProp.type.length <= 0) {
         throw new Error('name, type 필수값 없음 오류 :');
-        return null;
     }
     this.name       = pProp.name;   // {필수값}
     this.type       = pProp.type;   // {필수값} SP | FN | FT
@@ -1065,7 +1279,6 @@ function Param(pProp) {
     if (typeof pProp.name !== "string" || pProp.name.length <= 0 ||
         typeof pProp.value_type !== "string" || pProp.value_type.length <= 0) {
         throw new Error('name, valueType 필수값 없음 오류 :');
-        return null;
     }
     this.name           = pProp.name;   // {필수값}
     this.type           =  "PARAM";   // {필수값}

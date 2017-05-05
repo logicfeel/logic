@@ -17,14 +17,25 @@ var xml2json = require("node-xml2json");
 // var strXML = fs.readFileSync('./db_import.xml', 'utf8');
 
 
-var strJSON = fs.readFileSync('./eModel.json', 'utf8');
+var strJSON = fs.readFileSync('./e_Model.json', 'utf8');
+var strJSON_e = fs.readFileSync('./e_Entity.json', 'utf8');
+var strJSON_s = fs.readFileSync('./e_SP.json', 'utf8');
+var strJSON_c = fs.readFileSync('./e_Code.json', 'utf8');
+var strJSON_x = fs.readFileSync('./e_Context.json', 'utf8');
 
 var eModel = require('./EntityModel.js');
 
 var c = new eModel.Context();
 
-c.readEntityModel(strJSON);
+c.readEntityModel(strJSON);         // entityModel (전체) 읽기 테스트
 
+c.registerEntity(strJSON_e);        // entity 추가 등록 테스트
+c.registerProcedure(strJSON_s);     // entity 추가 등록 테스트
+c.registerCode(strJSON_c);          // entity 추가 등록 테스트
+
+c.readContext(strJSON_x)            // Context 읽기 테스트
+
+var compileContext = c.getContext();
 
 // c.load(precontext);
 // c.setEntity(entity);

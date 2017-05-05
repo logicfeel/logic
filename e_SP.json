@@ -1,0 +1,21 @@
+{
+    "entity_model": {
+        "procedure": [
+            {
+                "id": 14623095,
+                "name": "M06_SP_User",
+                "type": "SP",
+                "items": {
+                    "name": "@SeqNo",
+                    "type": "PARAM",
+                    "value_type": "Number",
+                    "length": 4,
+                    "isoutput": false,
+                    "default": "TODO:",
+                    "mssql_type": "int(10,0)",
+                    "mysql_type": null
+                }
+            }
+        ]
+    }
+}

@@ -1,0 +1,50 @@
+{
+    "pages": [
+        {
+            "name": "pre 컨텍스트",
+            "title": "관리자",
+            "subject": "공지사항",
+            "caption": "대출세상.Net,  대출직거래.kr   대출직거래.com",
+            "test_entity": {"entity_items": null},
+            "test_entity_a": {"entity_items": "sto_id"},
+            "test_model": {"entity_model": null},
+            "test_model_a": {"entity_model": "UPDATE"},
+            "test_model_sp": {"entity_model_sp": "UPDATE"},
+            "test_model_sp1": {"entity_model_sp": "INSERT"},
+            "test_model_sp_n": {"entity_model_sp": null},
+            "test_sp_all": {"entity_sp": null},
+            "test_sp": {"entity_sp": "M03_SP_Notice_U"},
+            "test_f_fk": {"entity_fk_list": null},
+            "test_f_pk": {"entity_pk_list": null},
+            "test_f_notnull": {"entity_notnull_list": null},
+            "test_f_null": {"entity_null_list": null},
+            "test_f_valid": {"entity_valid": null},
+            "test_f_vaild_C": {"entity_valid": "C"},
+            "test_f_vaild_R": {"entity_valid": "R"},
+            "test_f_vaild_U": {"entity_valid": "U"},
+            "test_f_vaild_D": {"entity_valid": "D"},
+            "test_f_vaild_L": {"entity_valid": "L"},
+            "test_c_all": {"entity_code": null},
+            "test_c": {"entity_code": "state_cd"},
+            "test_cc": {"entity_code": "P_TYPE"}
+        }
+    ],
+    "entities": [
+        {
+            "name": "M03_Notice",
+            "namespace": ""
+        }
+    ],
+    "procedures": [
+        {
+            "name": "M06_SP_QnAQuest_U",
+            "namespace": ""
+        }
+    ],
+    "codes": [
+        {
+            "name": "P_TYPE",
+            "namespace": "M01"
+        }
+    ]
+}
