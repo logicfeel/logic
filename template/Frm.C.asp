@@ -36,6 +36,7 @@
 	Dim cmd 
 	cmd				= Request("cmd")
 	
+	'$$ entity_valid : U  ! isInner 제외 됨  (C, U) 에서 제외됨
 	Dim  sto_id, ntc_idx
 	sto_id			= Request("sto_id")
 	ntc_idx			= Request("ntc_idx")	        	

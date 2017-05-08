@@ -129,8 +129,9 @@ function Context(pEntityModel) {
                 
                 // 값이 배열인 경우
                 if (pContext[prop] instanceof Array) {  
+                    context[prop] = [];
                     for (var i = 0; i < pContext[prop].length; i++) {
-                        context[prop] = this._parse(pContext[prop][i]);
+                        context[prop].push(this._parse(pContext[prop][i]));
                     }
                     
                 // 값이 객체인 경우    
