@@ -25,13 +25,15 @@ var strJSON_x = fs.readFileSync('./e_Context.json', 'utf8');
 
 var eModel = require('./EntityModel.js');
 
-var c = new eModel.Context();
+var em = new eModel.EntityModel();
 
-c.readEntityModel(strJSON);         // entityModel (전체) 읽기 테스트
+var c = new eModel.Context(em);
 
-c.registerEntity(strJSON_e);        // entity 추가 등록 테스트
-c.registerProcedure(strJSON_s);     // entity 추가 등록 테스트
-c.registerCode(strJSON_c);          // entity 추가 등록 테스트
+em.readEntityModel(strJSON);         // entityModel (전체) 읽기 테스트
+
+em.registerEntity(strJSON_e);        // entity 추가 등록 테스트
+em.registerProcedure(strJSON_s);     // entity 추가 등록 테스트
+em.registerCode(strJSON_c);          // entity 추가 등록 테스트
 
 c.readContext(strJSON_x)            // Context 읽기 테스트
 
@@ -48,9 +50,9 @@ var compileContext = c.getContext();
 // var json = $.xml2json(strXML);
 // var json = parser(strXML);
 
-// var string  = JSON.stringify(json, null, 4);
+var string  = JSON.stringify(compileContext, null, 4);
 
-// fs.writeFileSync('./context_obj2.json', context, 'utf8');
+fs.writeFileSync('./e_Parsing.json', string, 'utf8');
 
 
 // json 변환 테스트

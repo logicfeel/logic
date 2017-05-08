@@ -5,28 +5,41 @@
             "title": "관리자",
             "subject": "공지사항",
             "caption": "대출세상.Net,  대출직거래.kr   대출직거래.com",
-            "test_entity": {"entity_items": null},
-            "test_entity_a": {"entity_items": "sto_id"},
-            "test_model": {"entity_model": null},
-            "test_model_a": {"entity_model": "UPDATE"},
-            "test_model_sp": {"entity_model_sp": "UPDATE"},
-            "test_model_sp1": {"entity_model_sp": "INSERT"},
-            "test_model_sp_n": {"entity_model_sp": null},
-            "test_sp_all": {"entity_sp": null},
-            "test_sp": {"entity_sp": "M03_SP_Notice_U"},
-            "test_f_fk": {"entity_fk_list": null},
-            "test_f_pk": {"entity_pk_list": null},
-            "test_f_notnull": {"entity_notnull_list": null},
-            "test_f_null": {"entity_null_list": null},
-            "test_f_valid": {"entity_valid": null},
-            "test_f_vaild_C": {"entity_valid": "C"},
-            "test_f_vaild_R": {"entity_valid": "R"},
-            "test_f_vaild_U": {"entity_valid": "U"},
-            "test_f_vaild_D": {"entity_valid": "D"},
-            "test_f_vaild_L": {"entity_valid": "L"},
-            "test_c_all": {"entity_code": null},
-            "test_c": {"entity_code": "state_cd"},
-            "test_cc": {"entity_code": "P_TYPE"}
+            "test_cxt_code_X": {"context_code": "state_cd"},
+            "test_cxt_code_all": {"context_code": null},
+            "test_cxt_code": {"context_code": "P_TYPE"},
+
+            "test_cxt_sp": {"context_sp": "M06_SP_QnAQuest_C"},
+            "test_cxt_sp_X": {"context_sp": "M05_SP_DspPrtAll_RX"},
+            "test_cxt_sp_all": {"context_sp": null},
+            "test_cxt_sp_all_0": {"context_sp[0]": null},
+            "test_cxt_sp_all_1": {"context_sp[1]": null},
+
+            "test_e_inner_fk": {"entity_fk_list": null},
+            "test_e_inner_notnull": {"entity_notnull_list": null},
+            "test_e_inner_null": {"entity_null_list": null},
+            "test_e_inner_pk": {"entity_pk_list": null},
+            "test_e_inner_vaild_C": {"entity_valid": "C"},
+            "test_e_inner_vaild_R": {"entity_valid": "R"},
+            "test_e_inner_vaild_U": {"entity_valid": "U"},
+            "test_e_inner_vaild_D": {"entity_valid": "D"},
+            "test_e_inner_vaild_L": {"entity_valid": "L"},
+            "test_e_inner_valid_null": {"entity_valid": null},
+
+            "test_e_items_all": {"entity_items": null},
+            "test_e_items_attr": {"entity_items": "sto_id"},
+            
+            "test_e_model_all": {"entity_model": null},
+            "test_e_model_nm": {"entity_model": "UPDATE"},
+            "test_e_model_sp_nm": {"entity_model_sp": "DELETE"},
+            "test_e_model_sp_nm_X": {"entity_model_sp": "INSERT"},
+            "test_e_model_sp_null": {"entity_model_sp": null},
+
+            "test_e_sp": {"entity_sp": "M06_SP_QnAQuest_U"},
+            "test_e_sp_0_null": {"entity_sp[0]": null},
+            "test_e_sp_all": {"entity_sp": null},
+
+            "End": "AAA"
         }
     ],
     "entities": [
@@ -39,7 +52,16 @@
         {
             "name": "M06_SP_QnAQuest_U",
             "namespace": ""
+        },
+        {
+            "name": "M06_SP_QnAQuest_I",
+            "namespace": ""
+        },        
+        {
+            "name": "M06_SP_QnAQuest_C",
+            "namespace": ""
         }
+        
     ],
     "codes": [
         {
