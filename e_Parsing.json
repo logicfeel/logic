@@ -154,7 +154,8 @@
                     "length": 6,
                     "mssql_type": "char(6)",
                     "mysql_type": "",
-                    "code": null
+                    "code": null,
+                    "isInside": false
                 }
             ],
             "test_e_inner_notnull": [
@@ -172,7 +173,8 @@
                     "length": 4,
                     "mssql_type": "int(10,0)",
                     "mysql_type": "",
-                    "code": null
+                    "code": null,
+                    "isInside": true
                 },
                 {
                     "name": "sto_id",
@@ -188,7 +190,8 @@
                     "length": 6,
                     "mssql_type": "char(6)",
                     "mysql_type": "",
-                    "code": null
+                    "code": null,
+                    "isInside": false
                 },
                 {
                     "name": "title",
@@ -204,7 +207,8 @@
                     "length": 100,
                     "mssql_type": "varchar(100)",
                     "mysql_type": "",
-                    "code": null
+                    "code": null,
+                    "isInside": false
                 },
                 {
                     "name": "noticeType_cd",
@@ -220,7 +224,8 @@
                     "length": 1,
                     "mssql_type": "char(1)",
                     "mysql_type": "",
-                    "code": null
+                    "code": null,
+                    "isInside": false
                 },
                 {
                     "name": "create_dt",
@@ -236,7 +241,8 @@
                     "length": 8,
                     "mssql_type": "datetime",
                     "mysql_type": "",
-                    "code": null
+                    "code": null,
+                    "isInside": true
                 },
                 {
                     "name": "cnt",
@@ -252,7 +258,8 @@
                     "length": 4,
                     "mssql_type": "int(10,0)",
                     "mysql_type": "",
-                    "code": null
+                    "code": null,
+                    "isInside": true
                 },
                 {
                     "name": "state_cd",
@@ -268,7 +275,8 @@
                     "length": 1,
                     "mssql_type": "char(1)",
                     "mysql_type": "",
-                    "code": null
+                    "code": null,
+                    "isInside": true
                 },
                 {
                     "name": "del_yn",
@@ -284,7 +292,8 @@
                     "length": 1,
                     "mssql_type": "char(1)",
                     "mysql_type": "",
-                    "code": null
+                    "code": null,
+                    "isInside": true
                 }
             ],
             "test_e_inner_null": [
@@ -302,7 +311,8 @@
                     "length": 20,
                     "mssql_type": "varchar(20)",
                     "mysql_type": "",
-                    "code": null
+                    "code": null,
+                    "isInside": false
                 },
                 {
                     "name": "content",
@@ -318,7 +328,8 @@
                     "length": 2000,
                     "mssql_type": "varchar(2000)",
                     "mysql_type": "",
-                    "code": null
+                    "code": null,
+                    "isInside": false
                 }
             ],
             "test_e_inner_pk": [
@@ -336,7 +347,8 @@
                     "length": 4,
                     "mssql_type": "int(10,0)",
                     "mysql_type": "",
-                    "code": null
+                    "code": null,
+                    "isInside": true
                 }
             ],
             "test_e_inner_vaild_C": [
@@ -354,7 +366,8 @@
                     "length": 6,
                     "mssql_type": "char(6)",
                     "mysql_type": "",
-                    "code": null
+                    "code": null,
+                    "isInside": false
                 },
                 {
                     "name": "title",
@@ -370,7 +383,8 @@
                     "length": 100,
                     "mssql_type": "varchar(100)",
                     "mysql_type": "",
-                    "code": null
+                    "code": null,
+                    "isInside": false
                 },
                 {
                     "name": "noticeType_cd",
@@ -386,71 +400,8 @@
                     "length": 1,
                     "mssql_type": "char(1)",
                     "mysql_type": "",
-                    "code": null
-                },
-                {
-                    "name": "create_dt",
-                    "type": "ATTR",
-                    "value_type": "Date",
-                    "caption": "",
-                    "isNull": false,
-                    "PK": false,
-                    "FK": false,
-                    "FK_ref": null,
-                    "unique": false,
-                    "default": "(getdate())",
-                    "length": 8,
-                    "mssql_type": "datetime",
-                    "mysql_type": "",
-                    "code": null
-                },
-                {
-                    "name": "cnt",
-                    "type": "ATTR",
-                    "value_type": "Number",
-                    "caption": "",
-                    "isNull": false,
-                    "PK": false,
-                    "FK": false,
-                    "FK_ref": null,
-                    "unique": false,
-                    "default": "((0))",
-                    "length": 4,
-                    "mssql_type": "int(10,0)",
-                    "mysql_type": "",
-                    "code": null
-                },
-                {
-                    "name": "state_cd",
-                    "type": "ATTR",
-                    "value_type": "String",
-                    "caption": "",
-                    "isNull": false,
-                    "PK": false,
-                    "FK": false,
-                    "FK_ref": null,
-                    "unique": false,
-                    "default": "('D')",
-                    "length": 1,
-                    "mssql_type": "char(1)",
-                    "mysql_type": "",
-                    "code": null
-                },
-                {
-                    "name": "del_yn",
-                    "type": "ATTR",
-                    "value_type": "String",
-                    "caption": "",
-                    "isNull": false,
-                    "PK": false,
-                    "FK": false,
-                    "FK_ref": null,
-                    "unique": false,
-                    "default": "('N')",
-                    "length": 1,
-                    "mssql_type": "char(1)",
-                    "mysql_type": "",
-                    "code": null
+                    "code": null,
+                    "isInside": false
                 }
             ],
             "test_e_inner_vaild_R": [
@@ -468,7 +419,8 @@
                     "length": 4,
                     "mssql_type": "int(10,0)",
                     "mysql_type": "",
-                    "code": null
+                    "code": null,
+                    "isInside": true
                 },
                 {
                     "name": "sto_id",
@@ -484,27 +436,12 @@
                     "length": 6,
                     "mssql_type": "char(6)",
                     "mysql_type": "",
-                    "code": null
+                    "code": null,
+                    "isInside": false
                 }
             ],
             "test_e_inner_vaild_U": [
                 {
-                    "name": "ntc_idx",
-                    "type": "ATTR",
-                    "value_type": "Number",
-                    "caption": "",
-                    "isNull": false,
-                    "PK": true,
-                    "FK": false,
-                    "FK_ref": null,
-                    "unique": true,
-                    "default": "(inc)",
-                    "length": 4,
-                    "mssql_type": "int(10,0)",
-                    "mysql_type": "",
-                    "code": null
-                },
-                {
                     "name": "sto_id",
                     "type": "ATTR",
                     "value_type": "String",
@@ -518,7 +455,8 @@
                     "length": 6,
                     "mssql_type": "char(6)",
                     "mysql_type": "",
-                    "code": null
+                    "code": null,
+                    "isInside": false
                 },
                 {
                     "name": "title",
@@ -534,7 +472,8 @@
                     "length": 100,
                     "mssql_type": "varchar(100)",
                     "mysql_type": "",
-                    "code": null
+                    "code": null,
+                    "isInside": false
                 },
                 {
                     "name": "noticeType_cd",
@@ -550,71 +489,8 @@
                     "length": 1,
                     "mssql_type": "char(1)",
                     "mysql_type": "",
-                    "code": null
-                },
-                {
-                    "name": "create_dt",
-                    "type": "ATTR",
-                    "value_type": "Date",
-                    "caption": "",
-                    "isNull": false,
-                    "PK": false,
-                    "FK": false,
-                    "FK_ref": null,
-                    "unique": false,
-                    "default": "(getdate())",
-                    "length": 8,
-                    "mssql_type": "datetime",
-                    "mysql_type": "",
-                    "code": null
-                },
-                {
-                    "name": "cnt",
-                    "type": "ATTR",
-                    "value_type": "Number",
-                    "caption": "",
-                    "isNull": false,
-                    "PK": false,
-                    "FK": false,
-                    "FK_ref": null,
-                    "unique": false,
-                    "default": "((0))",
-                    "length": 4,
-                    "mssql_type": "int(10,0)",
-                    "mysql_type": "",
-                    "code": null
-                },
-                {
-                    "name": "state_cd",
-                    "type": "ATTR",
-                    "value_type": "String",
-                    "caption": "",
-                    "isNull": false,
-                    "PK": false,
-                    "FK": false,
-                    "FK_ref": null,
-                    "unique": false,
-                    "default": "('D')",
-                    "length": 1,
-                    "mssql_type": "char(1)",
-                    "mysql_type": "",
-                    "code": null
-                },
-                {
-                    "name": "del_yn",
-                    "type": "ATTR",
-                    "value_type": "String",
-                    "caption": "",
-                    "isNull": false,
-                    "PK": false,
-                    "FK": false,
-                    "FK_ref": null,
-                    "unique": false,
-                    "default": "('N')",
-                    "length": 1,
-                    "mssql_type": "char(1)",
-                    "mysql_type": "",
-                    "code": null
+                    "code": null,
+                    "isInside": false
                 }
             ],
             "test_e_inner_vaild_D": [
@@ -632,7 +508,8 @@
                     "length": 4,
                     "mssql_type": "int(10,0)",
                     "mysql_type": "",
-                    "code": null
+                    "code": null,
+                    "isInside": true
                 }
             ],
             "test_e_inner_vaild_L": [
@@ -650,7 +527,8 @@
                     "length": 6,
                     "mssql_type": "char(6)",
                     "mysql_type": "",
-                    "code": null
+                    "code": null,
+                    "isInside": false
                 }
             ],
             "test_e_inner_valid_null": [],
@@ -669,7 +547,8 @@
                     "length": 4,
                     "mssql_type": "int(10,0)",
                     "mysql_type": "",
-                    "code": null
+                    "code": null,
+                    "isInside": true
                 },
                 {
                     "name": "sto_id",
@@ -685,7 +564,8 @@
                     "length": 6,
                     "mssql_type": "char(6)",
                     "mysql_type": "",
-                    "code": null
+                    "code": null,
+                    "isInside": false
                 },
                 {
                     "name": "title",
@@ -701,7 +581,8 @@
                     "length": 100,
                     "mssql_type": "varchar(100)",
                     "mysql_type": "",
-                    "code": null
+                    "code": null,
+                    "isInside": false
                 },
                 {
                     "name": "noticeType_cd",
@@ -717,7 +598,8 @@
                     "length": 1,
                     "mssql_type": "char(1)",
                     "mysql_type": "",
-                    "code": null
+                    "code": null,
+                    "isInside": false
                 },
                 {
                     "name": "writer",
@@ -733,7 +615,8 @@
                     "length": 20,
                     "mssql_type": "varchar(20)",
                     "mysql_type": "",
-                    "code": null
+                    "code": null,
+                    "isInside": false
                 },
                 {
                     "name": "create_dt",
@@ -749,7 +632,8 @@
                     "length": 8,
                     "mssql_type": "datetime",
                     "mysql_type": "",
-                    "code": null
+                    "code": null,
+                    "isInside": true
                 },
                 {
                     "name": "cnt",
@@ -765,7 +649,8 @@
                     "length": 4,
                     "mssql_type": "int(10,0)",
                     "mysql_type": "",
-                    "code": null
+                    "code": null,
+                    "isInside": true
                 },
                 {
                     "name": "content",
@@ -781,7 +666,8 @@
                     "length": 2000,
                     "mssql_type": "varchar(2000)",
                     "mysql_type": "",
-                    "code": null
+                    "code": null,
+                    "isInside": false
                 },
                 {
                     "name": "state_cd",
@@ -797,7 +683,8 @@
                     "length": 1,
                     "mssql_type": "char(1)",
                     "mysql_type": "",
-                    "code": null
+                    "code": null,
+                    "isInside": true
                 },
                 {
                     "name": "del_yn",
@@ -813,7 +700,8 @@
                     "length": 1,
                     "mssql_type": "char(1)",
                     "mysql_type": "",
-                    "code": null
+                    "code": null,
+                    "isInside": true
                 }
             ],
             "test_e_items_attr": {
@@ -830,7 +718,8 @@
                 "length": 6,
                 "mssql_type": "char(6)",
                 "mysql_type": "",
-                "code": null
+                "code": null,
+                "isInside": false
             },
             "test_e_model_all": [
                 {
@@ -851,7 +740,8 @@
                             "length": 4,
                             "mssql_type": "int(10,0)",
                             "mysql_type": "",
-                            "code": null
+                            "code": null,
+                            "isInside": true
                         },
                         {
                             "name": "content",
@@ -867,7 +757,8 @@
                             "length": 2000,
                             "mssql_type": "varchar(2000)",
                             "mysql_type": "",
-                            "code": null
+                            "code": null,
+                            "isInside": false
                         }
                     ]
                 },
@@ -889,7 +780,8 @@
                             "length": 4,
                             "mssql_type": "int(10,0)",
                             "mysql_type": "",
-                            "code": null
+                            "code": null,
+                            "isInside": true
                         },
                         {
                             "name": "del_yn",
@@ -905,7 +797,8 @@
                             "length": 1,
                             "mssql_type": "char(1)",
                             "mysql_type": "",
-                            "code": null
+                            "code": null,
+                            "isInside": true
                         }
                     ]
                 },
@@ -927,7 +820,8 @@
                             "length": 4,
                             "mssql_type": "int(10,0)",
                             "mysql_type": "",
-                            "code": null
+                            "code": null,
+                            "isInside": true
                         },
                         {
                             "name": "del_yn",
@@ -943,7 +837,8 @@
                             "length": 1,
                             "mssql_type": "char(1)",
                             "mysql_type": "",
-                            "code": null
+                            "code": null,
+                            "isInside": true
                         }
                     ]
                 },
@@ -971,7 +866,8 @@
                         "length": 4,
                         "mssql_type": "int(10,0)",
                         "mysql_type": "",
-                        "code": null
+                        "code": null,
+                        "isInside": true
                     },
                     {
                         "name": "content",
@@ -987,7 +883,8 @@
                         "length": 2000,
                         "mssql_type": "varchar(2000)",
                         "mysql_type": "",
-                        "code": null
+                        "code": null,
+                        "isInside": false
                     }
                 ]
             },
@@ -1092,7 +989,158 @@
         {
             "name": "폼 콜백",
             "template_file": "Frm.C.asp",
-            "targat_file": "T_Frm.C.asp"
+            "targat_file": "T_Frm.C.asp",
+            "request": [
+                {
+                    "name": "sto_id",
+                    "type": "ATTR",
+                    "value_type": "String",
+                    "caption": "",
+                    "isNull": false,
+                    "PK": false,
+                    "FK": true,
+                    "FK_ref": null,
+                    "unique": false,
+                    "default": "",
+                    "length": 6,
+                    "mssql_type": "char(6)",
+                    "mysql_type": "",
+                    "code": null,
+                    "isInside": false
+                },
+                {
+                    "name": "title",
+                    "type": "ATTR",
+                    "value_type": "String",
+                    "caption": "",
+                    "isNull": false,
+                    "PK": false,
+                    "FK": false,
+                    "FK_ref": null,
+                    "unique": false,
+                    "default": "",
+                    "length": 100,
+                    "mssql_type": "varchar(100)",
+                    "mysql_type": "",
+                    "code": null,
+                    "isInside": false
+                },
+                {
+                    "name": "noticeType_cd",
+                    "type": "ATTR",
+                    "value_type": "String",
+                    "caption": "",
+                    "isNull": false,
+                    "PK": false,
+                    "FK": false,
+                    "FK_ref": null,
+                    "unique": false,
+                    "default": "",
+                    "length": 1,
+                    "mssql_type": "char(1)",
+                    "mysql_type": "",
+                    "code": null,
+                    "isInside": false
+                }
+            ],
+            "vaild_IU": {
+                "교집합": [
+                    [],
+                    [
+                        {
+                            "name": "sto_id",
+                            "type": "ATTR",
+                            "value_type": "String",
+                            "caption": "",
+                            "isNull": false,
+                            "PK": false,
+                            "FK": true,
+                            "FK_ref": null,
+                            "unique": false,
+                            "default": "",
+                            "length": 6,
+                            "mssql_type": "char(6)",
+                            "mysql_type": "",
+                            "code": null,
+                            "isInside": false
+                        },
+                        {
+                            "name": "title",
+                            "type": "ATTR",
+                            "value_type": "String",
+                            "caption": "",
+                            "isNull": false,
+                            "PK": false,
+                            "FK": false,
+                            "FK_ref": null,
+                            "unique": false,
+                            "default": "",
+                            "length": 100,
+                            "mssql_type": "varchar(100)",
+                            "mysql_type": "",
+                            "code": null,
+                            "isInside": false
+                        },
+                        {
+                            "name": "noticeType_cd",
+                            "type": "ATTR",
+                            "value_type": "String",
+                            "caption": "",
+                            "isNull": false,
+                            "PK": false,
+                            "FK": false,
+                            "FK_ref": null,
+                            "unique": false,
+                            "default": "",
+                            "length": 1,
+                            "mssql_type": "char(1)",
+                            "mysql_type": "",
+                            "code": null,
+                            "isInside": false
+                        }
+                    ]
+                ]
+            },
+            "cmd_SELECT": {
+                "name": "M05_SP_DspPrtAll_RX",
+                "type": "SP",
+                "namespace": "",
+                "items": [
+                    {
+                        "name": "@dsp_idx",
+                        "type": "PARAM",
+                        "value_type": "Number",
+                        "length": 4,
+                        "isOutput": false,
+                        "default": "TODO:"
+                    },
+                    {
+                        "name": "@listCnt",
+                        "type": "PARAM",
+                        "value_type": "Number",
+                        "length": 4,
+                        "isOutput": false,
+                        "default": "TODO:"
+                    }
+                ]
+            },
+            "cmd_INSERT": null,
+            "cmd_UPDATE": null,
+            "cmd_DELETE": {
+                "name": "M06_SP_QnAQuest_U",
+                "type": "SP",
+                "namespace": "",
+                "items": [
+                    {
+                        "name": "@SeqNo",
+                        "type": "PARAM",
+                        "value_type": "Number",
+                        "length": 4,
+                        "isOutput": false,
+                        "default": "TODO:"
+                    }
+                ]
+            }
         }
     ],
     "common": {

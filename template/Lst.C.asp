@@ -54,6 +54,7 @@
 	Dim strSQL, strSqlOrderby, DBCls, rs
 	Set DBCls = new DBUtils_cls
 
+	' $$ entity_model_sp : LIST
 	if cmd = "SELECT" then
 
 		Dim paramInfo_S(4)

@@ -689,8 +689,29 @@ function Entity(pProp, pOnwer) {
 (function() {
 
     // TODO: 전역 검토
-    // 중복제거 배열 합침 :: 파괴형
+    // 중복제거 배열 합침(합집합) :: 파괴형
     Entity.prototype._unionConcat = function(pArray, pTarget) {
+
+        var union = true;
+
+        if (pArray instanceof Array && pTarget instanceof Array) {
+            for (var i = 0; i < pTarget.length; i++) {
+                union = false;
+                for (var ii = 0; ii < pArray.length; ii++) {
+                    if (pTarget[i] === pArray[ii]) {
+                        union = true;
+                        break;
+                    }
+                }
+                if (union) pArray.push(pTarget[i]);
+            }
+        }
+        return pArray;
+    };    
+
+    // TODO: 전역 검토
+    // 중복제거 배열 합침(교집합) :: 파괴형
+    Entity.prototype._unionAllConcat = function(pArray, pTarget) {
 
         var union = true;
 
@@ -782,6 +803,18 @@ function Entity(pProp, pOnwer) {
         return array;
     };
 
+    // { entity_inside_list : null }
+    Entity.prototype.inside_list = function() {
+
+        var array = [];
+
+        for (var i = 0; i < this.items.length; i++) {
+            if (this.items[i].isInside  === true) array.push(this.items[i]);
+        }
+        return array;
+    };
+
+
     // { entity_valid: "CRUDL" }
     Entity.prototype.valid = function(pCRUDL) {
 
@@ -793,22 +826,25 @@ function Entity(pProp, pOnwer) {
                  * REVIEW: DB에 등록시 :: PK 자동등록(증가), PK 수동등록 정의 필요
                  * PK 기본값 있을시 : PK 빼기
                  * PK 기본값 없을시 : PK 넣기
+                 * 내부값 빼기
                  */
                 array = this.notNull_list();
-                array = this._unionConcat(array, this.FK_list());
+                array = this._unionAllConcat(array, this.FK_list());
                 array = this._removeArray(array, this.PK_list(true));
-                array = this._unionConcat(array, this.FK_list(false));
+                array = this._unionAllConcat(array, this.FK_list(false));
+                array = this._removeArray(array, this.inside_list());
                 break;
 
             case "R":   // PK + FK
                 array = this.PK_list(null);
-                array = this._unionConcat(array, this.FK_list());
+                array = this._unionAllConcat(array, this.FK_list());
                 break;
 
-            case "U":   // PK + FK + not null
+            case "U":   // PK + FK + not null ->  내부값 빼기
                 array = this.PK_list(null);
-                array = this._unionConcat(array, this.FK_list());
-                array = this._unionConcat(array, this.notNull_list());
+                array = this._unionAllConcat(array, this.FK_list());
+                array = this._unionAllConcat(array, this.notNull_list());
+                array = this._removeArray(array, this.inside_list());
                 break;
 
             case "D":   // PK
@@ -1045,6 +1081,7 @@ function Attr(pProp) {
     this.mssql_type     = pProp.mssql_type ? pProp.mssql_type : "";
     this.mysql_type     = pProp.mysql_type ? pProp.mysql_type : "";
     this.code           = null;
+    this.isInside       = pProp.isInside ?  true : false;
 
     // TODO: 등록 위치 바뀜
     if (pProp.code) {

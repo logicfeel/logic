@@ -50,7 +50,8 @@
             "cmd_SELECT": {"entity_model_sp": "SELECT"},
             "cmd_INSERT": {"entity_model_sp": "INSERT"},
             "cmd_UPDATE": {"entity_model_sp": "UPDATE"},
-            "cmd_DELETE": {"entity_model_sp": "DELETE"}
+            "cmd_DELETE": {"entity_model_sp": "DELETE"},
+            "viewbind": {"eitity_items": ["sto_id", "title_id"]}
         }
     ],
     "common": {

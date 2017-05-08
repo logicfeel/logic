@@ -36,7 +36,7 @@
 	Dim cmd 
 	cmd				= Request("cmd")
 	
-	'$$ entity_valid : U  ! isInner 제외 됨  (C, U) 에서 제외됨
+	'$$ entity_items : U    (U)가 포함적이기 때문에 U 만 받으면됨  (*isInside 제외 됨)
 	Dim  sto_id, ntc_idx
 	sto_id			= Request("sto_id")
 	ntc_idx			= Request("ntc_idx")	        	
@@ -54,6 +54,7 @@
 	end if
 
 	if cmd = "INSERT" OR cmd = "UPDATE" then
+		'$$ entity_valid : U + I  교집합
 		if len(title) <= 0 OR len(writer) <= 0 OR len(noticeType_cd) <= 0 then
 			Response.Write "<root totalCnt='0'  return='5'></root>"
 	        Response.End 
@@ -70,6 +71,7 @@
 
 	if cmd = "SELECT" then
 
+		'$$ entity_model_sp : SELECT
 		Dim paramInfo_S(1)
 
 		paramInfo_S(0) = DBCls.MakeParam("RETURN_VALUE", adInteger, adParamReturnValue, , "")						
@@ -88,6 +90,7 @@
 
     elseif cmd = "INSERT" then
 
+		'$$ entity_model_sp : INSERT
     	Dim paramInfo_I(5)
 
 		paramInfo_I(0) = DBCls.MakeParam("RETURN_VALUE", adInteger, adParamReturnValue, , "")						
@@ -103,6 +106,7 @@
         
     elseif cmd = "UPDATE" then
 
+		'$$ entity_model_sp : UPDATE
 		Dim paramInfo_U(5)
 		
 		paramInfo_U(0) = DBCls.MakeParam("RETURN_VALUE", adInteger, adParamReturnValue, , "")						
@@ -118,6 +122,7 @@
 
     elseif cmd = "DELETE" then
 
+		'$$ entity_model_sp : UPDATE
 		Dim paramInfo_D(1)
 
 		paramInfo_D(0) = DBCls.MakeParam("RETURN_VALUE", adInteger, adParamReturnValue, , "")						
@@ -132,10 +137,13 @@
 	DBCls.Dispose
 	Set DBCls = Nothing
     
+'$$ 아래부분 필요시 컨텍스트에 별도 분기 삽입
+
 %>
 
 <!--#include virtual="/api/Naver_Cls.asp"-->
 <%
+
 if cmd = "INSERT" OR cmd = "UPDATE" then
 	Dim objSyndi : Set objSyndi = New NaverSyndi_Class
 	Dim r 

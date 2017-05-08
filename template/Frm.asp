@@ -38,7 +38,7 @@
 <body>
 
 <div class="container">
-
+  <!-- $$ pages.설정값.설명  -->
   <h2>공지사항</h2>
   <p>"대출세상.Net,  대출직거래.kr   대출직거래.com"</p>
 
@@ -84,6 +84,8 @@
     <br />
 	<div class="form-group">
 		<div class="control-label col-sm-10">
+	    
+	    <!-- $$ pages.설정값.플래그=기능설정  -->
 	    <button type="button" id="btn_List" class="btn btn-default">목록</button>
 	    <button type="button" id="btn_Insert" class="btn btn-info">등록</button>
 	    <button type="button" id="btn_Update" class="btn btn-info">수정</button>
@@ -96,6 +98,7 @@
 
 <div class="container">
   <h4><span class="glyphicon glyphicon-volume-up"></span> 도움말</h4>
+  <!-- $$ pages.설정값.설명  -->
   <div class="well col-sm-10">- <span class="glyphicon glyphicon-paperclip"></span> 은 필수 입력 사항입니다.</div>
 </div>
 
@@ -144,9 +147,14 @@
     //************** Main   템플릿  ************************
     var Main = {};
 
+
+	//<!-- $$ pages.설정값.플래그=기능설정 ** 전반적으로 이용됨 -->
+
     //----------------------------------------
     // 메인 초기화
     Main.Init = function () {
+		
+		// $$ commom. 설정값
 		
         Main.ListURL = "Notice_Lst.asp";
         Main.Form = $("#frm_default")[0];
@@ -176,6 +184,8 @@
     //----------------------------------------
     // 처리 버튼 이벤트 
     Main.Event_Reg = function () {
+        
+        //<!-- $$ pages.설정값.플래그=기능설정  -->
         $("#btn_List").click(function () {
             location.href = Main.ListURL;
         });
@@ -205,6 +215,7 @@
             return;
         }
 
+		// $$ PK 로 처리
         if (Main.Params.cmd == "UPDATE"
     			&& typeof (Main.Params.ntc_idx) == "undefined" && Main.Params.ntc_idx == ""
     			&& typeof (Main.Params.sto_id) == "undefined" && Main.Params.sto_id == ""
@@ -260,6 +271,8 @@
 
     Main.Valid_Insert = function(){
         // 입력값 유효성 검사
+        
+        // $$ vI 
         try{
             var frm = Main.Form;
             if(isNull(frm.sto_id, '상점코드')){
@@ -278,6 +291,8 @@
 
     Main.Valid_Update = function(){
         // 입력값 유효성 검사
+        
+        // $$ vU 
         try{
             var frm = Main.Form;
             if(isNull(frm.sto_id, '상점코드')){
@@ -298,6 +313,8 @@
 
     Main.Valid_Delete = function(){
         // 입력값 유효성 검사
+        
+        // $$ PK 
         try{
             
             if (confirm('삭제하시겠습니까?')){
@@ -316,6 +333,9 @@
 
 	//----------------------------------------
 	// Proc 처리 모드
+    
+    //<!-- $$ pages.설정값.플래그=기능설정  -->
+    
     Main.Proc_Insert = function () {
         if (Main.Valid_Insert())                       
             Main.M_Insert();
@@ -335,6 +355,8 @@
 	// 뷰 바인딩
 
     // 모델 뷰 바인딩 : Ajax
+    
+    // $$ PK
     Main.M_ViewBind = function (ntc_idx, sto_id) {
 		try {
 	        $.ajax({
@@ -385,6 +407,7 @@
 	//----------------------------------------
 	// 모델 처리
 
+	// $$ C
     Main.M_Insert = function () {
 		try {
 	        $.post(Main.FormBindUrl,
@@ -407,7 +430,7 @@
         } catch (e) {JsErrorMessage(e);}                     
 	}
 	
-	
+	// $$ U
     Main.M_Update = function () {
 		try {
 	        $.post(Main.FormBindUrl,
@@ -429,6 +452,7 @@
         } catch (e) {JsErrorMessage(e);}        
 	}
 
+	// $$ PK
     Main.M_Delete = function () {
 		try {
 	        $.post(Main.FormBindUrl,
@@ -452,6 +476,7 @@
 	// 기타
 	Main.C_StatusMsg = function(result, status) {
 
+		// $$ Code
 
 		if(status = "success" && result.return == "0")
 			alert("정상 처리 되었습니다.");
