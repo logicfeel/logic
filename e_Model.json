@@ -20,7 +20,10 @@
                         "mysql_type": null,
                         "pk": true,
                         "fk": null,
-                        "fk_ref": null
+                        "fk_ref": null,
+                        "form":{
+                            "type": "hidden"
+                        }
                     },
                     {
                         "name": "sto_id",
@@ -35,7 +38,10 @@
                         "mysql_type": null,
                         "pk": false,
                         "fk": true,
-                        "fk_ref": null
+                        "fk_ref": null,
+                        "form":{
+                            "type": "hidden"
+                        }
                     },
                     {
                         "name": "title",
@@ -50,7 +56,10 @@
                         "mysql_type": null,
                         "pk": false,
                         "fk": null,
-                        "fk_ref": null
+                        "fk_ref": null,
+                        "form":{
+                            "type": "text"
+                        }
                     },
                     {
                         "name": "noticeType_cd",
@@ -65,7 +74,10 @@
                         "mysql_type": null,
                         "pk": false,
                         "fk": null,
-                        "fk_ref": null
+                        "fk_ref": null,
+                        "form":{
+                            "type": "radio"
+                        }
                     },
                     {
                         "name": "writer",
@@ -80,7 +92,10 @@
                         "mysql_type": null,
                         "pk": false,
                         "fk": null,
-                        "fk_ref": null
+                        "fk_ref": null,
+                        "form":{
+                            "type": "text"
+                        }
                     },
                     {
                         "name": "create_dt",
@@ -96,7 +111,10 @@
                         "mysql_type": null,
                         "pk": false,
                         "fk": null,
-                        "fk_ref": null
+                        "fk_ref": null,
+                        "form":{
+                            "type": "label"
+                        }
                     },
                     {
                         "name": "cnt",
@@ -112,7 +130,10 @@
                         "mysql_type": null,
                         "pk": false,
                         "fk": null,
-                        "fk_ref": null
+                        "fk_ref": null,
+                        "form":{
+                            "type": "label"
+                        }
                     },
                     {
                         "name": "content",
@@ -127,7 +148,10 @@
                         "mysql_type": null,
                         "pk": false,
                         "fk": null,
-                        "fk_ref": null
+                        "fk_ref": null,
+                        "form":{
+                            "type": "textarea"
+                        }
                     },
                     {
                         "name": "state_cd",
