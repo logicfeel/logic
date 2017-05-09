@@ -41,7 +41,7 @@
                         "fk_ref": null,
                         "form":{
                             "type": "hidden"
-                        }
+                        },
                     },
                     {
                         "name": "title",
@@ -77,6 +77,10 @@
                         "fk_ref": null,
                         "form":{
                             "type": "radio"
+                        },
+                        "code": {
+                            "name": "noticeType_cd", 
+                            "namespace": "M01"
                         }
                     },
                     {
@@ -594,6 +598,14 @@
                 "items": [
                     {"key": "K1", "value":"선두"},
                     {"key": "K2", "value":"하단"}
+                ]
+            },
+            {
+                "name": "noticeType_cd",
+                "namespace": "M01",
+                "items": [
+                    {"key": "A", "value":"일반"},
+                    {"key": "T", "value":"공지"}
                 ]
             }
         ]

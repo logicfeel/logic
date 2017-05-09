@@ -43,7 +43,7 @@
         },
         {
             "name": "폼 콜백",
-            "template_file": "Frm.C.asp",
+            "template_file": "_Frm.C.asp",
             "targat_file": "T_Frm.C.asp",
             "request": {"entity_valid": "U"},
             "vaild_IU": {"교집합": [{"entity_valid": "I"}, {"entity_valid": "U"}]},
@@ -51,7 +51,10 @@
             "cmd_INSERT": {"entity_model_sp": "INSERT"},
             "cmd_UPDATE": {"entity_model_sp": "UPDATE"},
             "cmd_DELETE": {"entity_model_sp": "DELETE"},
-            "viewbind": {"eitity_items": ["sto_id", "title_id"]}
+            "entity_bind": [ 
+                "sto_id", 
+                "title_id"
+            ]
         }
     ],
     "common": {
