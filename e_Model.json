@@ -21,9 +21,7 @@
                         "pk": true,
                         "fk": null,
                         "fk_ref": null,
-                        "form":{
-                            "type": "hidden"
-                        }
+                        "form": "hidden"
                     },
                     {
                         "name": "sto_id",
@@ -41,7 +39,7 @@
                         "fk_ref": null,
                         "form":{
                             "type": "hidden"
-                        },
+                        }
                     },
                     {
                         "name": "title",

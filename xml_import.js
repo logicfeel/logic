@@ -44,13 +44,15 @@ var compileContext = c.getContext();
 
 // var context = c.getContext();
 
-
+// delete compileContext.pages;
 // var json     = xml2json.parser(strXML);
 
 // var json = $.xml2json(strXML);
 // var json = parser(strXML);
 
-var string  = JSON.stringify(compileContext, null, 4);
+ var string  = JSON.stringify(compileContext, null, 4);
+
+
 
 fs.writeFileSync('./e_Parsing.json', string, 'utf8');
 

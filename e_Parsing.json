@@ -57,7 +57,8 @@
                         "value_type": "Number",
                         "length": 4,
                         "isOutput": false,
-                        "default": "TODO:"
+                        "default": "TODO:",
+                        "mssql_type": "int(10,0)"
                     }
                 ]
             },
@@ -74,7 +75,8 @@
                             "value_type": "Number",
                             "length": 4,
                             "isOutput": false,
-                            "default": "TODO:"
+                            "default": "TODO:",
+                            "mssql_type": "int(10,0)"
                         }
                     ]
                 },
@@ -89,7 +91,8 @@
                             "value_type": "Number",
                             "length": 4,
                             "isOutput": false,
-                            "default": "TODO:"
+                            "default": "TODO:",
+                            "mssql_type": "int(10,0)"
                         }
                     ]
                 },
@@ -104,7 +107,8 @@
                             "value_type": "Number",
                             "length": 4,
                             "isOutput": false,
-                            "default": "TODO:"
+                            "default": "TODO:",
+                            "mssql_type": "int(10,0)"
                         }
                     ]
                 }
@@ -120,7 +124,8 @@
                         "value_type": "Number",
                         "length": 4,
                         "isOutput": false,
-                        "default": "TODO:"
+                        "default": "TODO:",
+                        "mssql_type": "int(10,0)"
                     }
                 ]
             },
@@ -135,7 +140,8 @@
                         "value_type": "Number",
                         "length": 4,
                         "isOutput": false,
-                        "default": "TODO:"
+                        "default": "TODO:",
+                        "mssql_type": "int(10,0)"
                     }
                 ]
             },
@@ -155,7 +161,8 @@
                     "mssql_type": "char(6)",
                     "mysql_type": "",
                     "code": null,
-                    "isInside": false
+                    "isInside": false,
+                    "form": null
                 }
             ],
             "test_e_inner_notnull": [
@@ -174,7 +181,8 @@
                     "mssql_type": "int(10,0)",
                     "mysql_type": "",
                     "code": null,
-                    "isInside": true
+                    "isInside": true,
+                    "form": null
                 },
                 {
                     "name": "sto_id",
@@ -191,7 +199,8 @@
                     "mssql_type": "char(6)",
                     "mysql_type": "",
                     "code": null,
-                    "isInside": false
+                    "isInside": false,
+                    "form": null
                 },
                 {
                     "name": "title",
@@ -208,7 +217,8 @@
                     "mssql_type": "varchar(100)",
                     "mysql_type": "",
                     "code": null,
-                    "isInside": false
+                    "isInside": false,
+                    "form": null
                 },
                 {
                     "name": "noticeType_cd",
@@ -224,8 +234,27 @@
                     "length": 1,
                     "mssql_type": "char(1)",
                     "mysql_type": "",
-                    "code": null,
-                    "isInside": false
+                    "code": {
+                        "name": "noticeType_cd",
+                        "type": "HASHCODE",
+                        "namespace": "M01",
+                        "items": [
+                            {
+                                "type": "CODE",
+                                "key": "A",
+                                "value": "일반",
+                                "caption": ""
+                            },
+                            {
+                                "type": "CODE",
+                                "key": "T",
+                                "value": "공지",
+                                "caption": ""
+                            }
+                        ]
+                    },
+                    "isInside": false,
+                    "form": null
                 },
                 {
                     "name": "create_dt",
@@ -242,7 +271,8 @@
                     "mssql_type": "datetime",
                     "mysql_type": "",
                     "code": null,
-                    "isInside": true
+                    "isInside": true,
+                    "form": null
                 },
                 {
                     "name": "cnt",
@@ -259,7 +289,8 @@
                     "mssql_type": "int(10,0)",
                     "mysql_type": "",
                     "code": null,
-                    "isInside": true
+                    "isInside": true,
+                    "form": null
                 },
                 {
                     "name": "state_cd",
@@ -276,7 +307,8 @@
                     "mssql_type": "char(1)",
                     "mysql_type": "",
                     "code": null,
-                    "isInside": true
+                    "isInside": true,
+                    "form": null
                 },
                 {
                     "name": "del_yn",
@@ -293,7 +325,8 @@
                     "mssql_type": "char(1)",
                     "mysql_type": "",
                     "code": null,
-                    "isInside": true
+                    "isInside": true,
+                    "form": null
                 }
             ],
             "test_e_inner_null": [
@@ -312,7 +345,8 @@
                     "mssql_type": "varchar(20)",
                     "mysql_type": "",
                     "code": null,
-                    "isInside": false
+                    "isInside": false,
+                    "form": null
                 },
                 {
                     "name": "content",
@@ -329,7 +363,8 @@
                     "mssql_type": "varchar(2000)",
                     "mysql_type": "",
                     "code": null,
-                    "isInside": false
+                    "isInside": false,
+                    "form": null
                 }
             ],
             "test_e_inner_pk": [
@@ -348,7 +383,8 @@
                     "mssql_type": "int(10,0)",
                     "mysql_type": "",
                     "code": null,
-                    "isInside": true
+                    "isInside": true,
+                    "form": null
                 }
             ],
             "test_e_inner_vaild_C": [
@@ -367,7 +403,8 @@
                     "mssql_type": "char(6)",
                     "mysql_type": "",
                     "code": null,
-                    "isInside": false
+                    "isInside": false,
+                    "form": null
                 },
                 {
                     "name": "title",
@@ -384,7 +421,8 @@
                     "mssql_type": "varchar(100)",
                     "mysql_type": "",
                     "code": null,
-                    "isInside": false
+                    "isInside": false,
+                    "form": null
                 },
                 {
                     "name": "noticeType_cd",
@@ -400,8 +438,27 @@
                     "length": 1,
                     "mssql_type": "char(1)",
                     "mysql_type": "",
-                    "code": null,
-                    "isInside": false
+                    "code": {
+                        "name": "noticeType_cd",
+                        "type": "HASHCODE",
+                        "namespace": "M01",
+                        "items": [
+                            {
+                                "type": "CODE",
+                                "key": "A",
+                                "value": "일반",
+                                "caption": ""
+                            },
+                            {
+                                "type": "CODE",
+                                "key": "T",
+                                "value": "공지",
+                                "caption": ""
+                            }
+                        ]
+                    },
+                    "isInside": false,
+                    "form": null
                 }
             ],
             "test_e_inner_vaild_R": [
@@ -420,7 +477,8 @@
                     "mssql_type": "int(10,0)",
                     "mysql_type": "",
                     "code": null,
-                    "isInside": true
+                    "isInside": true,
+                    "form": null
                 },
                 {
                     "name": "sto_id",
@@ -437,7 +495,8 @@
                     "mssql_type": "char(6)",
                     "mysql_type": "",
                     "code": null,
-                    "isInside": false
+                    "isInside": false,
+                    "form": null
                 }
             ],
             "test_e_inner_vaild_U": [
@@ -456,7 +515,8 @@
                     "mssql_type": "char(6)",
                     "mysql_type": "",
                     "code": null,
-                    "isInside": false
+                    "isInside": false,
+                    "form": null
                 },
                 {
                     "name": "title",
@@ -473,7 +533,8 @@
                     "mssql_type": "varchar(100)",
                     "mysql_type": "",
                     "code": null,
-                    "isInside": false
+                    "isInside": false,
+                    "form": null
                 },
                 {
                     "name": "noticeType_cd",
@@ -489,8 +550,27 @@
                     "length": 1,
                     "mssql_type": "char(1)",
                     "mysql_type": "",
-                    "code": null,
-                    "isInside": false
+                    "code": {
+                        "name": "noticeType_cd",
+                        "type": "HASHCODE",
+                        "namespace": "M01",
+                        "items": [
+                            {
+                                "type": "CODE",
+                                "key": "A",
+                                "value": "일반",
+                                "caption": ""
+                            },
+                            {
+                                "type": "CODE",
+                                "key": "T",
+                                "value": "공지",
+                                "caption": ""
+                            }
+                        ]
+                    },
+                    "isInside": false,
+                    "form": null
                 }
             ],
             "test_e_inner_vaild_D": [
@@ -509,7 +589,8 @@
                     "mssql_type": "int(10,0)",
                     "mysql_type": "",
                     "code": null,
-                    "isInside": true
+                    "isInside": true,
+                    "form": null
                 }
             ],
             "test_e_inner_vaild_L": [
@@ -528,7 +609,8 @@
                     "mssql_type": "char(6)",
                     "mysql_type": "",
                     "code": null,
-                    "isInside": false
+                    "isInside": false,
+                    "form": null
                 }
             ],
             "test_e_inner_valid_null": [],
@@ -548,7 +630,8 @@
                     "mssql_type": "int(10,0)",
                     "mysql_type": "",
                     "code": null,
-                    "isInside": true
+                    "isInside": true,
+                    "form": null
                 },
                 {
                     "name": "sto_id",
@@ -565,7 +648,8 @@
                     "mssql_type": "char(6)",
                     "mysql_type": "",
                     "code": null,
-                    "isInside": false
+                    "isInside": false,
+                    "form": null
                 },
                 {
                     "name": "title",
@@ -582,7 +666,8 @@
                     "mssql_type": "varchar(100)",
                     "mysql_type": "",
                     "code": null,
-                    "isInside": false
+                    "isInside": false,
+                    "form": null
                 },
                 {
                     "name": "noticeType_cd",
@@ -598,8 +683,27 @@
                     "length": 1,
                     "mssql_type": "char(1)",
                     "mysql_type": "",
-                    "code": null,
-                    "isInside": false
+                    "code": {
+                        "name": "noticeType_cd",
+                        "type": "HASHCODE",
+                        "namespace": "M01",
+                        "items": [
+                            {
+                                "type": "CODE",
+                                "key": "A",
+                                "value": "일반",
+                                "caption": ""
+                            },
+                            {
+                                "type": "CODE",
+                                "key": "T",
+                                "value": "공지",
+                                "caption": ""
+                            }
+                        ]
+                    },
+                    "isInside": false,
+                    "form": null
                 },
                 {
                     "name": "writer",
@@ -616,7 +720,8 @@
                     "mssql_type": "varchar(20)",
                     "mysql_type": "",
                     "code": null,
-                    "isInside": false
+                    "isInside": false,
+                    "form": null
                 },
                 {
                     "name": "create_dt",
@@ -633,7 +738,8 @@
                     "mssql_type": "datetime",
                     "mysql_type": "",
                     "code": null,
-                    "isInside": true
+                    "isInside": true,
+                    "form": null
                 },
                 {
                     "name": "cnt",
@@ -650,7 +756,8 @@
                     "mssql_type": "int(10,0)",
                     "mysql_type": "",
                     "code": null,
-                    "isInside": true
+                    "isInside": true,
+                    "form": null
                 },
                 {
                     "name": "content",
@@ -667,7 +774,8 @@
                     "mssql_type": "varchar(2000)",
                     "mysql_type": "",
                     "code": null,
-                    "isInside": false
+                    "isInside": false,
+                    "form": null
                 },
                 {
                     "name": "state_cd",
@@ -684,7 +792,8 @@
                     "mssql_type": "char(1)",
                     "mysql_type": "",
                     "code": null,
-                    "isInside": true
+                    "isInside": true,
+                    "form": null
                 },
                 {
                     "name": "del_yn",
@@ -701,7 +810,8 @@
                     "mssql_type": "char(1)",
                     "mysql_type": "",
                     "code": null,
-                    "isInside": true
+                    "isInside": true,
+                    "form": null
                 }
             ],
             "test_e_items_attr": {
@@ -719,7 +829,8 @@
                 "mssql_type": "char(6)",
                 "mysql_type": "",
                 "code": null,
-                "isInside": false
+                "isInside": false,
+                "form": null
             },
             "test_e_model_all": [
                 {
@@ -741,7 +852,8 @@
                             "mssql_type": "int(10,0)",
                             "mysql_type": "",
                             "code": null,
-                            "isInside": true
+                            "isInside": true,
+                            "form": null
                         },
                         {
                             "name": "content",
@@ -758,7 +870,8 @@
                             "mssql_type": "varchar(2000)",
                             "mysql_type": "",
                             "code": null,
-                            "isInside": false
+                            "isInside": false,
+                            "form": null
                         }
                     ]
                 },
@@ -781,7 +894,8 @@
                             "mssql_type": "int(10,0)",
                             "mysql_type": "",
                             "code": null,
-                            "isInside": true
+                            "isInside": true,
+                            "form": null
                         },
                         {
                             "name": "del_yn",
@@ -798,7 +912,8 @@
                             "mssql_type": "char(1)",
                             "mysql_type": "",
                             "code": null,
-                            "isInside": true
+                            "isInside": true,
+                            "form": null
                         }
                     ]
                 },
@@ -821,7 +936,8 @@
                             "mssql_type": "int(10,0)",
                             "mysql_type": "",
                             "code": null,
-                            "isInside": true
+                            "isInside": true,
+                            "form": null
                         },
                         {
                             "name": "del_yn",
@@ -838,7 +954,8 @@
                             "mssql_type": "char(1)",
                             "mysql_type": "",
                             "code": null,
-                            "isInside": true
+                            "isInside": true,
+                            "form": null
                         }
                     ]
                 },
@@ -867,7 +984,8 @@
                         "mssql_type": "int(10,0)",
                         "mysql_type": "",
                         "code": null,
-                        "isInside": true
+                        "isInside": true,
+                        "form": null
                     },
                     {
                         "name": "content",
@@ -884,7 +1002,8 @@
                         "mssql_type": "varchar(2000)",
                         "mysql_type": "",
                         "code": null,
-                        "isInside": false
+                        "isInside": false,
+                        "form": null
                     }
                 ]
             },
@@ -899,7 +1018,8 @@
                         "value_type": "Number",
                         "length": 4,
                         "isOutput": false,
-                        "default": "TODO:"
+                        "default": "TODO:",
+                        "mssql_type": "int(10,0)"
                     }
                 ]
             },
@@ -916,7 +1036,8 @@
                         "value_type": "Number",
                         "length": 4,
                         "isOutput": false,
-                        "default": "TODO:"
+                        "default": "TODO:",
+                        "mssql_type": "int(10,0)"
                     }
                 ]
             },
@@ -932,7 +1053,8 @@
                             "value_type": "Number",
                             "length": 4,
                             "isOutput": false,
-                            "default": "TODO:"
+                            "default": "TODO:",
+                            "mssql_type": "int(10,0)"
                         }
                     ]
                 },
@@ -947,7 +1069,8 @@
                             "value_type": "Number",
                             "length": 4,
                             "isOutput": false,
-                            "default": "TODO:"
+                            "default": "TODO:",
+                            "mssql_type": "int(10,0)"
                         }
                     ]
                 }
@@ -964,7 +1087,8 @@
                             "value_type": "Number",
                             "length": 4,
                             "isOutput": false,
-                            "default": "TODO:"
+                            "default": "TODO:",
+                            "mssql_type": "int(10,0)"
                         }
                     ]
                 },
@@ -979,7 +1103,8 @@
                             "value_type": "Number",
                             "length": 4,
                             "isOutput": false,
-                            "default": "TODO:"
+                            "default": "TODO:",
+                            "mssql_type": "int(10,0)"
                         }
                     ]
                 }
@@ -988,7 +1113,7 @@
         },
         {
             "name": "폼 콜백",
-            "template_file": "Frm.C.asp",
+            "template_file": "_Frm.C.asp",
             "targat_file": "T_Frm.C.asp",
             "request": [
                 {
@@ -1006,7 +1131,8 @@
                     "mssql_type": "char(6)",
                     "mysql_type": "",
                     "code": null,
-                    "isInside": false
+                    "isInside": false,
+                    "form": null
                 },
                 {
                     "name": "title",
@@ -1023,7 +1149,8 @@
                     "mssql_type": "varchar(100)",
                     "mysql_type": "",
                     "code": null,
-                    "isInside": false
+                    "isInside": false,
+                    "form": null
                 },
                 {
                     "name": "noticeType_cd",
@@ -1039,8 +1166,27 @@
                     "length": 1,
                     "mssql_type": "char(1)",
                     "mysql_type": "",
-                    "code": null,
-                    "isInside": false
+                    "code": {
+                        "name": "noticeType_cd",
+                        "type": "HASHCODE",
+                        "namespace": "M01",
+                        "items": [
+                            {
+                                "type": "CODE",
+                                "key": "A",
+                                "value": "일반",
+                                "caption": ""
+                            },
+                            {
+                                "type": "CODE",
+                                "key": "T",
+                                "value": "공지",
+                                "caption": ""
+                            }
+                        ]
+                    },
+                    "isInside": false,
+                    "form": null
                 }
             ],
             "vaild_IU": {
@@ -1062,7 +1208,8 @@
                             "mssql_type": "char(6)",
                             "mysql_type": "",
                             "code": null,
-                            "isInside": false
+                            "isInside": false,
+                            "form": null
                         },
                         {
                             "name": "title",
@@ -1079,7 +1226,8 @@
                             "mssql_type": "varchar(100)",
                             "mysql_type": "",
                             "code": null,
-                            "isInside": false
+                            "isInside": false,
+                            "form": null
                         },
                         {
                             "name": "noticeType_cd",
@@ -1095,8 +1243,27 @@
                             "length": 1,
                             "mssql_type": "char(1)",
                             "mysql_type": "",
-                            "code": null,
-                            "isInside": false
+                            "code": {
+                                "name": "noticeType_cd",
+                                "type": "HASHCODE",
+                                "namespace": "M01",
+                                "items": [
+                                    {
+                                        "type": "CODE",
+                                        "key": "A",
+                                        "value": "일반",
+                                        "caption": ""
+                                    },
+                                    {
+                                        "type": "CODE",
+                                        "key": "T",
+                                        "value": "공지",
+                                        "caption": ""
+                                    }
+                                ]
+                            },
+                            "isInside": false,
+                            "form": null
                         }
                     ]
                 ]
@@ -1112,7 +1279,8 @@
                         "value_type": "Number",
                         "length": 4,
                         "isOutput": false,
-                        "default": "TODO:"
+                        "default": "TODO:",
+                        "mssql_type": "int(10,0)"
                     },
                     {
                         "name": "@listCnt",
@@ -1120,7 +1288,8 @@
                         "value_type": "Number",
                         "length": 4,
                         "isOutput": false,
-                        "default": "TODO:"
+                        "default": "TODO:",
+                        "mssql_type": "int(10,0)"
                     }
                 ]
             },
@@ -1137,30 +1306,16 @@
                         "value_type": "Number",
                         "length": 4,
                         "isOutput": false,
-                        "default": "TODO:"
+                        "default": "TODO:",
+                        "mssql_type": "int(10,0)"
                     }
                 ]
             },
-            "viewbind": {
-                "eitity_items": [
-                    {
-                        "0": "s",
-                        "1": "t",
-                        "2": "o",
-                        "3": "_",
-                        "4": "i",
-                        "5": "d"
-                    },
-                    {
-                        "0": "t",
-                        "1": "i",
-                        "2": "t",
-                        "3": "l",
-                        "4": "e",
-                        "5": "_",
-                        "6": "i",
-                        "7": "d"
-                    }
+            "bind": "",
+            "abc": {
+                "a": [
+                    "aaa",
+                    "bbb"
                 ]
             }
         }

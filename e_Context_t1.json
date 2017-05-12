@@ -51,15 +51,10 @@
             "cmd_INSERT": {"entity_model_sp": "INSERT"},
             "cmd_UPDATE": {"entity_model_sp": "UPDATE"},
             "cmd_DELETE": {"entity_model_sp": "DELETE"},
-            "bind": {
-                "entity_bind": [ 
-                    "sto_id", 
-                    "title_id"
-                ]
-            },
-            "abc": {
-                "a": ["aaa", "bbb"]
-            }
+            "entity_bind": [ 
+                "sto_id", 
+                "title_id"
+            ]
         }
     ],
     "common": {
