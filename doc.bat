@@ -1,0 +1,1 @@
+jsdoc -d doc "폴더명"

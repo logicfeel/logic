@@ -1,4 +1,32 @@
-(function(global) {
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: DataSet.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: DataSet.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>(function(global) {
 'use strict';    
 /**
  * ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -19,13 +47,13 @@
  */
 
 /**
- * @class DataSet
- * @param {String} pDataSetName 데이터셋 이름
- * @classdesc 
- * 데이터셋 클래스
- * 줄바꿈 적용 안됨
- * @property {string} name The name of the person.
- */
+  * @class DataSet
+  * @param {String} pDataSetName 데이터셋 이름
+  * @classdesc 
+  * 데이터셋 클래스
+  * 줄바꿈 적용 안됨
+  * @property {string} name The name of the person.
+  */
 function DataSet(pDataSetName) {
 
     /**
@@ -36,11 +64,11 @@ function DataSet(pDataSetName) {
     this.tables = new DataTableCollection(this);
     // this.dt = this.tables;      // Ref?
     
-    /**
-     * Whether this component is visible or notdsfadaf 
-     * @name DataSet#dataSetName
-     * @type String
-     */
+  /**
+   * Whether this component is visible or notdsfadaf 
+   * @name DataSet#dataSetName
+   * @type String
+   */
     this.dataSetName = pDataSetName;
 
     // dataReader 를 통한 가져오기
@@ -54,7 +82,7 @@ function DataSet(pDataSetName) {
      * @access public
      * @function
      * @memberOf DataSet
-     */
+    */
     DataSet.prototype.clear = function() {
         this.tables.clear();
     };
@@ -69,7 +97,7 @@ function DataSet(pDataSetName) {
      * @deprecated As of JSDoc 3.4.0. Avoid using the `app` object. The global `app` object and the
      * `jsdoc/app` module will be removed in a future release.
      * 수정사항ㅇ르 기록합니다.
-     * @example <caption>Example usage of method1.</caption>
+     * @example &lt;caption>Example usage of method1.&lt;/caption>
      * // returns 2
      * globalNS.method1(5, 10);
      * var kim you
@@ -91,7 +119,7 @@ function DataSet(pDataSetName) {
                 throw new Error('pDataSet  tables 객체 없음 :');
             }
 
-            for (var i = 0; i < pDataSet.tables.length; i++) {
+            for (var i = 0; i &lt; pDataSet.tables.length; i++) {
                 dataTable = new DataTable();
                 dataTable.read(pDataSet.tables[i]);
                 this.tables.add(dataTable);
@@ -128,7 +156,7 @@ function DataSet(pDataSetName) {
         
         var isSuccess = true;
         
-        for(var i = 0; i < this.tables.length; i++) {
+        for(var i = 0; i &lt; this.tables.length; i++) {
             isSuccess = this.tables[i].acceptChanges();
             
             if (!isSuccess) return false;
@@ -141,7 +169,7 @@ function DataSet(pDataSetName) {
 
         var isSuccess = true;
         
-        for(var i = 0; i < this.tables.length; i++) {
+        for(var i = 0; i &lt; this.tables.length; i++) {
             isSuccess = this.tables[i].rejectChanges();
             
             if (!isSuccess) return false;
@@ -158,7 +186,7 @@ function DataSet(pDataSetName) {
         
         // changes._items = [];
 
-        for(var i = 0; i < this.tables.length; i++) {
+        for(var i = 0; i &lt; this.tables.length; i++) {
             collection = this.tables[i].getChanges();
             if (collection) {
                 tableName = this.tables[i].tableName;
@@ -177,7 +205,7 @@ function DataSet(pDataSetName) {
         
         var collection = null;
         
-        for(var i = 0; i < this.tables.length; i++) {
+        for(var i = 0; i &lt; this.tables.length; i++) {
             collection = this.tables[i].getChanges();
             
             // 첫번째 내용 발견시
@@ -228,7 +256,7 @@ function DataTableCollection(pDataSet) {
 
     // 데이터테이블 초기화
     DataTableCollection.prototype.clear = function() {
-        for (var i = 0; i < this._items.length; i++) {
+        for (var i = 0; i &lt; this._items.length; i++) {
             this._items[i].clear();
         }
     };
@@ -237,10 +265,10 @@ function DataTableCollection(pDataSet) {
     //  pTableName, pColumnName (선택)
     DataTableCollection.prototype.contains = function(pTableName, pColumnName) {
         
-        if (pTableName && pColumnName) {
+        if (pTableName &amp;&amp; pColumnName) {
             return this._items[this.indexOf(pTableName)].columns.contains(pColumnName);
         } else {
-            return (0 <= this._items.indexOf(pTableName));
+            return (0 &lt;= this._items.indexOf(pTableName));
         }
     };
     
@@ -255,7 +283,7 @@ function DataTableCollection(pDataSet) {
     // 객체의 index 값 조회
     DataTableCollection.prototype.indexOf = function(pObject) {
         
-        for (var i = 0; i < th_dataSet.tables.length; i++) {
+        for (var i = 0; i &lt; th_dataSet.tables.length; i++) {
             
             if (typeof pObject ==="string") {
                 if (_dataSet.tables[i].tableName === pObject) return i;
@@ -273,7 +301,7 @@ function DataTableCollection(pDataSet) {
 
         index = this._items.indexOf(pObject);
 
-        if (0 <= index) {
+        if (0 &lt;= index) {
             return this.removeAt(index);               // 배열 요소 삭제
         } else {
             return [];
@@ -310,7 +338,7 @@ function DataTable(pTableName) {
         
         // TODO: 이중배열 여부 검사
 
-        for (var i = 0; i < pRow.length; i++) {
+        for (var i = 0; i &lt; pRow.length; i++) {
             
             // 첫번째 row 넢이 
             if (i === 0) {
@@ -373,13 +401,13 @@ function DataTable(pTableName) {
             if (!dtTableName) {
                 throw new Error('테이블이름 없음 오류 tableName:' + dtTableName);
             }
-            if (dtRows && 2 > common.getArrayLevel(dtRows)) {
+            if (dtRows &amp;&amp; 2 > common.getArrayLevel(dtRows)) {
                 throw new Error('rows 이중배열 아님 오류 :');
             }
-            if (dtRows && !_equalRowWidth(dtRows)) {
+            if (dtRows &amp;&amp; !_equalRowWidth(dtRows)) {
                 throw new Error('row들의 넚이가 다름 오류 :');
             }
-            if (!dtRows && !dtColumns) {
+            if (!dtRows &amp;&amp; !dtColumns) {
                 throw new Error('rows와 columns 없음 오류 :');
             }
 
@@ -394,9 +422,9 @@ function DataTable(pTableName) {
                     throw new Error('rows !== columns  오류 row.index:' + i);
                 }
 
-                for(var i = 0; i < dtRows.length; i++) {
+                for(var i = 0; i &lt; dtRows.length; i++) {
                     dr = dataTable.newRow();
-                    for (var ii = 0; ii < dtRows[i].length; ii++) {
+                    for (var ii = 0; ii &lt; dtRows[i].length; ii++) {
                         dr[ii] = dtRows[i][ii];
                     }
                     dataTable.rows.add(dr);
@@ -429,7 +457,7 @@ function DataTable(pTableName) {
             if (!dtTableName) {
                 throw new Error('테이블이름 없음 오류 tableName:' + dtTableName);
             }
-            if (dtColumns && !(dtColumns instanceof Array)) {
+            if (dtColumns &amp;&amp; !(dtColumns instanceof Array)) {
                 throw new Error('colum 배열 아님 오류 :');
             }
 
@@ -441,10 +469,10 @@ function DataTable(pTableName) {
             if (dtColumns) {
                 
                 // A. 컬럼 스키마가 있는 경우
-                for (var i = 0; i < dtColumns.length; i++) {
+                for (var i = 0; i &lt; dtColumns.length; i++) {
                     
                     // 필수 요소 검사
-                    if (!(dtColumns[i]["columnName"] && dtColumns[i]["dataType"])) {
+                    if (!(dtColumns[i]["columnName"] &amp;&amp; dtColumns[i]["dataType"])) {
                         throw new Error('colum에 필수 정보 (columnName, dataType)없음 오류 tableName:' + dtTableName);
                     }
                     
@@ -456,7 +484,7 @@ function DataTable(pTableName) {
 
                 // B. 컬럼스키마가 없는 경우
                 // 첫번째 row를 가져와서 컬럼 스키마를 생성
-                for (var i = 0; i < dtRows[0].length; i++) {
+                for (var i = 0; i &lt; dtRows[0].length; i++) {
                     column = new DataColumn("column_" + i, _getObjectType(dtRows[0][i]));
                     dataTable.columns.add(column);
                 }
@@ -564,7 +592,7 @@ function DataColumnCollection(pDataTable) {
     // 지정 컬렴 여부
     DataColumnCollection.prototype.contains = function(pColumnName) {
         
-        for (var i = 0; i < this._items.length; i++) {
+        for (var i = 0; i &lt; this._items.length; i++) {
             if (this[i].columnName === pColumnName) return true;
         }
         return false;
@@ -582,7 +610,7 @@ function DataColumnCollection(pDataTable) {
     // 객체 또는 컬럼명 으로 조회
     DataColumnCollection.prototype.indexOf = function(pObject) {
 
-        for (var i = 0; i < this.length; i++) {
+        for (var i = 0; i &lt; this.length; i++) {
             
             if (typeof pObject ==="string") {
                 if (this[i].columnName === pObject) return i;
@@ -599,7 +627,7 @@ function DataColumnCollection(pDataTable) {
 
         index = this.indexOf(pObject);
  
-        if (0 <= index) {
+        if (0 &lt;= index) {
             return this.removeAt(index);               // 배열 요소 삭제
         } else {
             return [];
@@ -721,7 +749,7 @@ function DataRowCollection(pDataTable) {
     
     DataRowCollection.prototype.indexOf = function(pDataRow) {
 
-        for (var i = 0; i < this.length; i++) {
+        for (var i = 0; i &lt; this.length; i++) {
             if (this[i] === pDataRow) return i;
         }
         return -1;
@@ -729,7 +757,7 @@ function DataRowCollection(pDataTable) {
     
     DataRowCollection.prototype.insertAt = function(pDataRow, pIdx) {
         
-        if (pDataRow instanceof DataRow &&  typeof pIdx === "number") {
+        if (pDataRow instanceof DataRow &amp;&amp;  typeof pIdx === "number") {
             
             // TYPE1: TransQeueue 사용 안할 경우
             // this.splice(pIdx, 0, pDataRow);
@@ -782,7 +810,7 @@ function DataRow(pDataTable) {
     this._SCOPE = "DataRow";
 
     if (pDataTable instanceof DataTable) {
-        for (var i = 0; i < _dataTable.columns.length; i++) {
+        for (var i = 0; i &lt; _dataTable.columns.length; i++) {
             columnName = _dataTable.columns[i].columnName;      // !! 버그 발견함 this 이슈
             this.pushAttr(null, columnName);
             // this.pushAttr.call(this, null, columnName);
@@ -819,4 +847,26 @@ global.DataRowCollection    = global.DataRowCollection || DataRowCollection;
 global.DataRow              = global.DataRow || DataRow;
 global.DataColumn           = global.DataColumn || DataColumn;
 
-}(this));
+}(this));</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="DataSet.html">DataSet</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Wed Jun 21 2017 17:57:27 GMT+0900 (대한민국 표준시)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
