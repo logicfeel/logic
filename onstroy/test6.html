@@ -1,0 +1,205 @@
+<div class="section" id="QA_register1">
+    <div class="mToggleBar eToggle selected" id="exposure">
+        <h2 class="eToggleTitle">표시 설정</h2>
+        <div class="ctrl">
+                <span class=""><button type="button"><em>접기</em></button></span>
+        </div>
+    </div>
+    <div class="toggleArea" style="display: block;">
+        <div class="mBoard typeProduct">
+            <table border="1" summary="" class="gDivision">
+            <caption>쇼핑몰 표시 설정</caption>
+            <colgroup>
+                <col class="product">
+                <col style="width:auto">
+            </colgroup>
+            <input type="hidden" name="sIsChangeDisplay">
+            <input type="hidden" name="sIsChangeSelling">
+            <tbody>
+                
+                <tr>
+                    <th scope="row">진열상태</th>
+                    <td>
+                        <label class="gLabel"><input type="radio" data-display="" name="is_display[1]" class="fChk eMarketChecker" value="T"> 진열함</label>
+                        <label class="gLabel eSelected"><input type="radio" data-display="" name="is_display[1]" class="fChk" value="F" checked="checked"> 진열안함</label>
+                                            <p class="txtInfo">등록한 상품의 쇼핑몰 진열(노출)여부를 설정합니다.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">판매상태</th>
+                    <td>
+                        <label class="gLabel"><input type="radio" data-selling="" name="selling_status[1]" class="fChk eMarketChecker" value="T"> 판매함</label>
+                        <label class="gLabel eSelected"><input type="radio" data-selling="" name="selling_status[1]" class="fChk" value="F" checked="checked"> 판매안함</label>
+                                            <ul class="txtInfo">
+                            <li>진열한 상품의 판매여부를 설정합니다. </li>
+                            <li>'판매함'일 경우 쇼핑몰 상품상세 화면에 [구매하기] 버튼이 표시되고, '판매안함'일 경우에는 [sold out(품절)] 버튼으로 표시됩니다.</li>
+                        </ul>
+                    </td>
+                </tr>
+
+                
+                            <tr>
+                    <th scope="row">상품분류 선택 <span style="display: none;" class="rakutenDisplay"><strong class="icoRequired">필수</strong></span></th>
+                    <td>
+                                        <a href="#layerLatestCategory" class="btnNormal eModal"><span>최근등록 분류 보기</span></a>
+                        <a href="#layerOftenCategory" class="btnNormal eModal"><span>자주쓰는 분류 보기</span></a>
+                                        
+                        <div class="mSearchSelect typeCategory gDouble">
+                            <table border="1" summary="">
+                            <caption>분류</caption>
+                            <colgroup>
+                                <col style="width:25%" span="4">
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <th scope="col" class="center">대분류</th>
+                                    <th scope="col" class="center">중분류</th>
+                                    <th scope="col" class="center">소분류</th>
+                                    <th scope="col" class="center">상세분류</th>
+                                </tr>
+                            </thead>
+                            <tbody id="eCategoryTbody">
+                                <tr>
+                                    <td>
+                                        <div class="list ">
+                                            <ul depth="1" class="eExposureCategory">
+                                            <li category_num="24" class="">(대분류) Outerwear &gt;</li><li category_num="25" class="selected">(대분류) Tops &gt;</li><li category_num="26" class="">(대분류) Dresses &gt;</li><li category_num="27" class="">(대분류) Bottoms &gt;</li><li category_num="28">(대분류) Accessories &gt;</li></ul>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="list">
+                                            <ul depth="2" class="eExposureCategory"><li category_num="32">(중분류) Tees &gt;</li><li category_num="33">(중분류) Shirts &gt;</li></ul>
+                                        </div>
+                                    </td>
+                                <td>
+                                    <div class="list">
+                                        <ul depth="3" class="eExposureCategory"></ul>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="list">
+                                        <ul depth="4" class="eExposureCategory"></ul>
+                                    </div>
+                                </td>
+                                </tr>
+                            </tbody>
+                            </table>
+                        </div>
+                        <p class="gDouble">
+                            <span class="icoDot"></span>
+                            <strong class="gWidth w110">선택된 상품분류</strong>
+                            <span class="txtLight txtLess" id="eSelectedCategory" categorynum="25">(대분류) Tops &gt;</span>
+                            <a href="#none" class="btnCtrl" id="eCategorySelect"><span><em class="icoPlus"></em> 추가</span></a>
+                        </p>
+                        <ul class="mList">
+                            <li>[추가] 버튼 클릭 시 선택된 상품분류로 상품이 소속됩니다. '추가된 상품분류'가 존재해야만 쇼핑몰 화면에 해당 상품을 표시할 수 있습니다.</li>
+                            <li id="eClearanceCategoryHelp">분류별로 '상품구분(해외통관)' 정보를 설정하였을 경우, 상품분류선택에 따라 상품의 '상품구분(해외통관)'에 자동 등록됩니다.</li>
+                        </ul>
+                        <p class="gDouble">
+                            <span class="icoDot"></span>
+                            <strong class="gWidth w100">추가된 상품분류</strong>
+                        </p>
+                        <div class="mBoard gDouble">
+                            <table border="1" summary="">
+                                <caption>추가된 상품분류</caption>
+                                <colgroup>
+                                    <col style="width:50px">
+                                    <col style="width:50px">
+                                    <col style="width:auto">
+                                    <col style="width:140px">
+                                    <col style="width:160px">
+                                    <col style="width:140px">
+                                </colgroup>
+                                <thead>
+                                    <tr>
+                                        <th scope="col">No</th>
+                                        <th scope="col">고정</th>
+                                        <th scope="col">선택된 상품분류</th>
+                                        <th scope="col">표시상태</th>
+                                        <th scope="col">진열영역 선택</th>
+                                        <th scope="col">설정</th>
+                                    </tr>
+                                </thead>
+
+                                                            <tbody class="empty eSelectedCategoryTbody">
+                                    <tr class="eSelectedCategoryRow" id="eSelectedCategoryTemplate">
+                                        <td class="eSelectedCategorySeq">0</td>
+                                        <td><span class="icoFix undo eCategoryFix">고정</span></td>
+                                        <td class="left eSelectedCategoryName">대분류 &gt; 중분류 &gt; 소분류 &gt; 상세분류</td>
+                                        <td class="left">
+                                            <ul class="mList typeMore eCategoryShopList">
+                                            </ul>
+                                        </td>
+                                        <td class="left">
+                                            <input type="hidden" name="addCategoryNum[]">
+                                            <input type="hidden" name="category_product[group1][#NUM#]" value="T">
+                                            <ul class="mForm typeVer">
+                                                <li><label class="gLabel eSelected"><input type="checkbox" class="fChk" checked="checked" disabled="disabled"> 일반상품 영역</label></li>
+                                                                                            <li><label class="gLabel"><input type="checkbox" class="fChk" name="category_product[group3][#NUM#]" value="T"> 신상품 영역</label></li>
+                                                <li><label class="gLabel"><input type="checkbox" class="fChk" name="category_product[group2][#NUM#]" value="T"> 추천상품 영역</label></li>
+                                                                                        </ul>
+                                        </td>
+                                        <td>
+                                            <a href="#none" class="btnNormal eDeleteSelectedCategory"><span><em class="icoDel"></em> 선택된 분류 삭제</span></a>
+                                                                                    <p class="gSingle"><a href="#none" class="btnNormal eCategoryOften"><span>자주쓰는 분류 등록</span></a></p>
+                                                                                </td>
+                                    </tr>
+
+                                    <tr class="empty" id="eEmptyCategoryList">
+                                        <td colspan="6">선택된 상품분류 내역이 없습니다.</td>
+                                    </tr>
+                                    <!-- fixed -->
+                                                                                                </tbody>
+                            </table>
+                        </div>
+                        <p class="txtInfo">고정 아이콘을 클릭해 자물쇠가 잠기면 그 분류는 고정됩니다. 고정된 분류는 해제전까지 신규 등록시에도 계속 유지가 됩니다.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">메인 진열</th>
+                    <td id="eMainDisplayContainer">
+                        <div class="gIcoShop">
+                            <div class="mBoard gSmall">
+                                <span class="icoShop" title="쇼핑몰별">쇼핑몰별</span>
+                                <table border="1" summary="">
+                                <caption>메인 진열</caption>
+                                    <tbody>
+                                                                                <tr>
+                                                <th scope="col" style="width:200px">추천상품</th>
+                                                <td>
+                                                    <label class="gLabel"><input type="checkbox" name="display_group[1][]" value="2" class="fChk eAddMainCate"> 진열함</label>
+                                                    <span class="txtInfo" style="display:none"><a href="#none" class="btnLink"><span>[상품진열관리 &gt; 메인진열]</span></a>에서 <strong>'기본쇼핑몰 정보 공통사용'</strong>을 사용중입니다</span>
+                                                </td>
+                                            </tr>
+                                                                                <tr>
+                                                <th scope="col" style="width:200px">신상품</th>
+                                                <td>
+                                                    <label class="gLabel"><input type="checkbox" name="display_group[1][]" value="3" class="fChk eAddMainCate"> 진열함</label>
+                                                    <span class="txtInfo" style="display:none"><a href="#none" class="btnLink"><span>[상품진열관리 &gt; 메인진열]</span></a>에서 <strong>'기본쇼핑몰 정보 공통사용'</strong>을 사용중입니다</span>
+                                                </td>
+                                            </tr>
+                                                                                <tr>
+                                                <th scope="col" style="width:200px">추가카테고리1</th>
+                                                <td>
+                                                    <label class="gLabel"><input type="checkbox" name="display_group[1][]" value="4" class="fChk eAddMainCate"> 진열함</label>
+                                                    <span class="txtInfo" style="display:none"><a href="#none" class="btnLink"><span>[상품진열관리 &gt; 메인진열]</span></a>에서 <strong>'기본쇼핑몰 정보 공통사용'</strong>을 사용중입니다</span>
+                                                </td>
+                                            </tr>
+                                                                                <tr>
+                                                <th scope="col" style="width:200px">추가카테고리2</th>
+                                                <td>
+                                                    <label class="gLabel"><input type="checkbox" name="display_group[1][]" value="5" class="fChk eAddMainCate"> 진열함</label>
+                                                    <span class="txtInfo" style="display:none"><a href="#none" class="btnLink"><span>[상품진열관리 &gt; 메인진열]</span></a>에서 <strong>'기본쇼핑몰 정보 공통사용'</strong>을 사용중입니다</span>
+                                                </td>
+                                            </tr>
+                                                                        </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+            </table>
+        </div>
+    </div>
+</div>

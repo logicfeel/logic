@@ -1,0 +1,383 @@
+@charset "utf-8";
+
+/* btnIcon 아이콘형 버튼 */
+a.btnIcon, button.btnIcon, span.btnIcon {
+    display:inline-block; overflow:hidden; width:20px; height:19px; font-size:0; line-height:0; vertical-align:middle; white-space:nowrap; background:url('//img.echosting.cafe24.com/suio/sfix_icon_button.png') 0 0 no-repeat;
+}
+.btnIcon span { visibility:hidden; }
+.btnNormal em.icoDel, .btnNormal em.icoPlus, .btnNormal em.icoMinus, .btnNormal em.icoView, .btnNormal em.icoPause, .btnNormal em.icoCopy, .btnNormal em.icoList, .btnNormal em.icoRefresh, .btnNormal em.icoReverse, .btnNormal em.icoResize,
+.btnNormal em.icoXls, .btnNormal em.icoDoc, .btnNormal em.icoPpt, .btnNormal .icoPdf, .btnNormal em.icoHwp, .btnNormal em.icoText, .btnNormal em.icoZip, .btnNormal em.icoJpg, .btnNormal em.icoPng, .btnNormal em.icoGif, .btnNormal em.icoPrint,
+.btnNormal em.icoLower, .btnNormal em.icoUpper, .btnGeneral em.icoLower, .btnGeneral em.icoUpper,
+.btnNormal em.icoLayer, .btnNormal em.icoLink, .btnLink em.icoLink,
+.btnCtrl em.icoPlus, .btnCtrl em.icoLink, .btnCtrl em.icoLayer, em.icoPrev {
+    display:inline-block; height:11px; padding:0; vertical-align:-2px; line-height:0;
+    background:url('//img.echosting.cafe24.com/suio/sfix_icon_button.png') 0 0 no-repeat;
+}
+
+    /* GROUP1 > button */
+        .btnIcon.icoDel { background-position:0 0; }
+        .btnIcon.icoDel:hover { background-position:0 -50px; }
+        .btnIcon.icoDel.disabled { cursor:default; background-position:0 -100px; }
+        .btnNormal em.icoDel { width:7px; background-position:0 -150px; }
+
+        .btnIcon.icoPlus { background-position:-50px 0; }
+        .btnIcon.icoPlus:hover { background-position:-50px -50px; }
+        .btnIcon.icoPlus.disabled { cursor:default; background-position:-50px -100px; }
+        .btnNormal em.icoPlus { width:9px; background-position:-50px -150px; }
+        .btnCtrl em.icoPlus { width:9px; background-position:-50px -170px; }
+        .btnCtrl:hover em.icoPlus, .btnCtrl.selected em.icoPlus { background-position:-70px -170px; }
+
+        .btnIcon.icoMinus { background-position:-100px 0; }
+        .btnIcon.icoMinus:hover { background-position:-100px -50px; }
+        .btnIcon.icoMinus.disabled { cursor:default; background-position:-100px -100px; }
+        .btnNormal em.icoMinus { width:9px; background-position:-100px -150px; }
+
+        .btnIcon.icoView { background-position:-150px 0; }
+        .btnIcon.icoView:hover { background-position:-150px -50px; }
+        .btnIcon.icoView.disabled { cursor:default; background-position:-150px -100px; }
+        .btnNormal em.icoView { width:11px; background-position:-150px -150px; }
+
+        .btnIcon.icoEdit { background-position:-200px 0; }
+        .btnIcon.icoEdit:hover { background-position:-200px -50px; }
+        .btnIcon.icoEdit.disabled { cursor:default; background-position:-200px -100px; }
+
+        .btnIcon.icoRefresh { background-position:-250px 0; }
+        .btnIcon.icoRefresh:hover { background-position:-250px -50px; }
+        .btnIcon.icoRefresh.disabled { cursor:default; background-position:-250px -100px; }
+
+        .btnIcon.icoReverse { width:14px; height:10px; background-position:-450px -150px; }
+        .btnIcon.icoResize { width:16px; height:11px; background-position:-500px -150px; }
+
+        .btnIcon.icoBold { background-position:-300px 0; }
+        .btnIcon.icoBold.selected { background-position:-300px -50px; }
+
+        .btnIcon.icoItalic { background-position:-350px 0; }
+        .btnIcon.icoItalic.selected { background-position:-350px -50px; }
+
+        .btnNormal em.icoCopy { width:10px; height:12px; background-position:-250px -150px; }
+        .btnNormal em.icoList { width:10px; background-position:-300px -150px; }
+        .btnNormal em.icoRefresh { width:8px; background-position:-350px -150px; }
+        .btnNormal em.icoPause { width:5px; height:10px; background-position:-400px -150px; }
+        .btnNormal em.icoReverse { width:14px; height:10px; background-position:-450px -150px; }
+        .btnNormal em.icoResize { width:16px; height:11px; background-position:-500px -150px; }
+
+    /* GROUP2 > download */
+        .btnIcon.icoXls { background-position:0 -200px; }
+        .btnNormal em.icoXls { width:11px; background-position:0 -250px; }
+
+        .btnIcon.icoDoc { background-position:-50px -200px; }
+        .btnNormal em.icoDoc { width:11px; background-position:-50px -250px; }
+
+        .btnIcon.icoPpt { background-position:-100px -200px; }
+        .btnNormal em.icoPpt { width:11px; background-position:-100px -250px; }
+
+        .btnIcon.icoPdf { margin:0; background-position:-150px -200px; }
+        .btnNormal em.icoPdf { width:12px; background-position:-150px -250px; }
+
+        .btnIcon.icoHwp { background-position:-200px -200px; }
+        .btnNormal em.icoHwp { width:11px; background-position:-200px -250px; }
+
+        .btnIcon.icoText { background-position:-250px -200px; }
+        .btnNormal em.icoText { width:11px; background-position:-250px -250px; }
+
+        .btnIcon.icoZip { background-position:-300px -200px; }
+        .btnNormal em.icoZip { width:14px; height:12px; background-position:-300px -250px; }
+
+        .btnIcon.icoJpg { background-position:-350px -200px; }
+        .btnNormal em.icoJpg { width:14px; height:12px; background-position:-350px -250px; }
+
+        .btnIcon.icoPng { background-position:-400px -200px; }
+        .btnNormal em.icoPng { width:14px; height:12px; background-position:-400px -250px; }
+
+        .btnIcon.icoGif { background-position:-450px -200px; }
+        .btnNormal em.icoGif { width:14px; height:12px; background-position:-450px -250px; }
+
+    /* GROUP3 > arrow */
+        .btnNormal em.icoLower { width:9px; margin:0 0 0 4px; background-position:-200px -300px; }
+        .btnNormal em.icoUpper { width:9px; margin:0 0 0 4px; background-position:-250px -300px; }
+        .btnGeneral em.icoLower { width:9px; margin:0 0 0 4px; background-position:-200px -300px; }
+        .btnGeneral em.icoUpper { width:9px; margin:0 0 0 4px; background-position:-250px -300px; }
+
+        .btnNormal em.icoLayer { width:6px; margin:0 0 0 4px; background-position:0 -300px; }
+        .btnNormal:hover em.icoLayer { background-position:0 -350px; }
+        .btnNormal.selected em.icoLayer { background-position:0 -380px; }
+
+        .btnCtrl em.icoLayer { width:6px; margin:0 0 0 4px; background-position:-20px -300px; }
+        .btnCtrl:hover em.icoLayer { background-position:-20px -350px; }
+        .btnCtrl.selected em.icoLayer { background-position:-20px -380px; }
+        .btnCtrl.disabled em.icoLayer { background-position:-20px -300px; }
+
+        .btnNormal em.icoLink { width:3px; margin:0 0 0 4px; background-position:-50px -300px; }
+        .btnNormal:hover em.icoLink, .btnNormal.selected em.icoLink { background-position:-50px -350px; }
+        .btnNormal.disabled em.icoLink { background-position:-50px -400px; }
+
+        .btnCtrl em.icoLink { width:3px; margin:0 0 0 4px; background-position:-70px -300px; }
+        .btnCtrl:hover em.icoLink, .btnCtrl.selected em.icoLink { background-position:-70px -350px; }
+        .btnCtrl.disabled em.icoLink { background-position:-70px -300px; }
+
+        .btnLink em.icoLink { width:4px; height:10px; margin:0 0 0 3px; vertical-align:middle; background-position:-100px -300px;  }
+        em.icoPrev { width:3px; height:6px; margin:0 5px 0 0; vertical-align:1px; background-position:-300px -300px; }
+
+    /* GROUP4 > icon */
+        .btnIcon.icoHistory { width:16px; height:16px; background-position:0 -500px; }
+        .btnIcon.icoCal { width:13px; height:13px; background-position:-50px -500px; }
+            img.icoCal { vertical-align:middle; }
+        .btnIcon.icoPrint { width:13px; height:12px; background-position:-100px -500px; }
+        .btnNormal em.icoPrint { width:13px; height:12px; background-position:-100px -500px; }
+        .btnIcon.icoDetail { width:14px; height:14px; background-position:-50px -800px; }
+
+        .btnIcon.icoPhone { width:12px; height:12px; background-position:0 -550px; }
+        .btnIcon.icoSK { width:30px; height:12px; background-position:-50px -550px; }
+        .btnIcon.icoKT { width:28px; height:12px; background-position:-100px -550px; }
+        .btnIcon.icoLG { width:46px; height:12px; background-position:-150px -550px; }
+        .btnIcon.icoTeleStar { width:68px; height:12px; background-position:-200px -550px; }
+
+    /* GROUP5 > selected */
+        .btnIcon.icoSms { width:10px; height:12px; background-position:0 -600px; }
+        .btnIcon.icoSms.selected { background-position:0 -650px; }
+        .btnIcon.icoMail { width:12px; height:10px; background-position:-50px -600px; }
+        .btnIcon.icoMail.selected { background-position:-50px -650px; }
+        .btnIcon.icoMemo { width:11px; height:12px; background-position:-100px -600px; }
+        .btnIcon.icoMemo.selected { background-position:-100px -650px; }
+        .btnIcon.icoUser { width:29px; height:16px; background-position:-150px -600px; }
+        .btnIcon.icoUser.selected { background-position:-150px -650px; }
+        .btnIcon.icoAdmin { width:29px; height:16px; background-position:-200px -600px; }
+        .btnIcon.icoAdmin.selected { background-position:-200px -650px; }
+        .btnIcon.icoCafe24 { width:39px; height:16px; background-position:-250px -600px; }
+        .btnIcon.icoCafe24.selected { background-position:-250px -650px; }
+
+        .btnIcon.icoBunch { width:26px; height:28px; border:1px solid #727272; color:#363636; font-size:11px; line-height:13px; text-align:center; white-space:normal; background-image:none; background-color:#f3f3f3; }
+        .btnIcon.icoBunch.selected { border:1px solid #adbcc3; color:#7292a3; background-color:#e4edf2; }
+        .btnIcon.icoBunch span { visibility:visible; display:inline-block; width:24px; }
+
+    /* GROUP6 > toggle */
+        .btnIcon.icoCurrentMall { width:53px; height: 22px; background-position:0 -700px; }
+        .btnIcon.icoCurrentMall.selected { width:54px; background-position:0 -750px; }
+        .btnIcon.icoBasicMall { width:53px; height: 22px; background-position:-100px -700px; }
+        .btnIcon.icoBasicMall.selected { width:54px; background-position:-100px -750px; }
+
+        .btnIcon.icoViewDetail { width:59px; height:22px; background-position:-200px -700px; }
+        .btnIcon.icoViewDetail.selected { background-position:-200px -750px;  }
+        .btnIcon.icoViewSimple { width:59px; height:22px; background-position:-300px -700px;  }
+        .btnIcon.icoViewSimple.selected { background-position:-300px -750px; }
+
+    /* GROUP7 > etc */
+        .btnIcon.icoDelete { width:17px; height:16px; background-position:0 -800px; }
+
+/* btnMove 항목 이동 버튼 */
+.btnMove {
+    display:inline-block; overflow:hidden; width:21px; height:21px; margin:0; padding:0; vertical-align:middle; white-space:nowrap;
+    background: url('//img.echosting.cafe24.com/suio/sfix_icon_move.png') 0 0 no-repeat; }
+.btnMove span { visibility:hidden; font-size:0; line-height:0; }
+
+    .btnMove.icoFirst { background-position:0 0; }
+    .btnMove.icoPrev { background-position:-50px 0; }
+    .btnMove.icoNext { background-position:-100px 0; }
+    .btnMove.icoLast { background-position:-150px 0; }
+
+    .btnMove.icoLeft { width:29px; height:19px; background-position:0 -50px; }
+    .btnMove.icoRight { width:29px; height:19px; background-position:-50px -50px; }
+    .btnMove.icoBlank { width:29px; height:35px; background-position:-100px -50px; }
+    .btnMove.icoAll { width:29px; height:35px; background-position:-150px -50px; }
+
+    .btnMove.icoAdd { width:32px; height:65px; background-position:0 -100px; }
+    .btnMove.icoRemove { width:32px; height:65px;background-position:-50px -100px; }
+    .btnMove.icoAddText { width:32px; height:80px; background-position:-100px -100px; }
+    .btnMove.icoAllText { width:32px; height:80px; background-position:-150px -100px; }
+    .btnMove.icoDelText { width:32px; height:80px; background-position:-200px -100px; }
+
+    .btnMove.icoUnfold { width:30px; height:35px; background-position:-200px -50px; }
+    .btnMove.icoFold { width:30px; height:35px; background-position:-250px -50px; }
+
+/* 텍스트형 아이콘 */
+.mini[class^="ico"], .icoDefault, .icoNotice, .icoMajor, .icoFavorite, .icoSpecial, .icoBad, .icoBlacklist, .icoShopDisplay,
+.icoEachRegister, .icoExcRegister, .icoRetractExchange, .icoRetractCancel, .icoRetractReturn, .icoExchange, .icoCancel, .icoReturn, .icoSoldout, .icoWithdraw, .icoSell,
+.icoPriority, .icoBundle, .icoSetProduct, .icoSetProduct2, .icoReference, .icoRefund, .icoOrdFirst, .icoDelay, .icoIP,
+.icoDefer, .icoExcProduct, .icoExcPayment, .icoExcBefore, .icoExcAfter, .icoExcPart, .icoRefusal,
+.icoMobile, .icoProduct, .icoGift, .ico1MoreEvent, .icoSecurity, .icoGrand,
+.icoB2BRequest, .icoB2BReject, .icoB2BStop, .icoPersonal, .icoCompany, .icoDivision, .icoRequired,
+.icoCheckoutExchange, .icoCheckoutCancel, .icoCheckoutReturn, .icoCheckoutDelivery, .icoCheckoutDelay,
+.icoStorePickup, .icoFixed, .icoNineteen, .icoStock, .icoCafe24 {
+    display:inline-block; overflow:hidden; height:16px; margin:-3px 0 0 0; font-size:0; line-height:0; vertical-align:middle;
+    background:url('//img.echosting.cafe24.com/suio/sfix_icon_text.png') 0 0 no-repeat;
+}
+
+.mini[class^="ico"] { width:25px; }
+
+.icoDefault { width:25px; background-position:0 0; }
+.icoNotice { width:25px; background-position:-50px 0; }
+.icoMajor { width:25px; background-position:-100px 0; }
+.icoFavorite { width:25px; background-position:-150px 0; }
+.icoSpecial { width:24px; background-position:-200px 0; }
+.icoBad { width:25px; background-position:-250px 0; }
+.icoBlacklist { width:55px; background-position:-300px 0; }
+.icoBlacklist.mini { background-position:-300px -20px; }
+.icoShopDisplay { width:62px; background-position:-400px 0; }
+
+.icoEachRegister { width:45px; background-position:0 -50px; }
+.icoEachRegister.mini { background-position:0 -70px; }
+.icoExcRegister { width:45px; background-position:-50px -50px; }
+.icoExcRegister.mini { background-position:-50px -70px; }
+.icoRetractExchange { width:45px; background-position:-100px -50px; }
+.icoRetractCancel { width:45px; background-position:-150px -50px; }
+.icoRetractReturn { width:45px; background-position:-200px -50px; }
+.icoExchange { width:25px; background-position:-250px -50px; }
+.icoCancel { width:25px; background-position:-300px -50px; }
+.icoReturn { width:25px; background-position:-350px -50px; }
+.icoSoldout { width:25px; background-position:-400px -50px; }
+.icoWithdraw { width:25px; background-position:-450px -50px; }
+.icoSell { width:34px; background-position:-500px -50px; }
+
+.icoPriority { width:45px; background-position:-0 -100px; }
+.icoBundle { width:25px; background-position:-50px -100px; }
+.icoSetProduct { width:24px; background-position:-100px -100px; }
+.icoSetProduct2 { width:44px; background-position:-150px -100px; }
+.icoReference { width:25px; height:14px; background-position:-200px -100px; }
+.icoRefund { width:25px; background-position:-250px -100px; }
+.icoRefund.disabled { background-position:-300px -100px; }
+.icoOrdFirst { width:35px; background-position:-350px -100px; }
+.icoDelay { width:44px; background-position:-400px -100px; }
+.icoIP { width:29px; height:15px; background-position:-450px -100px; }
+
+.icoDefer { width:45px; background-position:0 -150px; }
+.icoExcProduct { width:45px; background-position:-50px -150px; }
+.icoExcPayment { width:54px; background-position:-100px -150px; }
+.icoExcBefore { width:54px; background-position:-200px -150px; }
+.icoExcAfter { width:54px; background-position:-300px -150px; }
+.icoExcPart { width:45px; background-position:-400px -150px;}
+.icoRefusal { width:45px; background-position:-450px -150px; }
+
+.icoMobile { width:16px; background-position:0 -200px; }
+.icoProduct { width:29px; height:15px; background-position:-50px -200px; }
+.icoGift { width:35px; background-position:-100px -200px; }
+.ico1MoreEvent { width:51px; background-position:-150px -200px; }
+.icoSecurity { width:28px; }
+.icoSecurity.level1 { background-position:-250px -200px; }
+.icoSecurity.level2 { background-position:-300px -200px; }
+.icoSecurity.level3 { background-position:-350px -200px; }
+.icoGrand { width:45px; background-position:-400px -200px; }
+
+.icoB2BRequest { width:76px; background-position:0 -250px; }
+.icoB2BReject { width:96px; background-position:-100px -250px; }
+.icoB2BStop { width:84px; background-position:-200px -250px; }
+.icoPersonal { width:24px; margin-top:0; background-position:-300px -250px; }
+.icoCompany { width:24px; margin-top:0; background-position:-350px -250px; }
+.icoDivision { width:24px; margin-top:0; background-position:-400px -250px; }
+.icoRequired { width:21px; height:12px; background-position:-450px -250px; }
+    .mTooltip + .icoRequired { margin:0; }
+
+.icoCheckoutExchange { width:92px; background-position:0 -300px; }
+.icoCheckoutCancel { width:91px; background-position:-100px -300px; }
+.icoCheckoutReturn { width:92px; background-position:-200px -300px; }
+.icoCheckoutDelivery { width:112px; height:16px; background-position:-300px -300px; }
+.icoCheckoutDelay { width:97px; height:16px; background-position:-450px -300px; }
+
+.icoStorePickup { width:16px; background-position:0 -350px; }
+.icoFixed { width:24px; background-position:-50px -350px; }
+.icoNineteen { width:16px; background-position:-100px -350px; }
+.icoStock { width:54px; background-position:-150px -350px; }
+.icoCafe24 { width:37px; background-position:-250px -350px; }
+
+/* 신규 텍스트형 아이콘 */
+.txtSFIX,
+.txtSFIX.icoNew,
+.txtSFIX.icoLink {
+    display:inline-block; overflow:hidden; height:16px; margin:-3px 0 0 0; font-size:0; line-height:0; vertical-align:middle;
+    background:url('//img.echosting.cafe24.com/suio/sfix_icon_text.png') 0 0 no-repeat;
+}
+
+.icoNecessary { width:27px; background-position:-300px -350px; }
+.icoBest { width:31px; background-position:-350px -350px; }
+.txtSFIX.icoNew { width:30px; background-position:-400px -350px; }
+.icoReserve { width:46px; background-position:-450px -350px; }
+
+.icoSetSplit { width:62px; background-position:0 -400px; }
+.icoSetAll { width:62px; background-position:-100px -400px; }
+.icoReady { width:27px; background-position:-200px -400px; }
+.icoPossible { width:27px; background-position:-250px -400px; }
+.icoImpossible { width:27px; background-position:-300px -400px; }
+.icoComplete { width:27px; background-position:-350px -400px; }
+.icoSendFail { width:45px; background-position:-400px -400px; }
+.icoOrder { width:27px; background-position:-450px -400px; }
+.icoBundleBan { width:46px; background-position:-500px -400px; }
+
+.icoSalesFail { width:61px; background-position:0 -450px; }
+.icoAddressChange { width:43px; background-position:-100px -450px; }
+.icoRemindMe { width:59px; background-position:-150px -450px; }
+.icoRemindMeBenefit { width:59px; background-position:-250px -450px; }
+.icoStoreRegister { width:49px; background-position:-350px -450px; }
+.icoSeparatePrint { width:48px; background-position:-400px -450px; }
+
+.icoMarketFail { width:64px; background-position:0 -500px; }
+.icoMarketProduct { width:88px; background-position:-100px -500px; }
+.icoInvoiceFail { width:66px; background-position:-200px -500px; }
+.icoNumFail { width:66px; background-position:-300px -500px; }
+.icoRegisterFail { width:66px; background-position:-400px -500px; }
+.icoLifetime { width:25px; background-position:-500px -500px; }
+
+.icoMembership { width:25px; background-position:0 -550px; }
+.icoServiceInUse { width:68px; background-position:-50px -550px; }
+.icoServiceNotUse { width:82px; background-position:-150px -550px; }
+.icoStateRegister { width:25px; background-position:-250px -550px; }
+.icoStateReceipt { width:25px; background-position:-300px -550px; }
+.icoStateInvoice { width:25px; background-position:-350px -550px; }
+.icoStateOut { width:25px; background-position:-400px -550px; }
+.icoHolding { width:25px; background-position:-450px -550px; }
+.icoHandling { width:25px; background-position:-500px -550px; }
+
+.txtSFIX.icoLink { width:25px; background-position:0 -600px; }
+.icoUnlink { width:37px; background-position:-50px -600px; }
+
+/* 이미지형 아이콘 */
+.icoPrint, .icoNew, .icoFile, .icoUp, .icoDown, .icoShop,
+.icoDot, .icoDepth, .icoFix, .icoChecked, .icoLock {
+    display:inline-block; overflow:hidden; margin:-3px 0 0 0; font-size:0; line-height:0; vertical-align:middle;
+    background:url('//img.echosting.cafe24.com/suio/sfix_icon_image.png') 0 0 no-repeat;
+}
+
+.icoPrint { width:13px; height:12px; background-position:0 0; }
+.icoNew { width:11px; height:11px ; background-position:-50px 0; }
+.icoFile { width:10px; height:12px; background-position:-100px 0; }
+.icoUp { width:10px; height:6px; background-position:-150px 0; }
+.icoDown { width:10px; height:6px; background-position:-200px 0; }
+.icoShop { width:17px; height:15px; background-position:-250px 0; }
+    .headingArea .icoShop { margin:1px 0 0 -1px; }
+    :root .headingArea .icoShop { margin-top:0 \0/; }
+    .mBoard .gIcoShop { position:relative; padding:0 30px 0 0; } /**/
+    .mBoard .gIcoShop .icoShop { position:absolute; right:2px; top:6px; background-position:-250px 0; }
+
+.icoDot { width:2px; height:2px; background-position:0 -50px; }
+.icoDepth { width:7px; height:7px; background-position:-50px -50px; }
+.icoFix { width:20px; height:17px; background-position:-100px -50px; }
+.icoFix.undo { background-position:-150px -50px; }
+    .mBoard .icoFix, .mBoard .icoFix.undo { margin-top:0; }
+.icoChecked { width:12px; height:14px; background-position:-200px -50px; }
+.icoLock { width:11px; height:14px; background-position:-250px -50px; }
+
+/* 신규 이미지형 아이콘 */
+.imgSFIX, .imgSFIX.icoMobile {
+    display:inline-block; overflow:hidden; margin:-3px 0 0 0; font-size:0; line-height:0; vertical-align:middle;
+    background:url('//img.echosting.cafe24.com/suio/sfix_icon_image.png') 0 0 no-repeat;
+}
+.imgSFIX.icoMobile { width:9px; height:14px; background-position:0 -100px; }
+.imgSFIX.icoSpam { width:14px; height:14px; background-position:-50px -100px; }
+.imgSFIX.icoDrag { width:15px; height:18px; background-position:-100px -100px; }
+.imgSFIX.icoWarn { width:14px; height:14px; margin-top:-1px; background-position:-150px -100px; }
+
+/* 가이드형 아이콘 */
+.icoDesign, .icoPdf, .icoLaw, .icoLawAdvice, .icoLawViolation {
+    display:inline-block; overflow:hidden; margin:-3px 0 0 0; font-size:0; line-height:0; background:url('//img.echosting.cafe24.com/suio/sfix_icon_guide.png') 0 0 no-repeat; vertical-align:middle;
+}
+.icoDesign { width:87px; height:14px; margin-top:0; background-position:0 0; }
+.icoPdf.password { width:108px; height:14px; margin-top:0; background-position:0 -100px; }
+.icoLaw { width:56px; height:14px; margin-top:-1px; background-position:0 -50px; }
+.icoLawAdvice { width:49px; height:16px; background-position:-100px -50px; }
+.icoLawViolation { width:81px; height:16px; background-position:-200px -50px; }
+.icoInfo { display:inline-block; padding:0 0 0 16px; color:#61656e; font-size:11px; line-height:15px; word-spacing:-2px; background:url('//img.echosting.cafe24.com/suio/sfix_icon_guide.png') -150px -100px no-repeat; }
+
+/* EC headingArea 링크형 */
+.headingArea .btnManual, .headingArea .btnVideo { overflow:hidden; display:inline-block; width:64px; height:20px; font-size:0; line-height:0; background:url('//img.echosting.cafe24.com/suio/sfix_btn_heading.gif') 0 0 no-repeat; vertical-align:middle;}
+.headingArea .btnVideo { width:102px; background-position:-68px 0; }
+  /* module.css용 */
+  .gHeading .btnManual, .gHeading .btnVideo { overflow:hidden; display:inline-block; width:64px; height:20px; font-size:0; line-height:0; background:url('//img.echosting.cafe24.com/suio/sfix_btn_heading.gif') 0 0 no-repeat; vertical-align:middle;}
+  .gHeading .btnVideo { width:102px; background-position:-68px 0; }

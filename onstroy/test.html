@@ -1,0 +1,307 @@
+<div class="section" id="QA_profile1">
+    <div class="optionArea">
+        <div class="mOption" style="display: block;">
+            <table border="1" summary="">
+            <caption>회원정보 조회</caption>
+            <colgroup>
+                <col style="width:154px;*width:135px;" />
+                <col style="width:auto;" />
+                <col style="width:154px;*width:135px;" />
+                <col style="width:auto;" />
+            </colgroup>
+            <tbody>
+                <tr>
+                    <th scope="row">물건 종류</th>
+                    <td colspan="3">
+                        <label class="gLabel"><input type="radio" name="is_member_auth" value="0" checked class="fChk" /> 매매(상가)</label>
+                        <label class="gLabel"><input type="radio" name="is_member_auth" value="0" checked class="fChk" /> 매매(주거)</label>
+                        <label class="gLabel"><input type="radio" name="is_member_auth" value="0" checked class="fChk" /> 매매(토지)</label>
+                        <label class="gLabel"><input type="radio" name="is_member_auth" value="2"  class="fChk" /> 임대(상가)</label>
+                        <label class="gLabel"><input type="radio" name="is_member_auth" value="2"  class="fChk" /> 임대(주거)</label>
+                        <label class="gLabel"><input type="radio" name="is_member_auth" value="1"  class="fChk" /> 임대(토지)</label>                                    
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">주소</th>
+                    <td colspan="3">
+                        <select name="search_type" class="fSelect">
+                            <option value=''>- 선택 -</option>
+                            <option value='name' >구주소</option>
+                            <option value='member_id' selected>신주소</option>
+                        </select>
+                        <a href="#none" class="btnNormal" onclick="SrchOrderPrdtCtl.srch();" title="새창 열림"><span>주소검색</span></a>
+                        <input type="text" name="type" value="" class="fText" style="width:300px;" />
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">제목</th>
+                    <td colspan="3">
+                        <input type="hidden" name="iOrderPrdtNo" value="">
+                        <input type="text" name="sOrderPrdtName" value="" class="fText" readonly="readonly" style="width:300px;" onclick="SrchOrderPrdtCtl.srch();" />
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">가격정보
+                        <div class="mTooltip gMedium show">
+                            <button type="button" class="icon eTip">도움말</button>
+                            <div class="tooltip" style="margin-left: 0px; display: none;">
+                                <div class="content">
+                                    <strong class="titleEm">구매금액/건수 도움말</strong>
+                                    <p class="title">총 주문금액</p>
+                                    <p class="mList">주문 상태와 관계 없이 모든 주문금액의 합을 의미합니다.</p>
+                                    <p class="mList">(주문품목 판매가 x 수량) + 배송비</p>
+                                    <p class="title">총 실결제금액</p>
+                                    <p class="mList">고객이 실제로 결제한 금액의 합을 의미합니다.(전체 취소, 부분취소시 차감)</p>
+                                    <p class="mList">(주문품목  판매가 X 수량) – 각종할인금액 + 배송비 - 보조결제수단(적립금, 예치금 등)</p>
+                                    <p class="mList">(주문품목 판매가 x 수량) + 배송비</p>
+                                    <p class="title">총 주문건수</p>
+                                    <p class="mList">주문 상태와 관계 없이 모든 주문의 건수를 의미합니다.
+                                        <br>(미입금, 부분취소/교환, 완전취소/반품시 건수 차감 안함)</p>
+                                    <p class="title">총 실주문건수</p>
+                                    <p class="mList">총 주문건수에서 전체 취소(입금전 취소, 완전 취소, 완전 반품)된 주문을 제외한 주문 건수를 의미합니다.</p>
+                                </div>
+                                <button type="button" class="close eClose">닫기</button>
+                                <span class="edge"></span>
+                            </div>
+                        </div>
+
+                    </th>
+                    <td>
+                        <input type="hidden" id="grp_sel" name="grp_sel" value="0">
+                        <select name="group_no" onChange="checkGroup(this)" class="fSelect">
+                            <option value="1" >전세</option>
+                            <option value="1" >임대</option>
+                        </select>
+                        <input type="text" name="age1" value="" class="numberic fText right" style="width:100px;" maxlength="2" />
+                    </td>
+                    <th scope="row">임대료</th>
+                    <td>
+                        <input type="text" name="age1" value="" class="numberic fText right" style="width:100px;" maxlength="2" />
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">면적</th>
+                    <td>
+                        <input type="hidden" id="grp_sel" name="grp_sel" value="0">
+                        <input type="text" name="age1" value="" class="numberic fText right" style="width:100px;" maxlength="2" />
+                        <select name="group_no" onChange="checkGroup(this)" class="fSelect">
+                            <option value="1" >평</option>
+                            <option value="1" >제곱미터</option>
+                        </select>
+                    </td>
+                    <th scope="row">실면적</th>
+                    <td>
+                        <input type="text" name="age1" value="" class="numberic fText right" style="width:100px;" maxlength="2" />
+                        <select name="group_no" onChange="checkGroup(this)" class="fSelect">
+                            <option value="1" >평</option>
+                            <option value="1" >제곱미터</option>
+                        </select>
+                     </td>
+                </tr>
+                <tr>
+                    <th scope="row">금액</th>
+                    <td>
+                        <input type="text" name="age1" value="" class="numberic fText right" style="width:40px;" maxlength="2" /> 원 ~ <input type="text" name="age2" value="" class="numberic fText right" style="width:40px;" maxlength="2" /> 원
+                    </td>
+                    <th scope="row">형태</th>
+                    <td>
+                        <label class="gLabel"><input type="radio" name="gender" value="2"  class="fChk" /> 원룸</label>
+                        <label class="gLabel"><input type="radio" name="gender" value="3"  class="fChk" /> 투룸</label>
+                        <label class="gLabel"><input type="radio" name="gender" value="3"  class="fChk" /> 쓰리룸</label>
+                        <label class="gLabel"><input type="radio" name="gender" value="3"  class="fChk" /> 주인세대</label>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div id='QA_profile1_detail' class="mOption" style='display:none'>
+            <table border="1" summary="">
+                <caption>회원정보 조회</caption>
+                <colgroup>
+                    <col style="width:154px;*width:135px;" />
+                    <col style="width:auto;" />
+                    <col style="width:154px;*width:135px;" />
+                    <col style="width:auto;" />
+                </colgroup>
+            <tbody>
+                <tr>
+                    <th scope="row">층정보</th>
+                    <td>
+                        <input type="hidden" id="grp_sel" name="grp_sel" value="0">
+                        <select name="group_no" onChange="checkGroup(this)" class="fSelect">
+                            <option value='' selected="selected">전체</option>
+                            <option value="1" >1층</option>
+                            <option value="1" >2층</option>
+                            <option value="1" >3층</option>
+                            <option value="1" >4층</option>
+                            <option value="1" >5층</option>
+                        </select>
+                        <select name="group_no" onChange="checkGroup(this)" class="fSelect">
+                            <option value='' selected="selected">전체</option>
+                            <option value="1" >1층</option>
+                            <option value="1" >2층</option>
+                            <option value="1" >3층</option>
+                            <option value="1" >4층</option>
+                            <option value="1" >5층</option>
+                        </select>
+                    </td>
+                    <th scope="row">계약상태</th>
+                    <td>
+                        <label class="gLabel"><input type="radio" name="is_member_auth" value="0" checked class="fChk" /> 계약가능</label>
+                        <label class="gLabel"><input type="radio" name="is_member_auth" value="1"  class="fChk" /> 입주전</label>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">입주일자</th>
+                    <td>
+                        <input type="text" id="login_start_date" name="login_start_date" class="fText" style="width:75px;" value="" readonly="readonly" />
+                        <a href="#none" id="btnLoginStartDate" class="btnIcon icoCal"><span>달력보기</span></a>
+                        ~
+                        <input type="text" id="login_end_date" name="login_end_date" class="fText" style="width:75px;" value="" readonly="readonly" />
+                        <a href="#none" id="btnLoginEtartDate" class="btnIcon icoCal"><span>달력보기</span></a>
+                        <span class="txtInfo">최근 1년까지 가능</span>
+                    </td>
+                    <th scope="row">관리비</th>
+                    <td>
+                        <input type="text" name="visit_ip" value="" class="fText" style="width:160px;" />
+                        <span class="txtInfo">원</span>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">가구옵션</th>
+                    <td colspan="3">
+                        <label><input type="checkbox" class="fChk" id='lifetime_member_type' name='lifetime_member_type' value='T' />
+                        붙박이장
+                        </label> &nbsp;&nbsp;
+                        <label><input type="checkbox" class="fChk" id='lifetime_member_type' name='lifetime_member_type' value='T' />
+                        옷장
+                        </label> &nbsp;&nbsp;
+                        <label><input type="checkbox" class="fChk" id='lifetime_member_type' name='lifetime_member_type' value='T' />
+                        책장
+                        </label> &nbsp;&nbsp;
+                        <label><input type="checkbox" class="fChk" id='lifetime_member_type' name='lifetime_member_type' value='T' />
+                        의자
+                        </label> &nbsp;&nbsp;
+                        <label><input type="checkbox" class="fChk" id='lifetime_member_type' name='lifetime_member_type' value='T' />
+                        침대
+                        </label> &nbsp;&nbsp;
+                        <label><input type="checkbox" class="fChk" id='lifetime_member_type' name='lifetime_member_type' value='T' />
+                        식탁
+                        </label> &nbsp;&nbsp;
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">가전옵션</th>
+                    <td colspan="3">
+                        <label><input type="checkbox" class="fChk" id='lifetime_member_type' name='lifetime_member_type' value='T' />
+                        냉장고
+                        </label> &nbsp;&nbsp;
+                        <label><input type="checkbox" class="fChk" id='lifetime_member_type' name='lifetime_member_type' value='T' />
+                        에어컨
+                        </label> &nbsp;&nbsp;
+                        <label><input type="checkbox" class="fChk" id='lifetime_member_type' name='lifetime_member_type' value='T' />
+                        TV
+                        </label> &nbsp;&nbsp;
+                        <label><input type="checkbox" class="fChk" id='lifetime_member_type' name='lifetime_member_type' value='T' />
+                        전자렌지
+                        </label> &nbsp;&nbsp;
+                        <label><input type="checkbox" class="fChk" id='lifetime_member_type' name='lifetime_member_type' value='T' />
+                        세탁기
+                        </label> &nbsp;&nbsp;
+                        <label><input type="checkbox" class="fChk" id='lifetime_member_type' name='lifetime_member_type' value='T' />
+                        정수기
+                        </label> &nbsp;&nbsp;
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">주방/욕실</th>
+                    <td colspan="3">
+                        <label><input type="checkbox" class="fChk" id='lifetime_member_type' name='lifetime_member_type' value='T' />
+                        식기세척기
+                        </label> &nbsp;&nbsp;
+                        <label><input type="checkbox" class="fChk" id='lifetime_member_type' name='lifetime_member_type' value='T' />
+                        가스렌지
+                        </label> &nbsp;&nbsp;
+                        <label><input type="checkbox" class="fChk" id='lifetime_member_type' name='lifetime_member_type' value='T' />
+                        인덕션
+                        </label> &nbsp;&nbsp;
+                        <label><input type="checkbox" class="fChk" id='lifetime_member_type' name='lifetime_member_type' value='T' />
+                        씽크대
+                        </label> &nbsp;&nbsp;
+                        <label><input type="checkbox" class="fChk" id='lifetime_member_type' name='lifetime_member_type' value='T' />
+                        샤워부스
+                        </label> &nbsp;&nbsp;
+                        <label><input type="checkbox" class="fChk" id='lifetime_member_type' name='lifetime_member_type' value='T' />
+                        비데
+                        </label> &nbsp;&nbsp;
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">보안시설</th>
+                    <td colspan="3">
+                        <label><input type="checkbox" class="fChk" id='lifetime_member_type' name='lifetime_member_type' value='T' />
+                        경비원
+                        </label> &nbsp;&nbsp;
+                        <label><input type="checkbox" class="fChk" id='lifetime_member_type' name='lifetime_member_type' value='T' />
+                        CCTV
+                        </label> &nbsp;&nbsp;
+                        <label><input type="checkbox" class="fChk" id='lifetime_member_type' name='lifetime_member_type' value='T' />
+                        비디오폰
+                        </label> &nbsp;&nbsp;
+                        <label><input type="checkbox" class="fChk" id='lifetime_member_type' name='lifetime_member_type' value='T' />
+                        인터폰
+                        </label> &nbsp;&nbsp;
+                        <label><input type="checkbox" class="fChk" id='lifetime_member_type' name='lifetime_member_type' value='T' />
+                        카드키
+                        </label> &nbsp;&nbsp;
+                        <label><input type="checkbox" class="fChk" id='lifetime_member_type' name='lifetime_member_type' value='T' />
+                        번호키
+                        </label> &nbsp;&nbsp;
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">기타</th>
+                    <td colspan="3">
+                        <label><input type="checkbox" class="fChk" id='lifetime_member_type' name='lifetime_member_type' value='T' />
+                        엘리베이터
+                        </label> &nbsp;&nbsp;
+                        <label><input type="checkbox" class="fChk" id='lifetime_member_type' name='lifetime_member_type' value='T' />
+                        도시가스
+                        </label> &nbsp;&nbsp;
+                        <label><input type="checkbox" class="fChk" id='lifetime_member_type' name='lifetime_member_type' value='T' />
+                        심야전기
+                        </label> &nbsp;&nbsp;
+                        <label><input type="checkbox" class="fChk" id='lifetime_member_type' name='lifetime_member_type' value='T' />
+                        베란다
+                        </label> &nbsp;&nbsp;
+                        <label><input type="checkbox" class="fChk" id='lifetime_member_type' name='lifetime_member_type' value='T' />
+                        화재경보기
+                        </label> &nbsp;&nbsp;
+                        <label><input type="checkbox" class="fChk" id='lifetime_member_type' name='lifetime_member_type' value='T' />
+                        주차시설
+                        </label> &nbsp;&nbsp;
+                    </td>
+                </tr>
+            </tbody>
+            </table>
+        </div>
+        <div class="mOptionToogle">
+            <div class="ctrl">
+                <span id="mOptionToogle" class="">
+                    <button type="button" onclick="member_menu_move('');">상세검색 열기</button>
+                </span>
+            </div>
+        </div>
+        <div class="mButton gCenter">
+            <a href="#none" onclick="doSrchFrm();" class="btnSearch"><span>등록</span></a>
+            <a href="#none" onclick="doSrchList();" style="display:none" class="btnSearch reset"><span>검색 목록 보기</span></a>
+            <a href="#none" onclick="member_menu_move('phone_memo')" id='phone_memo_menu' style='display:none;' class="btnSearch reset"><span>비회원 전화상담 메모</span></a>
+        </div>
+    </div>
+</div>
+
+<div class="mLoading typeStatic" style="display:none;">
+    <p>처리중입니다. 잠시만 기다려 주세요.</p>
+    <img src="http://img.echosting.cafe24.com/suio/ico_loading.gif" alt="" />
+</div>

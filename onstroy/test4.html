@@ -1,0 +1,107 @@
+<div class="section" id="QA_level2">
+    <div class="mState">
+        <div class="gLeft">
+            <p class="total">[총 회원수 <strong>0</strong>명] 검색결과 <strong>0</strong>건</p>
+            <strong class="icoStatus positive"></strong> 특별관리회원
+            <span class="icoMobile">모바일 가입회원</span> 모바일 가입회원
+            <strong class="icoBad">불량</strong> 불량회원
+                    </div>
+        <div class="gRight">
+            <select name="rows" onchange="setRows(this)" class="fSelect">
+                <option value="10">10개씩보기</option>
+                <option value="20">20개씩보기</option>
+                <option value="30" selected="">30개씩보기</option>
+                <option value="40">40개씩보기</option>
+                <option value="50">50개씩보기</option>
+                <option value="100">100개씩보기</option>
+                <option value="200">200개씩보기</option>
+                <option value="all">전체</option>
+            </select>
+        </div>
+    </div>
+    <div class="mCtrl typeHeader">
+        <div class="gLeft">
+            <a href="#none" onclick="moveMember(1)" class="btnNormal"><span>등급 해제</span></a>
+            <a href="#none" class="btnNormal btn_mileage"><span>적립금 일괄지급</span></a>
+        </div>
+        <div class="gRight">
+            <a href="#none" onclick="sendMail();" title="새창 열림" class="btnNormal"><span>전체메일 보내기<em class="icoLink"></em></span></a>
+                        <a href="#none" onclick="sendSms();" title="새창 열림" class="btnNormal"><span>전체SMS 보내기<em class="icoLink"></em></span></a>
+                                    <a href="#none" onclick="dn_excel_file();" title="새창 열림" class="btnNormal"><span><em class="icoXls"></em> 엑셀다운로드<em class="icoLink"></em></span></a>
+                    </div>
+    </div>
+    <div class="mBoard gCellNarrow">
+        <table border="1" summary="" class="eChkColor">
+        <caption>회원 목록</caption>
+        <colgroup>
+            <col class="chk">
+            <col class="date">
+            <col style="width:auto">
+            <col style="width:auto">
+            <col style="width:auto">
+            <col style="width:60px">
+            <col style="width:60px">
+            <col style="width:60px">
+            <col style="width:120px">
+            <col style="width:220px">
+        </colgroup>
+        <thead>
+            <tr>
+                <th scope="col"><input type="checkbox" name="Allselect" class="allChk" onclick="CA(this.form)"></th>
+                <th scope="col">
+                    <strong class="array ">
+                        <span onclick="submitSearch('regist_date', '')">등록일</span><button type="button">정렬선택</button>
+                    </strong>
+                </th>
+                <th scope="col">
+                    <strong class="array ">
+                        <span onclick="submitSearch('name', '')">이름</span><button type="button">정렬선택</button>
+                    </strong>
+                </th>
+                <th scope="col">
+                    <strong class="array ">
+                        <span onclick="submitSearch('member_id', '')">아이디</span><button type="button">정렬선택</button>
+                    </strong>
+                </th>
+                <th scope="col">
+                    <strong class="array ">
+                        <span onclick="submitSearch('group_name', '')">등급</span><button type="button">정렬선택</button>
+                    </strong>
+                </th>
+                <th scope="col">
+                    <strong class="array ">
+                        <span onclick="submitSearch('gender', '')">성별</span><button type="button">정렬선택</button>
+                    </strong>
+                </th>
+                <th scope="col">
+                    <strong class="array ">
+                        <span onclick="submitSearch('ssn', '')">나이</span><button type="button">정렬선택</button>
+                    </strong>
+                </th>
+                <th scope="col">
+                    <strong class="array ">
+                        <span onclick="submitSearch('region', '')">지역</span><button type="button">정렬선택</button>
+                    </strong>
+                </th>
+                <th scope="col">메일/SMS/메모</th>
+                <th scope="col">관련 내역 보기</th>
+            </tr>
+        </thead>
+        <tbody class="center">
+                    </tbody>
+        </table>
+        <p class="empty" style="display:block;">검색된 회원 내역이 없습니다.</p>
+    </div>
+    <div class="mCtrl typeFooter">
+        <div class="gLeft">
+            <a href="#none" onclick="moveMember(1)" class="btnNormal"><span>등급 해제</span></a>
+            <a href="#none" class="btnNormal btn_mileage"><span>적립금 일괄지급</span></a>
+        </div>
+        <div class="gRight">
+            <a href="#none" onclick="sendMail();" title="새창 열림" class="btnNormal"><span>전체메일 보내기<em class="icoLink"></em></span></a>
+                        <a href="#none" onclick="sendSms();" title="새창 열림" class="btnNormal"><span>전체SMS 보내기<em class="icoLink"></em></span></a>
+                                    <a href="#none" onclick="dn_excel_file();" title="새창 열림" class="btnNormal"><span><em class="icoXls"></em> 엑셀다운로드<em class="icoLink"></em></span></a>
+                    </div>
+    </div>
+    <div class="mPaginate"></div>
+</div>
