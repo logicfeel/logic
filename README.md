@@ -11,7 +11,7 @@
     - MnAuth_M  : NPM 권한검사 모델 모듈
     - MnAdmn_M  : NPM 관리자 모델 모듈
     - MnAdmn_C  : NPM 관리자 컨트롤 모듈 ( ASP, MnCMN 종속)
-    - MnCMN     : NPM 공통 모듈
+    - MnCMN_C   : NPM 공통 모듈
 
 ### MnAuth_M
 
@@ -30,12 +30,15 @@
     src
     - MnAdmn_login.Frm.asp      : 관리자 로그인 화면
     - MnAdmn_login.Frm.C.asp    : 관리자 로그인 화면 콜백
+    - MnAdmn_id_Chk.Frm.P.asp   : 관리자 아이디 검사 폼
+    - MnAdmn_id_Chk.Prc.asp     : 관리자 아이디 검사 처리
     - MnAdmn_account.Lst.asp    : 관리자 계정 목록
     - MnAdmn_account.Lst.C.asp  : 관리자 계정 목록
     - MnAdmn_account.Frm.asp    : 관리자 계정 등록 폼
     - MnAdmn_account.Frm.C.asp  : 관리자 계정 등록 폼
-    - MnAdmn_id_Chk.Frm.P.asp   : 관리자 아이디 검사 폼
-    - MnAdmn_id_Chk.Prc.asp     : 관리자 아이디 검사 처리
+
+    src/cmn
+    - MnAdmn_cookie_Chk.E.asp   : 관리자 공통 삽입 검사
 
     scss 
     - css/theme.scss            : 테마 오버라이딩
