@@ -27,7 +27,7 @@
     - MnAdmn_FN_idCheck                 : 아이디 유효성 검사   (가상)
 
 ### MnAdmn_C
-+ src
+    src
     - MnAdmn_login.Frm.asp      : 관리자 로그인 화면
     - MnAdmn_login.Frm.C.asp    : 관리자 로그인 화면 콜백
     - MnAdmn_account.Lst.asp    : 관리자 계정 목록
@@ -37,18 +37,18 @@
     - MnAdmn_id_Chk.Frm.P.asp   : 관리자 아이디 검사 폼
     - MnAdmn_id_Chk.Prc.asp     : 관리자 아이디 검사 처리
 
-+ scss 
+    scss 
     - css/theme.scss            : 테마 오버라이딩
 
-+ dist/css 
+    dist/css 
     - admin_io.css              : 관리자 입출력 스타일
     - w3_shadow.css             : w3 수입 기본 스타일  * 검토필요
 
-+ dist/images
+    dist/images
     - logo.jpg                  : 로고
     - admin/bot.jpg [...]       : 관리자 스타일 관련 이미지들..
 
-+ dist/js
+    dist/js
     - Main.js                   : 콜백 처리
 
 ### MnCMN
