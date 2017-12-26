@@ -1,0 +1,19 @@
+{
+  "name": "mn-cmn_c",
+  "version": "1.0.0",
+  "description": "- MnAdmn    : 모듈 관리자 (로그인, 계정 목록/등록/수정)\r     - MnAuth    : 모듈 권한검사\r     - MnCMN     : 모듈 공통 (DB접속, MSSQL2008, 전역 함수/클래스)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/logicfeel/logic.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/logicfeel/logic/issues"
+  },
+  "homepage": "https://github.com/logicfeel/logic#readme"
+}
