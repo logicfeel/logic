@@ -32,7 +32,7 @@
 	end if
 
 
-	'########## Request 값 | 기본값 세팅 ##########
+	'########## Request 값 | 기본값 세팅 ########## 
 	Dim cmd 
 	cmd				= Request("cmd")
 	
